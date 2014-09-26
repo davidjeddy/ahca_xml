@@ -19,7 +19,7 @@
                 }
         ],
         "config": {
-            "vendor-dir": "../vendor"
+            "vendor-dir": "./vendor"
         },
         "require": {
                 "fabpot/php-cs-fixer": "1.0.*@dev",
@@ -45,22 +45,22 @@
                 ]   
         },
         "extra": {
-                "yii\\composer\\Installer::postCreateProject": {
-                    "setPermission": [
-                        {
-                            "./public_html/runtime": "0777",
-                            "./public_html/web/assets": "0777",
-                            "./public_html/yii": "0755"
-                        }
-                    ],
-                    "generateCookieValidationKey": [
-                        "./public_html/config/web.php"
-                    ]
-                },
-                "asset-installer-paths": {
-                    "npm-asset-library": "./vendor/npm",
-                    "bower-asset-library": "./vendor/bower"
-                }
+            "yii\\composer\\Installer::postCreateProject": {
+                "setPermission": [
+                    {
+                        "./public_html/runtime": "0777",
+                        "./public_html/web/assets": "0777",
+                        "./public_html/yii": "0755"
+                    }
+                ],
+                "generateCookieValidationKey": [
+                    "./public_html/config/web.php"
+                ]
+            },
+            "asset-installer-paths": {
+                "npm-asset-library": "./vendor/npm",
+                "bower-asset-library": "./vendor/bower"
             }
+        }
 }
 

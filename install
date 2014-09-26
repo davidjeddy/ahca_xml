@@ -2,18 +2,18 @@
 # Install composer and required plugin(s)
 curl -sS https://getcomposer.org/installer | php && \
 php ./composer.phar global require "fxp/composer-asset-plugin:1.0.*@dev" && \
-# create web app
-php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic ./ && \
+# create web app. `|| true` to ignore any errors during the basic app setup process
+php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic ./public_html || true && \
 # re-direct vendor to the global vendor dir
-cp -r ./public_html/vendor/ ../vendor/ && \
+cp -r ./public_html/vendor/ ./vendor/ && \
 rm -rf ./public_html/vendor/ && \
 # create symlink to root vendor 
-ln -sfn ../../vendor/ ./public_html/vendor && \
+ln -sfn ../vendor/ ./public_html/vendor && \
 # update to add the packages not included by Yii
 php ./composer.phar update --dev && \
 # update web app from composer.json and generate autoloader
 php ./composer.phar dumpautoload -o
 # Clone AHCA repo
 # git clone https://github.com/davidjeddy/ahca_xml.git
-# checkout latest 'stable' branch
-# git checkout stable
+# checkout latest production ready branch
+# git checkout production
