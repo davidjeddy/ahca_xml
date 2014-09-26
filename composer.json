@@ -18,11 +18,16 @@
                         "role": "Lead Developer"
                 }
         ],
+        "config": {
+            "vendor-dir": "../vendor"
+        },
         "require": {
+                "fabpot/php-cs-fixer": "1.0.*@dev",
                 "monolog/monolog": "1.10.0",
                 "phpdocumentor/phpdocumentor": "2.*",
                 "phpunit/phpunit": "4.2.6",
                 "sebastian/phpcpd": "*",
+
                 "php": ">=5.4.0",
                 "yiisoft/yii2": "*",
                 "yiisoft/yii2-bootstrap": "*",
@@ -40,16 +45,22 @@
                 ]   
         },
         "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
+                "yii\\composer\\Installer::postCreateProject": {
+                    "setPermission": [
+                        {
+                            "./public_html/runtime": "0777",
+                            "./public_html/web/assets": "0777",
+                            "./public_html/yii": "0755"
+                        }
+                    ],
+                    "generateCookieValidationKey": [
+                        "./public_html/config/web.php"
+                    ]
                 },
-                "writable": [
-                        "./web_root/runtime",
-                        "./web_root/web/assets"
-                ],  
-                "executable": [
-                        "./web_root/yii"
-                ]
-        }
+                "asset-installer-paths": {
+                    "npm-asset-library": "./vendor/npm",
+                    "bower-asset-library": "./vendor/bower"
+                }
+            }
 }
+
