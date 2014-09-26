@@ -1,6 +1,13 @@
 #! /bin/bash
+# Install composer and get init packages
 curl -sS https://getcomposer.org/installer | php && \
-php ./composer.phar install --prefer-dist && \
-php ./composer.phar update --prefer-dist && \
-php ./composer.phar dumpautoload -o && \
-php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
+php ./composer.phar install --dev && \
+php ./composer.phar global require "fxp/composer-asset-plugin:1.0.*@dev" && \
+\
+# create web app
+php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic public_html && \
+rm -rf ./public_html/vendor && ln -s ../vendor ./public_html/vendor && \
+\
+# update web app from composer.json and generate autoloader
+php ./composer.phar update --dev && \
+php ./composer.phar dumpautoload -o

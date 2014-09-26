@@ -1,0 +1,4 @@
+rm -rf ./public_html && \
+rm -rf ./vendor && \
+rm -f composer.phar && \
+rm -f composer.lock

@@ -12,38 +12,44 @@
         },
         "authors": [
                 {
-                        "name": "David Eddy",
                         "email": "me@davidjeddy.com",
                         "homepage": "http://www.davidjeddy.com",
+                        "name": "David Eddy",
                         "role": "Lead Developer"
                 }
         ],
         "require": {
-                "phpunit/phpunit": "4.2.6",
                 "monolog/monolog": "1.10.0",
-                "fabpot/php-cs-fixer": "dev-master",
                 "phpdocumentor/phpdocumentor": "2.*",
+                "phpunit/phpunit": "4.2.6",
                 "sebastian/phpcpd": "*",
                 "php": ">=5.4.0",
                 "yiisoft/yii2": "*",
                 "yiisoft/yii2-bootstrap": "*",
+                "yiisoft/yii2-gii": "2.0.0-beta",
+                "yiisoft/yii2-jui": "*",
+                "yiisoft/yii2-swiftmailer": "*"
+        },
+        "require-dev": {
                 "yiisoft/yii2-codeception": "*",
-                "yiisoft/yii2-debug": "*",
-                "yiisoft/yii2-gii": "*",
-                "yiisoft/yii2-swiftmailer": "*" 
-        },  
+                "yiisoft/yii2-debug": "*"
+        },
         "scripts": {
                 "post-create-project-cmd": [
                         "yii\\composer\\Installer::setPermission"
                 ]   
-        },  
+        },
         "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                },
                 "writable": [
-                        "runtime",
-                        "web/assets"
+                        "./web_root/runtime",
+                        "./web_root/web/assets"
                 ],  
                 "executable": [
-                        "yii"
-                ]   
-        }   
+                        "./web_root/yii"
+                ]
+        }
 }
