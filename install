@@ -1,0 +1,6 @@
+#! /bin/bash
+curl -sS https://getcomposer.org/installer | php && \
+php ./composer.phar install --prefer-dist && \
+php ./composer.phar update --prefer-dist && \
+php ./composer.phar dumpautoload -o && \
+php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic

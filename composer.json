@@ -1,0 +1,49 @@
+{
+        "name": "AHCA XML Web Form",
+        "description": "AHCA compliance form.",
+        "version": "0.0.1-dev",
+        "type": "application",
+        "homepage": "Http://www.davidjeddy.com",
+        "license": "All rights reserved",
+        "minimum-stability": "dev",
+        "support": {
+                "email": "me@davidjeddy.com",
+                "website": "Http://www.davidjeddy.com"
+        },
+        "authors": [
+                {
+                        "name": "David Eddy",
+                        "email": "me@davidjeddy.com",
+                        "homepage": "http://www.davidjeddy.com",
+                        "role": "Lead Developer"
+                }
+        ],
+        "require": {
+                "phpunit/phpunit": "4.2.6",
+                "monolog/monolog": "1.10.0",
+                "fabpot/php-cs-fixer": "dev-master",
+                "phpdocumentor/phpdocumentor": "2.*",
+                "sebastian/phpcpd": "*",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-bootstrap": "*",
+                "yiisoft/yii2-codeception": "*",
+                "yiisoft/yii2-debug": "*",
+                "yiisoft/yii2-gii": "*",
+                "yiisoft/yii2-swiftmailer": "*" 
+        },  
+        "scripts": {
+                "post-create-project-cmd": [
+                        "yii\\composer\\Installer::setPermission"
+                ]   
+        },  
+        "extra": {
+                "writable": [
+                        "runtime",
+                        "web/assets"
+                ],  
+                "executable": [
+                        "yii"
+                ]   
+        }   
+}
