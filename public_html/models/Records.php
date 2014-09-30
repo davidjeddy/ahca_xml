@@ -7,54 +7,54 @@ use Yii;
 /**
  * This is the model class for table "records".
  *
- * @property integer $record_id
- * @property string $ahca_num
- * @property string $med_rec_num
- * @property string $ssn
- * @property integer $ethnicity_id
- * @property integer $race_id
- * @property string $dob
- * @property integer $sex_id
- * @property string $zip
- * @property integer $country_id
- * @property integer $service_id
  * @property integer $admission_source_id
- * @property integer $princ_payer_id
+ * @property integer $admitting_idc9_code_id
+ * @property integer $anesthesia_charges
+ * @property integer $cardiology_charges
+ * @property integer $country_id
+ * @property integer $er_room_charges
+ * @property integer $ethnicity_id
+ * @property integer $extra_shock_charges
+ * @property integer $gi_services_charges
  * @property integer $idc9_code_id
+ * @property integer $lab_charges
+ * @property integer $med_surg_supply_charges
+ * @property integer $oper_room_charges
+ * @property integer $other_charges
+ * @property integer $patient_status_id
+ * @property integer $pharmacy_charges
+ * @property integer $princ_payer_id
+ * @property integer $race_id
+ * @property integer $radiology_charges
+ * @property integer $record_id
+ * @property integer $recovery_room_charges
+ * @property integer $service_id
+ * @property integer $sex_id
+ * @property integer $total_charges
+ * @property integer $trauma_resp_charges
+ * @property string $ahca_num
+ * @property string $arrival_hour
  * @property string $attending_pract_id
  * @property string $attending_pract_npi
+ * @property string $dob
+ * @property string $ed_discharge_hour
+ * @property string $med_rec_num
  * @property string $operating_pract_id
  * @property string $operating_pract_npi
  * @property string $other_pract_id
  * @property string $other_pract_npi
- * @property integer $pharmacy_charges
- * @property integer $med_surg_supply_charges
- * @property integer $lab_charges
- * @property integer $radiology_charges
- * @property integer $cardiology_charges
- * @property integer $oper_room_charges
- * @property integer $anesthesia_charges
- * @property integer $recovery_room_charges
- * @property integer $er_room_charges
- * @property integer $trauma_resp_charges
- * @property integer $gi_services_charges
- * @property integer $extra_shock_charges
- * @property integer $other_charges
- * @property integer $total_charges
+ * @property string $prin_proc_code
+ * @property string $ssn
  * @property string $visit_begin_date
  * @property string $visit_end_date
- * @property string $arrival_hour
- * @property string $ed_discharge_hour
- * @property integer $admitting_idc9_code_id
- * @property string $prin_proc_code
- * @property integer $patient_status_id
+ * @property string $zip
  *
  * @property AdmissionSource $admissionSource
- * @property Icd9Code $idc9Code
- * @property PrincPayer $princPayer
- * @property PatientStatus $patientStatus
  * @property Country $county
  * @property Ethnicity $ethnicity
+ * @property Icd9Code $idc9Code
+ * @property PatientStatus $patientStatus
+ * @property PrincPayer $princPayer
  * @property Race $race
  * @property Sex $sex
  */
@@ -199,5 +199,20 @@ class Records extends \yii\db\ActiveRecord
     public function getSex()
     {
         return $this->hasOne(Sex::className(), ['sex_id' => 'sex_id']);
+    }
+
+
+
+    // Custom Methods
+
+
+
+    /**
+     * [getDataList description]
+     * @return [type] [description]
+     */
+    public function getDataList() { // could be a static func as well
+        $models = Writer::find()->asArray()->all();
+        return ArrayHelper::map($models, 'id', 'name');
     }
 }

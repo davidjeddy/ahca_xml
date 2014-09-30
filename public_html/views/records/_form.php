@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+
+use app\models\AdmissionSource;
 
 /**
  * @var yii\web\View $this
@@ -38,7 +41,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'service_id')->textInput() ?>
 
-    <?= $form->field($model, 'admission_source_id')->textInput() ?>
+    <?php //echo $form->field($model, 'admission_source_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'admission_source_id');
+    echo Html::activeDropDownList(
+        $model,
+        'admission_source_id',
+        ArrayHelper::map(
+            AdmissionSource::find()->all(),
+            'admission_source_id',
+            'admission_source_description',
+            'admission_source_value'
+        ),
+        ['class'=>'form-control']
+    );
+    ?>
 
     <?= $form->field($model, 'princ_payer_id')->textInput() ?>
 
