@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\records;
-use app\models\search;
+use app\models\Records;
+use app\models\Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,7 +32,7 @@ class RecordsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new search;
+        $searchModel = new Search;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
@@ -60,7 +60,7 @@ class RecordsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new records;
+        $model = new Records;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->record_id]);
