@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
+	'adminEmail'  => 'me@davidjeddy.com',
+	'application' => 'AHCA State Records Input Application',
+	'copyright'   => ' Copyright Data',
 ];
