@@ -35,11 +35,9 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Search',  'url' => ['/records/index']],
                     ['label' => 'Create',  'url' => ['/records/create']],
-                    ['label' => 'View',    'url' => ['/records/view']],
+                    ['label' => 'Search',  'url' => ['/records/index']],
                     ['label' => 'Update',  'url' => ['/records/update']],
-                    //['label' => 'Delete',  'url' => ['/records/delete']],
                     ['label' => 'Report',  'url' => ['/report/create']],
                     ['label' => 'About',   'url' => ['/site/about']],
                     ['label' => 'Contact', 'url' => ['/site/contact']],
