@@ -19,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Records', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+            //echo Html::a('Create Records', ['create'], ['class' => 'btn btn-success']);
+        ?>
     </p>
 
     <?= GridView::widget([
@@ -27,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'record_id',
             'ahca_num',
             'med_rec_num',
@@ -69,7 +70,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'admitting_idc9_code_id',
             // 'prin_proc_code',
             // 'patient_status_id',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

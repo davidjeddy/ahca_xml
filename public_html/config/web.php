@@ -1,9 +1,8 @@
 <?php
 
-$params = require(__DIR__ . '/params.php');
-
 $config = [
     'id' => 'basic',
+    'name' => 'AHCA tate Records Input Application',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
@@ -42,16 +41,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
             'rules'           => [
-                ''      => 'records/create/',
-                'site/' => 'records/create/',
-                // your url config rules
+                '' => 'records/create/',
             ]
         ]
     ],
     'modules' => [
         'gii' => 'yii\gii\Module',
     ],
-    'params' => $params,
+    'params' => require(__DIR__ . '/params.php'),
 ];
 
 if (YII_ENV_DEV) {

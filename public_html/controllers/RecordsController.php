@@ -32,8 +32,6 @@ class RecordsController extends Controller
      */
     public function actionIndex()
     {
-        return $this->actionView();
-        /*
         $searchModel = new search;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
@@ -41,7 +39,6 @@ class RecordsController extends Controller
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
         ]);
-        */
     }
 
     /**

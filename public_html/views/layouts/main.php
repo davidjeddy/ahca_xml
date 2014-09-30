@@ -35,11 +35,14 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Create',  'url' => ['site/records/create']],
-                    ['label' => 'View',    'url' => ['site/records/view']],
-                    ['label' => 'Update',  'url' => ['site/records/update']],
-                    ['label' => 'Delete',  'url' => ['site/records/delete']],
-                    ['label' => 'Report',  'url' => ['site/report/create']],
+                    ['label' => 'Search',  'url' => ['/records/index']],
+                    ['label' => 'Create',  'url' => ['/records/create']],
+                    ['label' => 'View',    'url' => ['/records/view']],
+                    ['label' => 'Update',  'url' => ['/records/update']],
+                    ['label' => 'Delete',  'url' => ['/records/delete']],
+                    ['label' => 'Report',  'url' => ['/report/create']],
+                    ['label' => 'About',   'url' => ['/site/about']],
+                    ['label' => 'Contact', 'url' => ['/site/contact']],
                 ],
             ]);
             NavBar::end();

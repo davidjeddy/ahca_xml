@@ -10,7 +10,7 @@ use app\models\records;
 /**
  * search represents the model behind the search form about `app\models\records`.
  */
-class search extends records
+class Search extends records
 {
     public function rules()
     {
