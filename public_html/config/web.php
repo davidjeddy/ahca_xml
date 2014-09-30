@@ -42,6 +42,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
             'rules'           => [
+                // '' => 'records/',
                 // your url config rules
             ]
         ]
