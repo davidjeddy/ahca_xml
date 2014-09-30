@@ -2,8 +2,8 @@
 # Install composer and required plugin(s)
 curl -sS https://getcomposer.org/installer | php && \
 php ./composer.phar global require "fxp/composer-asset-plugin:1.0.*@dev" && \
-# create web app. `|| true` to ignore any errors during the basic app setup process
-php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic ./public_html || true && \
+# Init. create web app. Not needed after the first run.
+# php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic ./public_html || true && \
 # re-direct vendor to the global vendor dir
 cp -r ./public_html/vendor/ ./vendor/ && \
 rm -rf ./public_html/vendor/ && \
