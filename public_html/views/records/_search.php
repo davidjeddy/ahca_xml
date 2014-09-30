@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'zip') ?>
 
-    <?php // echo $form->field($model, 'county_id') ?>
+    <?php // echo $form->field($model, 'country_id') ?>
 
     <?php // echo $form->field($model, 'service_id') ?>
 

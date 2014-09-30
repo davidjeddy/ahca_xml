@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attending_pract_id',
             'attending_pract_npi',
             'cardiology_charges',
-            'county_id',
+            'country_id',
             'dob',
             'ed_discharge_hour',
             'er_room_charges',

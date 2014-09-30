@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'zip')->textInput(['maxlength' => 5]) ?>
 
-    <?= $form->field($model, 'county_id')->textInput() ?>
+    <?= $form->field($model, 'country_id')->textInput() ?>
 
     <?= $form->field($model, 'visit_begin_date')->textInput() ?>
 

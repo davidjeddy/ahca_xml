@@ -16,7 +16,7 @@ use Yii;
  * @property string $dob
  * @property integer $sex_id
  * @property string $zip
- * @property integer $county_id
+ * @property integer $country_id
  * @property integer $service_id
  * @property integer $admission_source_id
  * @property integer $princ_payer_id
@@ -74,8 +74,8 @@ class Records extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ahca_num', 'med_rec_num', 'ssn', 'ethnicity_id', 'race_id', 'dob', 'sex_id', 'zip', 'county_id', 'visit_begin_date', 'arrival_hour'], 'required'],
-            [['ethnicity_id', 'race_id', 'sex_id', 'county_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'idc9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'er_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_idc9_code_id', 'patient_status_id'], 'integer'],
+            [['ahca_num', 'med_rec_num', 'ssn', 'ethnicity_id', 'race_id', 'dob', 'sex_id', 'zip', 'country_id', 'visit_begin_date', 'arrival_hour'], 'required'],
+            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'idc9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'er_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_idc9_code_id', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['ahca_num', 'attending_pract_npi', 'operating_pract_npi', 'other_pract_npi'], 'string', 'max' => 10],
             [['med_rec_num'], 'string', 'max' => 24],
@@ -101,7 +101,7 @@ class Records extends \yii\db\ActiveRecord
             'attending_pract_id'      => 'Attending Practitioner ID',
             'attending_pract_npi'     => 'Attending Practitioner NPI',
             'cardiology_charges'      => 'Cardiology Charges',
-            'county_id'               => 'County',
+            'country_id'               => 'County',
             'dob'                     => 'Date of Birth',
             'ed_discharge_hour'       => 'ER Discharge Hour',
             'er_room_charges'         => 'ER Room Charges',
@@ -174,7 +174,7 @@ class Records extends \yii\db\ActiveRecord
      */
     public function getCounty()
     {
-        return $this->hasOne(Country::className(), ['country_id' => 'county_id']);
+        return $this->hasOne(Country::className(), ['country_id' => 'country_id']);
     }
 
     /**
