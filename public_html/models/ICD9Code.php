@@ -30,7 +30,7 @@ class ICD9Code extends \yii\db\ActiveRecord
     {
         return [
             [['icd9_code_value', 'icd9_code_description'], 'required'],
-            [['icd9_code_value'], 'string', 'max' => 10],
+            [['icd9_code_value'], 'string', 'max'       => 10],
             [['icd9_code_description'], 'string', 'max' => 2048]
         ];
     }
@@ -41,9 +41,9 @@ class ICD9Code extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'icd9_code_id' => 'Icd9 Code ID',
-            'icd9_code_value' => 'Icd9 Code Value',
-            'icd9_code_description' => 'Icd9 Code Description',
+            'icd9_code_id'          => 'ICD9 Code ID',
+            'icd9_code_value'       => 'ICD9 Code Value',
+            'icd9_code_description' => 'ICD9 Code Description',
         ];
     }
 

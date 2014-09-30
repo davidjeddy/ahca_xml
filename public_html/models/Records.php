@@ -200,19 +200,4 @@ class Records extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Sex::className(), ['sex_id' => 'sex_id']);
     }
-
-
-
-    // Custom Methods
-
-
-
-    /**
-     * [getDataList description]
-     * @return [type] [description]
-     */
-    public function getDataList() { // could be a static func as well
-        $models = Writer::find()->asArray()->all();
-        return ArrayHelper::map($models, 'id', 'name');
-    }
 }

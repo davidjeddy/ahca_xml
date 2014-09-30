@@ -5,6 +5,14 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
 use app\models\AdmissionSource;
+use app\models\Country;
+use app\models\Ethnicity;
+use app\models\ICD9Code;
+use app\models\PatientStatus;
+use app\models\PrinciplePayer;
+use app\models\Race;
+use app\models\Sex;
+use app\models\ServiceCode;
 
 /**
  * @var yii\web\View $this
@@ -23,23 +31,112 @@ use app\models\AdmissionSource;
 
     <?= $form->field($model, 'ssn')->textInput(['maxlength' => 9]) ?>
 
-    <?= $form->field($model, 'ethnicity_id')->textInput() ?>
+    <?php //$form->field($model, 'ethnicity_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'ethnicity');
+    echo Html::activeDropDownList(
+        $model,
+        'ethnicity_id',
+        ArrayHelper::map(
+            Ethnicity::find()->all(),
+            'ethnicity_id',
+            'ethnicity_value',
+            'ethnicity_description'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
-    <?= $form->field($model, 'race_id')->textInput() ?>
+    <?php //$form->field($model, 'race_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'race');
+    echo Html::activeDropDownList(
+        $model,
+        'race_id',
+        ArrayHelper::map(
+            Race::find()->all(),
+            'race_id',
+            'race_value',
+            'race_description'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'dob')->textInput() ?>
 
-    <?= $form->field($model, 'sex_id')->textInput() ?>
+    <?php //$form->field($model, 'sex_id')->textInput() ?>
+    <?php
+    echo Html::activeLabel($model, 'sex');
+    echo Html::activeDropDownList(
+        $model,
+        'sex_id',
+        ArrayHelper::map(
+            Sex::find()->all(),
+            'sex_id',
+            'sex_value',
+            'sex_description'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'zip')->textInput(['maxlength' => 5]) ?>
 
-    <?= $form->field($model, 'country_id')->textInput() ?>
+    <?php //echo $form->field($model, 'country_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'country');
+    echo Html::activeDropDownList(
+        $model,
+        'country_id',
+        ArrayHelper::map(
+            Country::find()->all(),
+            'country_id',
+            'country_name'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'visit_begin_date')->textInput() ?>
 
     <?= $form->field($model, 'arrival_hour')->textInput(['maxlength' => 2]) ?>
 
-    <?= $form->field($model, 'service_id')->textInput() ?>
+    <?php //$form->field($model, 'service_id')->textInput() ?>
+    <?php
+    echo Html::activeLabel($model, 'service_id');
+    echo Html::activeDropDownList(
+        $model,
+        'service_id',
+        ArrayHelper::map(
+            ServiceCode::find()->all(),
+            'servicecode_id',
+            'servicecode_value',
+            'servicecode_description'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <?php //echo $form->field($model, 'admission_source_id')->textInput(); ?>
     <?php
@@ -53,13 +150,50 @@ use app\models\AdmissionSource;
             'admission_source_description',
             'admission_source_value'
         ),
-        ['class'=>'form-control']
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
     );
     ?>
 
-    <?= $form->field($model, 'princ_payer_id')->textInput() ?>
+    <?php //$form->field($model, 'princ_payer_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'principle_payer');
+    echo Html::activeDropDownList(
+        $model,
+        'princ_payer_id',
+        ArrayHelper::map(
+            PrinciplePayer::find()->all(),
+            'princ_payer_id',
+            'princ_payer_value',
+            'princ_payer_description'
+        ),
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
-    <?= $form->field($model, 'idc9_code_id')->textInput() ?>
+    <?php //echo $form->field($model, 'idc9_code_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'icd9_code_id');
+    echo Html::activeDropDownList(
+        $model,
+        'idc9Code',
+        ArrayHelper::map(
+            ICD9Code::find()->all(),
+            'icd9_code_id',
+            'icd9_code_value',
+            'icd9_code_description'
+        ),
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'pharmacy_charges')->textInput() ?>
 
@@ -91,7 +225,24 @@ use app\models\AdmissionSource;
 
     <?= $form->field($model, 'admitting_idc9_code_id')->textInput() ?>
 
-    <?= $form->field($model, 'patient_status_id')->textInput() ?>
+    <?php //echo $form->field($model, 'patient_status_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'patient_status_id');
+    echo Html::activeDropDownList(
+        $model,
+        'idc9Code',
+        ArrayHelper::map(
+            PatientStatus::find()->all(),
+            'patient_status_id',
+            'patient_status_value',
+            'patient_status_description'
+        ),
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'visit_end_date')->textInput() ?>
 
