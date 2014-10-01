@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'record_id') ?>
+    <?php // echo $form->field($model, 'record_id') ?>
 
     <?= $form->field($model, 'ahca_num') ?>
 
@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ssn') ?>
 
-    <?= $form->field($model, 'ethnicity_id') ?>
+    <?php // echo $form->field($model, 'ethnicity_id') ?>
 
     <?php // echo $form->field($model, 'race_id') ?>
 

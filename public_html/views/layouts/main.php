@@ -37,8 +37,7 @@ AppAsset::register($this);
                 'items' => [
                     ['label' => 'Create',  'url' => ['/records/create']],
                     ['label' => 'Search',  'url' => ['/records/index']],
-                    ['label' => 'Update',  'url' => ['/records/update']],
-                    ['label' => 'Report',  'url' => ['/report/create']],
+                    ['label' => 'Report',  'url' => ['/reports/index']],
                     ['label' => 'About',   'url' => ['/site/about']],
                     ['label' => 'Contact', 'url' => ['/site/contact']],
                 ],

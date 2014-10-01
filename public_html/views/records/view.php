@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="records-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>View Record:<?php //<?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->record_id], ['class' => 'btn btn-primary']) ?>
