@@ -1,6 +1,6 @@
 #! /bin/bash
 # Clone AHCA repo
-git clone https://github.com/davidjeddy/ahca_xml.git
+git clone https://github.com/davidjeddy/ahca_xml.git ./
 # checkout latest production ready branch
 git checkout master
 # Install composer and required plugin(s)
@@ -13,6 +13,6 @@ curl -sS https://getcomposer.org/installer | php && \
 # update to add the packages not included by Yii
 php ./composer.phar update --dev && \
 # update web app from composer.json and generate autoloader
-php ./composer.phar dumpautoload -o
+php ./composer.phar dumpautoload -o && \
 # create symlink to root vendor 
-ln -sfn ../vendor/ ./html/vendor && \
+ln -sfn ../vendor/ ./html/vendor
