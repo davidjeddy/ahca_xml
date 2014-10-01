@@ -14,6 +14,8 @@ use app\models\Race;
 use app\models\Sex;
 use app\models\ServiceCode;
 
+use dosamigos\datetimepicker\DateTimePicker;
+
 /**
  * @var yii\web\View $this
  * @var app\models\records $model
@@ -24,6 +26,11 @@ use app\models\ServiceCode;
 <div class="records-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <h2><span class="label label-primary">General Patient Information:</span></h2>
+    <h2><span class="label label-primary">Charges:</span></h2>
+    <h2><span class="label label-primary">Practitioner Information:</span></h2>
+    <h2><span class="label label-primary">Dates and Times:</span></h2>
 
     <?= $form->field($model, 'ahca_num')->textInput(['maxlength' => 10]) ?>
 
@@ -71,7 +78,24 @@ use app\models\ServiceCode;
     );
     ?>
 
-    <?= $form->field($model, 'dob')->textInput() ?>
+    <?php //echo $form->field($model, 'dob')->textInput(); ?>
+    <?= $form->field($model, 'dob')->widget(DateTimePicker::className(), [
+        'language'       => 'en',
+        'size'           => 'ms',
+        'template'       => '{input}',
+        'pickButtonIcon' => 'glyphicon glyphicon-time',
+        'inline'         => false,
+        'clientOptions'  => [
+            'startView'          => 4,
+            'minView'            => 2,
+            'maxView'            => 4,
+            'autoclose'          => true,
+            'format'             => 'yyyy-mm-dd', // if inline = false
+            'keyboardNavigation' => true,
+            'forceParse'         => false,
+            //'todayBtn'         => true
+        ]
+    ]);?>
 
     <?php //$form->field($model, 'sex_id')->textInput() ?>
     <?php
@@ -114,9 +138,43 @@ use app\models\ServiceCode;
     );
     ?>
 
-    <?= $form->field($model, 'visit_begin_date')->textInput() ?>
+    <?php //$form->field($model, 'visit_begin_date')->textInput(); ?>
+    <?= $form->field($model, 'visit_begin_date')->widget(DateTimePicker::className(), [
+        'language'       => 'en',
+        'size'           => 'ms',
+        'template'       => '{input}',
+        'pickButtonIcon' => 'glyphicon glyphicon-time',
+        'inline'         => false,
+        'clientOptions'  => [
+            'startView'          => 4,
+            'minView'            => 2,
+            'maxView'            => 4,
+            'autoclose'          => true,
+            'format'             => 'yyyy-mm-dd', // if inline = false
+            'keyboardNavigation' => true,
+            'forceParse'         => false,
+            'todayBtn'           => true
+        ]
+    ]);?>
 
-    <?= $form->field($model, 'arrival_hour')->textInput(['maxlength' => 2]) ?>
+    <?php //$form->field($model, 'arrival_hour')->textInput(['maxlength' => 2]); ?>
+    <?= $form->field($model, 'arrival_hour')->widget(DateTimePicker::className(), [
+        'language'       => 'en',
+        'size'           => 'ms',
+        'template'       => '{input}',
+        'pickButtonIcon' => 'glyphicon glyphicon-time',
+        'inline'         => false,
+        'clientOptions'  => [
+            'startView'          => 1,
+            'minView'            => 1,
+            'maxView'            => 1,
+            'autoclose'          => true,
+            'format'             => 'hh', // if inline = false
+            'keyboardNavigation' => true,
+            'forceParse'         => false,
+            'todayBtn'           => true
+        ]
+    ]);?>
 
     <?php //$form->field($model, 'service_id')->textInput() ?>
     <?php
@@ -227,7 +285,7 @@ use app\models\ServiceCode;
 
     <?php //echo $form->field($model, 'patient_status_id')->textInput(); ?>
     <?php
-    echo Html::activeLabel($model, 'patient_status_id');
+    echo Html::activeLabel($model, 'patient_status');
     echo Html::activeDropDownList(
         $model,
         'idc9Code',
@@ -244,7 +302,24 @@ use app\models\ServiceCode;
     );
     ?>
 
-    <?= $form->field($model, 'visit_end_date')->textInput() ?>
+    <?php //$form->field($model, 'visit_end_date')->textInput(); ?>
+    <?= $form->field($model, 'visit_end_date')->widget(DateTimePicker::className(), [
+        'language'       => 'en',
+        'size'           => 'ms',
+        'template'       => '{input}',
+        'pickButtonIcon' => 'glyphicon glyphicon-time',
+        'inline'         => false,
+        'clientOptions'  => [
+            'startView'          => 4,
+            'minView'            => 2,
+            'maxView'            => 4,
+            'autoclose'          => true,
+            'format'             => 'yyyy-mm-dd', // if inline = false
+            'keyboardNavigation' => true,
+            'forceParse'         => false,
+            'todayBtn'           => true
+        ]
+    ]);?>
 
     <?= $form->field($model, 'attending_pract_npi')->textInput(['maxlength' => 10]) ?>
 
@@ -258,7 +333,24 @@ use app\models\ServiceCode;
 
     <?= $form->field($model, 'other_pract_id')->textInput(['maxlength' => 12]) ?>
 
-    <?= $form->field($model, 'ed_discharge_hour')->textInput(['maxlength' => 2]) ?>
+    <?php //$form->field($model, 'ed_discharge_hour')->textInput(['maxlength' => 2]); ?>
+    <?= $form->field($model, 'ed_discharge_hour')->widget(DateTimePicker::className(), [
+        'language'       => 'en',
+        'size'           => 'ms',
+        'template'       => '{input}',
+        'pickButtonIcon' => 'glyphicon glyphicon-time',
+        'inline'         => false,
+        'clientOptions'  => [
+            'startView'          => 1,
+            'minView'            => 1,
+            'maxView'            => 1,
+            'autoclose'          => true,
+            'format'             => 'hh', // if inline = false
+            'keyboardNavigation' => true,
+            'forceParse'         => false,
+            'todayBtn'           => true
+        ]
+    ]);?>
 
     <?= $form->field($model, 'prin_proc_code')->textInput(['maxlength' => 8]) ?>
 
