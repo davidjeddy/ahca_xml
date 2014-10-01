@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 use app\models\AdmissionSource;
 use app\models\Country;
 use app\models\Ethnicity;
-use app\models\ICD9Code;
+use app\models\Icd9Code;
 use app\models\PatientStatus;
 use app\models\PrinciplePayer;
 use app\models\Race;
@@ -51,7 +51,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <?= $form->field($model, 'ssn')->textInput([
         'placeholder' => 'Social Security number (no dashes)',
-        'minlength'   => 9,
+        'minlength'   => 0,
         'maxlength'   => 9,
         'type'        => 'number',
         'pattern'     => '^\d{9}$'
@@ -248,7 +248,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         $model,
         'idc9Code',
         ArrayHelper::map(
-            ICD9Code::find()->all(),
+            Icd9Code::find()->all(),
             'icd9_code_id',
             'icd9_code_value',
             'icd9_code_description'

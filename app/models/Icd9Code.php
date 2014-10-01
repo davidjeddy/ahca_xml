@@ -13,7 +13,7 @@ use Yii;
  *
  * @property Records[] $records
  */
-class ICD9Code extends \yii\db\ActiveRecord
+class Icd9Code extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc

@@ -1,72 +1,72 @@
 {
-        "name": "AHCA XML Web Form",
-        "description": "AHCA compliance form.",
-        "version": "0.0.1-dev",
-        "type": "application",
-        "homepage": "Http://www.davidjeddy.com",
-        "license": "All rights reserved",
-        "minimum-stability": "dev",
-        "support": {
-                "email": "me@davidjeddy.com",
-                "website": "Http://www.davidjeddy.com"
-        },
-        "authors": [
-                {
-                        "email": "me@davidjeddy.com",
-                        "homepage": "http://www.davidjeddy.com",
-                        "name": "David Eddy",
-                        "role": "Lead Developer"
-                }
-        ],
-        "config": {
-            "vendor-dir": "./vendor"
-        },
-        "require": {
-                "php": ">=5.4.0",
-                "fxp/composer-asset-plugin": "1.0.*@dev",
-
-                "fabpot/php-cs-fixer": "1.0.*@dev",
-                "monolog/monolog": "1.10.0",
-                "phpdocumentor/phpdocumentor": "2.0.*@dev",
-                "phpunit/phpunit": "4.2.6",
-                "sebastian/phpcpd": "*",
-                "yiisoft/yii2-gii": "*",
-
-                "yiisoft/yii2": "*",
-                "yiisoft/yii2-bootstrap": "*",
-                "yiisoft/yii2-gii": "2.0.0-beta",
-                "yiisoft/yii2-jui": "*",
-                "yiisoft/yii2-swiftmailer": "*",
-
-                "2amigos/yii2-date-time-picker-widget":  "*",
-                "c006/yii2-submit-spinner": "*"
-        },
-        "require-dev": {
-                "yiisoft/yii2-codeception": "*",
-                "yiisoft/yii2-debug": "*"
-        },
-        "scripts": {
-                "post-create-project-cmd": [
-                        "yii\\composer\\Installer::setPermission"
-                ]   
-        },
-        "extra": {
-            "yii\\composer\\Installer::postCreateProject": {
-                "setPermission": [
-                    {
-                        "./public_html/runtime": "0777",
-                        "./public_html/web/assets": "0777",
-                        "./public_html/yii": "0755"
-                    }
-                ],
-                "generateCookieValidationKey": [
-                    "./public_html/config/web.php"
-                ]
-            },
-            "asset-installer-paths": {
-                "npm-asset-library": "./vendor/npm",
-                "bower-asset-library": "./vendor/bower"
+    "name": "AHCA XML Web Form",
+    "description": "AHCA compliance form.",
+    "version": "0.0.1-dev",
+    "type": "application",
+    "homepage": "Http://www.davidjeddy.com",
+    "license": "All rights reserved",
+    "minimum-stability": "dev",
+    "support": {
+            "email": "me@davidjeddy.com",
+            "website": "Http://www.davidjeddy.com"
+    },
+    "authors": [
+            {
+                    "email": "me@davidjeddy.com",
+                    "homepage": "http://www.davidjeddy.com",
+                    "name": "David Eddy",
+                    "role": "Lead Developer"
             }
+    ],
+    "config": {
+        "vendor-dir": "./vendor"
+    },
+    "require": {
+            "php": ">=5.4.0",
+            "fxp/composer-asset-plugin": "1.0.*@dev",
+
+            "fabpot/php-cs-fixer": "1.0.*@dev",
+            "monolog/monolog": "1.10.0",
+            "phpdocumentor/phpdocumentor": "2.0.*@dev",
+            "phpunit/phpunit": "4.2.6",
+            "sebastian/phpcpd": "*",
+            "yiisoft/yii2-gii": "*",
+
+            "yiisoft/yii2": "*",
+            "yiisoft/yii2-bootstrap": "*",
+            "yiisoft/yii2-gii": "2.0.0-beta",
+            "yiisoft/yii2-jui": "*",
+            "yiisoft/yii2-swiftmailer": "*",
+
+            "2amigos/yii2-date-time-picker-widget":  "*",
+            "c006/yii2-submit-spinner": "*"
+    },
+    "require-dev": {
+            "yiisoft/yii2-codeception": "*",
+            "yiisoft/yii2-debug": "*"
+    },
+    "scripts": {
+            "post-create-project-cmd": [
+                    "yii\\composer\\Installer::setPermission"
+            ]   
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "./app/runtime": "0777",
+                    "./app/web/assets": "0777",
+                    "./app/yii": "0755"
+                }
+            ],
+            "generateCookieValidationKey": [
+                "./app/config/web.php"
+            ]
+        },
+        "asset-installer-paths": {
+            "npm-asset-library": "./vendor/npm",
+            "bower-asset-library": "./vendor/bower"
         }
+    }
 }
 
