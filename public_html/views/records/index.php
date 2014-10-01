@@ -9,31 +9,28 @@ use yii\grid\GridView;
  * @var app\models\search $searchModel
  */
 
-$this->title = 'Records';
+$this->title = 'Search Records';
+$this->params['breadcrumbs'][] = ['label' => 'Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="records-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Search Records:<?php //<?= Html::encode($this->title) ?></h1>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?php
-            //echo Html::a('Create Records', ['create'], ['class' => 'btn btn-success']);
-        ?>
-    </p>
+    <p><?php //echo Html::a('Create Records', ['create'], ['class' => 'btn btn-success']); ?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'record_id',
+            // 'record_id',
             'ahca_num',
             'med_rec_num',
             'ssn',
-            'ethnicity_id',
+            // 'ethnicity_id',
             // 'race_id',
             // 'dob',
             // 'sex_id',
