@@ -5,10 +5,10 @@ php ./composer.phar global require "fxp/composer-asset-plugin:1.0.*@dev" && \
 # Init. create web app. Not needed after the first run.
 # php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic ./html || true && \
 # re-direct vendor to the global vendor dir
-cp -r ./public_html/vendor/ ./vendor/ && \
-rm -rf ./public_html/vendor/ && \
+cp -r ./html/vendor/ ./vendor/ && \
+rm -rf ./html/vendor/ && \
 # create symlink to root vendor 
-ln -sfn ../vendor/ ./public_html/vendor && \
+ln -sfn ../vendor/ ./html/vendor && \
 # update to add the packages not included by Yii
 php ./composer.phar update --dev && \
 # update web app from composer.json and generate autoloader
