@@ -47,6 +47,10 @@ $config = [
     ],
     'modules' => [
         'gii' => 'yii\gii\Module',
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'allowedIPs' => ['127.0.0.1', '::1']
+        ]
     ],
     'params' => require(__DIR__ . '/params.php'),
 ];

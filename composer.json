@@ -36,6 +36,7 @@
                 "yiisoft/yii2-jui": "*",
                 "yiisoft/yii2-swiftmailer": "*",
 
+                "2amigos/yii2-date-time-picker-widget":  "*",
                 "c006/yii2-submit-spinner": "*"
         },
         "require-dev": {
