@@ -22,6 +22,9 @@
             "vendor-dir": "./vendor"
         },
         "require": {
+                "php": ">=5.4.0",
+                "fxp/composer-asset-plugin": "1.0.*@dev",
+
                 "fabpot/php-cs-fixer": "1.0.*@dev",
                 "monolog/monolog": "1.10.0",
                 "phpdocumentor/phpdocumentor": "2.0.*@dev",
@@ -29,7 +32,6 @@
                 "sebastian/phpcpd": "*",
                 "yiisoft/yii2-gii": "*",
 
-                "php": ">=5.4.0",
                 "yiisoft/yii2": "*",
                 "yiisoft/yii2-bootstrap": "*",
                 "yiisoft/yii2-gii": "2.0.0-beta",
