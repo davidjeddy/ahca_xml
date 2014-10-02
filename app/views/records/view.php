@@ -8,13 +8,13 @@ use yii\widgets\DetailView;
  * @var app\models\records $model
  */
 
-$this->title = $model->record_id;
+$this->title = $model->last_name.', '.$model->first_name;
 $this->params['breadcrumbs'][] = ['label' => 'Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="records-view">
 
-    <h1>View Record:<?php //<?= Html::encode($this->title) ?></h1>
+    <h1>Record for `<?= $this->title;?>`:<?php //<?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->record_id], ['class' => 'btn btn-primary']) ?>
@@ -30,46 +30,62 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'admission_source_id',
-            'admitting_icd9_code_id',
+            // Ignored fields not to be displayed to the end user.
+            // 'record_id',
+
+            // General patience information
+            'med_rec_num',
+            'first_name',
+            'last_name',
             'ahca_num',
-            'anesthesia_charges',
-            'arrival_hour',
-            'attending_pract_id',
-            'attending_pract_npi',
-            'cardiology_charges',
-            'country_id',
-            'dob',
+            'ssn',
             'ethnicity_id',
+            'race_id',
+            'dob',
+            'sex_id',
+            'patient_status_id',
+            'zip',
+            'country_id',
+            'admission_source_id',
+            'service_id',
+            'princ_payer_id',
+
+            // Media Coding
+            'admitting_icd9_code_id',
+            'icd9_code_id',
+            'other_diagnostics_icd9_codes',
+            'prin_proc_icd9_code_id',
+            'other_diagnostics_icd9_codes',
+            'other_procedure_icd9_codes',
+            'cpt_codes',
+
+            // Charges
+            'anesthesia_charges',
+            'cardiology_charges',
             'extra_shock_charges',
             'gi_services_charges',
-            'icd9_code_id',
             'lab_charges',
-            'med_rec_num',
             'med_surg_supply_charges',
             'oper_room_charges',
-            'operating_pract_id',
-            'operating_pract_npi',
             'other_charges',
-            'other_pract_id',
-            'other_pract_npi',
-            'patient_status_id',
             'pharmacy_charges',
-            'prin_proc_icd9_code_id',
-            'princ_payer_id',
-            'race_id',
             'radiology_charges',
-            'record_id',
             'recovery_room_charges',
-            'service_id',
-            'sex_id',
-            'ssn',
             'total_charges',
             'trauma_resp_charges',
+
+            // Practitioner(s)
+            'attending_pract_id',
+            'attending_pract_npi',
+            'operating_pract_id',
+            'operating_pract_npi',
+            'other_pract_id',
+            'other_pract_npi',
+
+            // Date & Time
+            'arrival_hour',
             'visit_begin_date',
             'visit_end_date',
-            'zip',
         ],
     ]) ?>
-
 </div>
