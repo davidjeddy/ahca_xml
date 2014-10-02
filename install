@@ -1,18 +1,15 @@
 #! /bin/bash
-# Clone AHCA repo
-git clone https://github.com/davidjeddy/ahca_xml.git ./
+# Clone AHCA repo into dir called 'html'
+sudo git clone https://github.com/davidjeddy/ahca_xml.git ./ && \
 # checkout latest production ready branch
-git checkout master
+sudo git checkout master
 # Install composer and required plugin(s)
-curl -sS https://getcomposer.org/installer | php && \
+sudo curl -sS https://getcomposer.org/installer | php && \
 # Init. create web app. Not needed after the first run.
 # php ./composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic ./html || true && \
-# re-direct vendor to the global vendor dir
-# cp -r ./html/vendor/ ./vendor/ && \
-# rm -rf ./html/vendor/ && \
-# update to add the packages not included by Yii
-php ./composer.phar update --dev && \
+# install/update dependancies for framework + app
+sudo php ./composer.phar update --dev && \
 # update web app from composer.json and generate autoloader
-php ./composer.phar dumpautoload -o && \
+sudo php ./composer.phar dumpautoload -o && \
 # create symlink to root vendor 
-ln -sfn ../vendor/ ./html/vendor
+sudo ln -sfn ../vendor/ ./app/vendor
