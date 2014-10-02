@@ -33,9 +33,12 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <h2><span class="label label-primary">General Information:</span></h2>
 
-    <?= $form->field($model, 'ahca_num')->textInput(['placeholder' => '8 to 10 numbers']); ?>
+    <?= $form->field($model, 'med_rec_num')->textInput([
+        'placeholder' => (time()*1000),
+        'readonly' => true
+    ]); ?>
 
-    <?= $form->field($model, 'med_rec_num')->textInput(['placeholder' => '24 character alphanumeric']); ?>
+    <?= $form->field($model, 'ahca_num')->textInput(['placeholder' => '8 to 10 numbers']); ?>
 
     <?= $form->field($model, 'ssn')->textInput([
         'placeholder' => 'Full SSN (no dashes) OR last 4 digits of SSN',
@@ -129,7 +132,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     echo Html::activeLabel($model, 'patient_status');
     echo Html::activeDropDownList(
         $model,
-        'icd9_code_id',
+        'patient_status_id',
         ArrayHelper::map(
             PatientStatus::find()->all(),
             'patient_status_id',
@@ -229,6 +232,29 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
+
+
+    <h2><span class="label label-primary">Coding:</span></h2>
+
+    <?php //$form->field($model, 'admitting_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
+    <?php
+    echo Html::activeLabel($model, 'admitting_icd9_code_id');
+    echo Html::activeDropDownList(
+        $model,
+        'icd9_code_id',
+        ArrayHelper::map(
+            icd9Code::find()->all(),
+            'icd9_code_id',
+            'icd9_code_value',
+            'icd9_code_description'
+        ),
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
+
     <?php //echo $form->field($model, 'icd9_code_id')->textInput(); ?>
     <?php
     echo Html::activeLabel($model, 'icd9_code_id');
@@ -248,13 +274,29 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
+    <?php //$form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
+    <?php
+    echo Html::activeLabel($model, 'prin_proc_icd9_code_id');
+    echo Html::activeDropDownList(
+        $model,
+        'prin_proc_icd9_code_id',
+        ArrayHelper::map(
+            icd9Code::find()->all(),
+            'icd9_code_id',
+            'icd9_code_value',
+            'icd9_code_description'
+        ),
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
+
+    <?php //@todo Add CPT codes here; ?>
 
 
-    <h2><span class="label label-primary">ICD9 Information:</span></h2>
 
-    <?= $form->field($model, 'admitting_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
-
-    <?= $form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
 
     <h2><span class="label label-primary">Charges:</span></h2>
 
