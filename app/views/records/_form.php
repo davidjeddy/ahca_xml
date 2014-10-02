@@ -34,7 +34,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     <h2><span class="label label-primary">General Information:</span></h2>
 
     <?= $form->field($model, 'med_rec_num')->textInput([
-        'placeholder' => (time()*1000),
+        'value' => (time()*1000),
         'readonly' => true
     ]); ?>
 
@@ -274,26 +274,24 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
-    <?php //$form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
-    <?php
-    echo Html::activeLabel($model, 'prin_proc_icd9_code_id');
-    echo Html::activeDropDownList(
-        $model,
-        'prin_proc_icd9_code_id',
-        ArrayHelper::map(
-            icd9Code::find()->all(),
-            'icd9_code_id',
-            'icd9_code_value',
-            'icd9_code_description'
-        ),
-        [
-            'prompt' => 'Pick One',
-            'class'  => 'form-control'
-        ]
-    );
-    ?>
+    <?php //This is a free form field, procedure codes != diag ICD9 codes; ?>
+    <?= $form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
 
-    <?php //@todo Add CPT codes here; ?>
+    <?= $form->field($model, 'other_procedure_icd9_codes')->textInput([
+        'placeholder' => 'Up to 4 ICD9 codes'
+    ]); ?>
+
+    <?php
+    /**
+     * CPT code.
+     * Require 1, upto 30 CPT codes.
+     * Comma seperatd.
+     * @todo Add CPT codes here; ?>
+     */
+    ?>
+    <?= $form->field($model, 'cpt_codes')->textInput([
+        'placeholder' => 'Comma seperated CPT codes (Exp: 12345, 23456, 34567).'
+    ]); ?>
 
 
 
