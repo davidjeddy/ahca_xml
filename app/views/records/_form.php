@@ -475,25 +475,6 @@ use dosamigos\datetimepicker\DateTimePicker;
         ]
     ]);?>
 
-    <?php //$form->field($model, 'ed_discharge_hour')->textInput(['maxlength' => 2]); ?>
-    <?= $form->field($model, 'ed_discharge_hour')->widget(DateTimePicker::className(), [
-        'language'       => 'en',
-        'size'           => 'ms',
-        'template'       => '{input}',
-        'pickButtonIcon' => 'glyphicon glyphicon-time',
-        'inline'         => false,
-        'clientOptions'  => [
-            'startView'          => 1,
-            'minView'            => 1,
-            'maxView'            => 1,
-            'autoclose'          => true,
-            'format'             => 'hh', // if inline = false
-            'keyboardNavigation' => true,
-            'forceParse'         => false,
-            'todayBtn'           => true
-        ]
-    ]);?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

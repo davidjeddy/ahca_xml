@@ -40,8 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'cardiology_charges',
             'country_id',
             'dob',
-            'ed_discharge_hour',
-            'er_room_charges',
             'ethnicity_id',
             'extra_shock_charges',
             'gi_services_charges',

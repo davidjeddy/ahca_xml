@@ -73,8 +73,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'recovery_room_charges') ?>
 
-    <?php // echo $form->field($model, 'er_room_charges') ?>
-
     <?php // echo $form->field($model, 'trauma_resp_charges') ?>
 
     <?php // echo $form->field($model, 'gi_services_charges') ?>
@@ -90,8 +88,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'visit_end_date') ?>
 
     <?php // echo $form->field($model, 'arrival_hour') ?>
-
-    <?php // echo $form->field($model, 'ed_discharge_hour') ?>
 
     <?php // echo $form->field($model, 'admitting_icd9_code_id') ?>
 

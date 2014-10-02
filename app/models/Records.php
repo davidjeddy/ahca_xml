@@ -36,7 +36,6 @@ use Yii;
  * @property string $attending_pract_id
  * @property string $attending_pract_npi
  * @property string $dob
- * @property string $ed_discharge_hour
  * @property string $med_rec_num
  * @property string $operating_pract_id
  * @property string $operating_pract_npi
@@ -81,7 +80,7 @@ class Records extends \yii\db\ActiveRecord
             [['ssn'], 'string', 'max' => 9],
             [['zip'], 'string', 'max' => 5],
             [['attending_pract_id', 'operating_pract_id', 'other_pract_id'], 'string', 'max' => 12],
-            [['arrival_hour', 'ed_discharge_hour'], 'string', 'max' => 2],
+            [['arrival_hour'], 'string', 'max' => 2],
             [['prin_proc_icd9_code_id'], 'string', 'max' => 8]
         ];
     }
