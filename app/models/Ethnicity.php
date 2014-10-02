@@ -29,8 +29,9 @@ class Ethnicity extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ethnicity_value', 'ethnicity_description'], 'required'],
-            [['ethnicity_value', 'ethnicity_description'], 'string']
+            [['ethnicity_value'], 'required'],
+            [['ethnicity_description'], 'string'],
+            [['ethnicity_value'], 'string', 'max' => 2]
         ];
     }
 

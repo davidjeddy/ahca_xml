@@ -29,8 +29,9 @@ class PrinciplePayer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['princ_payer_value', 'princ_payer_description'], 'required'],
-            [['princ_payer_value', 'princ_payer_description'], 'string']
+            [['princ_payer_value'], 'required'],
+            [['princ_payer_description'], 'string'],
+            [['princ_payer_value'], 'string', 'max' => 2]
         ];
     }
 

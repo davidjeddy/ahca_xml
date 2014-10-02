@@ -29,8 +29,9 @@ class AdmissionSource extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['admission_source_value', 'admission_source_description'], 'required'],
-            [['admission_source_value', 'admission_source_description'], 'string']
+            [['admission_source_value'], 'required'],
+            [['admission_source_description'], 'string'],
+            [['admission_source_value'], 'string', 'max' => 2]
         ];
     }
 
