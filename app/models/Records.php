@@ -37,6 +37,8 @@ use Yii;
  * @property string $attending_pract_npi
  * @property string $cpt_codes
  * @property string $dob
+ * @property string $first_name
+ * @property string $last_name
  * @property string $med_rec_num
  * @property string $operating_pract_id
  * @property string $operating_pract_npi
@@ -76,6 +78,7 @@ class Records extends \yii\db\ActiveRecord
     {
         return [
             //[['ahca_num', 'med_rec_num', 'ssn', 'ethnicity_id', 'race_id', 'dob', 'sex_id', 'zip', 'country_id', 'visit_begin_date', 'arrival_hour'], 'required'],
+            [['first_name', 'last_name', 'med_rec_num'], 'required'],
             [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'icd9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['ahca_num', 'attending_pract_npi', 'operating_pract_npi', 'other_pract_npi'], 'string', 'max' => 10],
@@ -94,6 +97,8 @@ class Records extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'fist_name' => 'First Name',
+            'last_name' => 'Last Name',
             'admission_source_id'          => 'Admission Source',
             'admitting_icd9_code_id'       => 'Admitting ICD9 Code',
             'ahca_num'                     => 'AHCA Number',
@@ -106,7 +111,7 @@ class Records extends \yii\db\ActiveRecord
             'cpt_codes'                    => 'CPT Codes',
             'dob'                          => 'Date of Birth',
             'ethnicity_id'                 => 'Ethnicity',
-            'extra_shock_charges'          => 'Extra Shock Charges',
+            'extra_shock_charges'          => 'Extra Corp Shockwave Charges',
             'gi_services_charges'          => 'GI Services Charges',
             'icd9_code_id'                 => 'Primary Diagnostic ICD9 Code',
             'lab_charges'                  => 'Lab Charges',

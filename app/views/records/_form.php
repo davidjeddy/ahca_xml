@@ -34,8 +34,16 @@ use dosamigos\datetimepicker\DateTimePicker;
     <h2><span class="label label-primary">General Information:</span></h2>
 
     <?= $form->field($model, 'med_rec_num')->textInput([
-        'value' => (time()*1000),
+        'value' => time(),
         'readonly' => true
+    ]); ?>
+
+    <?= $form->field($model, 'first_name')->textInput([
+        'placeholder' => 'First Name'
+    ]); ?>
+
+    <?= $form->field($model, 'last_name')->textInput([
+        'placeholder' => 'Last Name'
     ]); ?>
 
     <?= $form->field($model, 'ahca_num')->textInput(['placeholder' => '8 to 10 numbers']); ?>

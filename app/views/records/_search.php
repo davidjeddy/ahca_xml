@@ -19,9 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'record_id') ?>
 
-    <?= $form->field($model, 'ahca_num') ?>
+    <?php // echo $form->field($model, 'ahca_num') ?>
 
     <?= $form->field($model, 'med_rec_num') ?>
+
+    <?= $form->field($model, 'first_name') ?>
+
+    <?= $form->field($model, 'last_name') ?>
 
     <?= $form->field($model, 'ssn') ?>
 
