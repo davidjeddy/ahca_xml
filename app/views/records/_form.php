@@ -274,11 +274,15 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
+    <?= $form->field($model, 'other_diagnostics_icd9_codes')->textInput([
+        'placeholder' => 'Up to 9 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
+    ]); ?>
+
     <?php //This is a free form field, procedure codes != diag ICD9 codes; ?>
     <?= $form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
 
     <?= $form->field($model, 'other_procedure_icd9_codes')->textInput([
-        'placeholder' => 'Up to 4 ICD9 codes'
+        'placeholder' => 'Up to 4 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
     ]); ?>
 
     <?php
@@ -290,7 +294,7 @@ use dosamigos\datetimepicker\DateTimePicker;
      */
     ?>
     <?= $form->field($model, 'cpt_codes')->textInput([
-        'placeholder' => 'Comma seperated CPT codes (Exp: 12345, 23456, 34567).'
+        'placeholder' => 'Comma seperated CPT codes (Exp: 12345, 23456, 34567)'
     ]); ?>
 
 
