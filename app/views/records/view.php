@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <h2><span class="label label-primary">General Information:</span></h2>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -49,7 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'admission_source_id',
             'service_id',
             'princ_payer_id',
+        ],
+    ]) ?>
 
+    <h2><span class="label label-primary">Coding:</span></h2>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             // Media Coding
             'admitting_icd9_code_id',
             'icd9_code_id',
