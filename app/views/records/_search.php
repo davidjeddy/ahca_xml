@@ -43,7 +43,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'princ_payer_id') ?>
 
-    <?php // echo $form->field($model, 'idc9_code_id') ?>
+    <?php // echo $form->field($model, 'icd9_code_id') ?>
 
     <?php // echo $form->field($model, 'attending_pract_id') ?>
 
@@ -93,7 +93,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'ed_discharge_hour') ?>
 
-    <?php // echo $form->field($model, 'admitting_idc9_code_id') ?>
+    <?php // echo $form->field($model, 'admitting_icd9_code_id') ?>
 
     <?php // echo $form->field($model, 'prin_proc_code') ?>
 

@@ -52,6 +52,6 @@ class Icd9Code extends \yii\db\ActiveRecord
      */
     public function getRecords()
     {
-        return $this->hasMany(Records::className(), ['idc9_code_id' => 'icd9_code_id']);
+        return $this->hasMany(Records::className(), ['icd9_code_id' => 'icd9_code_id']);
     }
 }

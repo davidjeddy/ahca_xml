@@ -15,7 +15,7 @@ class Search extends records
     public function rules()
     {
         return [
-            [['record_id', 'ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'idc9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'er_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_idc9_code_id', 'patient_status_id'], 'integer'],
+            [['record_id', 'ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'icd9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'er_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
             [['ahca_num', 'med_rec_num', 'ssn', 'dob', 'zip', 'attending_pract_id', 'attending_pract_npi', 'operating_pract_id', 'operating_pract_npi', 'other_pract_id', 'other_pract_npi', 'visit_begin_date', 'visit_end_date', 'arrival_hour', 'ed_discharge_hour', 'prin_proc_code'], 'safe'],
         ];
     }
@@ -48,7 +48,7 @@ class Search extends records
             'service_id' => $this->service_id,
             'admission_source_id' => $this->admission_source_id,
             'princ_payer_id' => $this->princ_payer_id,
-            'idc9_code_id' => $this->idc9_code_id,
+            'icd9_code_id' => $this->icd9_code_id,
             'pharmacy_charges' => $this->pharmacy_charges,
             'med_surg_supply_charges' => $this->med_surg_supply_charges,
             'lab_charges' => $this->lab_charges,
@@ -65,7 +65,7 @@ class Search extends records
             'total_charges' => $this->total_charges,
             'visit_begin_date' => $this->visit_begin_date,
             'visit_end_date' => $this->visit_end_date,
-            'admitting_idc9_code_id' => $this->admitting_idc9_code_id,
+            'admitting_icd9_code_id' => $this->admitting_icd9_code_id,
             'patient_status_id' => $this->patient_status_id,
         ]);
 

@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "records".
  *
  * @property integer $admission_source_id
- * @property integer $admitting_idc9_code_id
+ * @property integer $admitting_icd9_code_id
  * @property integer $anesthesia_charges
  * @property integer $cardiology_charges
  * @property integer $country_id
@@ -16,7 +16,7 @@ use Yii;
  * @property integer $ethnicity_id
  * @property integer $extra_shock_charges
  * @property integer $gi_services_charges
- * @property integer $idc9_code_id
+ * @property integer $icd9_code_id
  * @property integer $lab_charges
  * @property integer $med_surg_supply_charges
  * @property integer $oper_room_charges
@@ -43,7 +43,7 @@ use Yii;
  * @property string $operating_pract_npi
  * @property string $other_pract_id
  * @property string $other_pract_npi
- * @property string $prin_proc_code
+ * @property string $prin_proc_icd9_code_id
  * @property string $ssn
  * @property string $visit_begin_date
  * @property string $visit_end_date
@@ -52,7 +52,7 @@ use Yii;
  * @property AdmissionSource $admissionSource
  * @property Country $county
  * @property Ethnicity $ethnicity
- * @property Icd9Code $idc9Code
+ * @property Icd9Code $icd9code
  * @property PatientStatus $patientStatus
  * @property PrincPayer $princPayer
  * @property Race $race
@@ -75,7 +75,7 @@ class Records extends \yii\db\ActiveRecord
     {
         return [
             [['ahca_num', 'med_rec_num', 'ssn', 'ethnicity_id', 'race_id', 'dob', 'sex_id', 'zip', 'country_id', 'visit_begin_date', 'arrival_hour'], 'required'],
-            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'idc9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'er_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_idc9_code_id', 'patient_status_id'], 'integer'],
+            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'icd9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'er_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['ahca_num', 'attending_pract_npi', 'operating_pract_npi', 'other_pract_npi'], 'string', 'max' => 10],
             [['med_rec_num'], 'string', 'max' => 24],
@@ -94,7 +94,7 @@ class Records extends \yii\db\ActiveRecord
     {
         return [
             'admission_source_id'     => 'Admission Source ID',
-            'admitting_idc9_code_id'  => 'Admitting IDC9 Code ID',
+            'admitting_icd9_code_id'  => 'Admitting ICD9 Code ID',
             'ahca_num'                => 'AHCA Number',
             'anesthesia_charges'      => 'Anesthesia Charges',
             'arrival_hour'            => 'Arrival Hour',
@@ -108,7 +108,7 @@ class Records extends \yii\db\ActiveRecord
             'ethnicity_id'            => 'Ethnicity',
             'extra_shock_charges'     => 'Extra Shock Charges',
             'gi_services_charges'     => 'GI Services Charges',
-            'idc9_code_id'            => 'IDC9 Code',
+            'icd9_code_id'            => 'ICD9 Code',
             'lab_charges'             => 'Lab Charges',
             'med_rec_num'             => 'Medical Record Number',
             'med_surg_supply_charges' => 'Medical Surgury Supply Charges',
@@ -150,7 +150,7 @@ class Records extends \yii\db\ActiveRecord
      */
     public function getIdc9Code()
     {
-        return $this->hasOne(Icd9Code::className(), ['icd9_code_id' => 'idc9_code_id']);
+        return $this->hasOne(Icd9Code::className(), ['icd9_code_id' => 'icd9_code_id']);
     }
 
     /**

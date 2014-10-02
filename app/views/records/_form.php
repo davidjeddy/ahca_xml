@@ -141,7 +141,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     echo Html::activeLabel($model, 'patient_status');
     echo Html::activeDropDownList(
         $model,
-        'idc9Code',
+        'icd9_code_id',
         ArrayHelper::map(
             PatientStatus::find()->all(),
             'patient_status_id',
@@ -241,14 +241,14 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
-    <?php //echo $form->field($model, 'idc9_code_id')->textInput(); ?>
+    <?php //echo $form->field($model, 'icd9_code_id')->textInput(); ?>
     <?php
     echo Html::activeLabel($model, 'icd9_code_id');
     echo Html::activeDropDownList(
         $model,
-        'idc9Code',
+        'icd9_code_id',
         ArrayHelper::map(
-            Icd9Code::find()->all(),
+            icd9Code::find()->all(),
             'icd9_code_id',
             'icd9_code_value',
             'icd9_code_description'
@@ -262,14 +262,14 @@ use dosamigos\datetimepicker\DateTimePicker;
 
 
 
-    <h2><span class="label label-primary">IDC9 Information:</span></h2>
+    <h2><span class="label label-primary">ICD9 Information:</span></h2>
 
-    <?= $form->field($model, 'admitting_idc9_code_id')->textInput([
-        'placeholder' => 'IDC9 code format',
+    <?= $form->field($model, 'admitting_icd9_code_id')->textInput([
+        'placeholder' => 'ICD9 code format',
         'pattern'     => '\b[EV]?\d{2,3}(?:\.\d{1,2})?\b'
     ]); ?>
 
-    <?= $form->field($model, 'prin_proc_code')->textInput([
+    <?= $form->field($model, 'prin_proc_icd9_code_id')->textInput([
         'placeholder' => 'Valid ICD9-CM Procedure Code',
         'type'        => 'mixed',
         'pattern'     => '\b[EV]?\d{2,3}(?:\.\d{1,2})?\b'
