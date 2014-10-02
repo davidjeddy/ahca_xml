@@ -37,6 +37,7 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
@@ -44,7 +45,9 @@ $config = [
                 '' => 'records/create/',
             ]
         ]
+        */
     ],
+    'defaultRoute' => 'records/create',
     'modules' => [
         'gii' => 'yii\gii\Module',
         'debug' => [
@@ -55,7 +58,7 @@ $config = [
     'params' => require(__DIR__ . '/params.php'),
 ];
 
-if (YII_ENV_DEV) {
+if (YII_DEBUG) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
