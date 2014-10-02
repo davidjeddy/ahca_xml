@@ -95,7 +95,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'admitting_icd9_code_id') ?>
 
-    <?php // echo $form->field($model, 'prin_proc_code') ?>
+    <?php // echo $form->field($model, 'prin_proc_icd9_code_id') ?>
 
     <?php // echo $form->field($model, 'patient_status_id') ?>
 

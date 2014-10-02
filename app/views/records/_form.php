@@ -290,14 +290,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'type'      => 'number',
         'pattern'   => '^[0-9]{11}*$'
     ]); ?>
-    
-    <?= $form->field($model, 'er_room_charges')->textInput([
-        'minlength' => 1,
-        'maxlength' => 11,
-        'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
-    ]); ?>
-    
+
     <?= $form->field($model, 'extra_shock_charges')->textInput([
         'minlength' => 1,
         'maxlength' => 11,
