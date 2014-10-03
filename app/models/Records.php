@@ -12,6 +12,7 @@ use Yii;
  * @property integer $anesthesia_charges
  * @property integer $cardiology_charges
  * @property integer $country_id
+ * @property integer $doctor_id
  * @property integer $ethnicity_id
  * @property integer $extra_shock_charges
  * @property integer $gi_services_charges
@@ -75,9 +76,9 @@ class Records extends \yii\db\ActiveRecord
             //[['admission_source_id'], 'integer']
             [['first_name', 'last_name', 'med_rec_num'], 'required'],
             [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'patient_status_id'], 'integer'],
-            [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
+            [['dob', 'doctor_id', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['med_rec_num', 'ssn', 'zip', 'arrival_hour'], 'integer'],
-            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_icd9_code'], 'string',]
+            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_icd9_code',], 'string',]
         ];
     }
 
@@ -98,6 +99,7 @@ class Records extends \yii\db\ActiveRecord
             'country_id'                   => 'County',
             'cpt_codes'                    => 'CPT Codes',
             'dob'                          => 'Date of Birth',
+            'doctor_id'                    => 'Doctor',
             'ethnicity_id'                 => 'Ethnicity',
             'extra_shock_charges'          => 'Extra Corp Shockwave Charges',
             'gi_services_charges'          => 'GI Services Charges',
@@ -157,6 +159,14 @@ class Records extends \yii\db\ActiveRecord
     public function getCounty()
     {
         return $this->hasOne(Country::className(), ['country_id' => 'country_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDoctor()
+    {
+        return $this->hasOne(Doctor::className(), ['doctor_id' => 'doctor_id']);
     }
 
     /**

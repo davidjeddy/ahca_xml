@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 
 use app\models\AdmissionSource;
 use app\models\Country;
+use app\models\Doctor;
 use app\models\Ethnicity;
 use app\models\Icd9Code;
 use app\models\PatientStatus;
@@ -347,6 +348,26 @@ use dosamigos\datetimepicker\DateTimePicker;
 
 
     <h2><span class="label label-primary">Practitioner Information:</span></h2>
+
+    <?php //$form->field($model, 'doctor_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'doctor');
+    echo Html::activeDropDownList(
+        $model,
+        'doctor_id',
+        ArrayHelper::map(
+            Doctor::find()->all(),
+            'doctor_id',
+            'doctor_first_name',
+            'doctor_last_name'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
