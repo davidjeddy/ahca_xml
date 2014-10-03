@@ -46,14 +46,17 @@ use dosamigos\datetimepicker\DateTimePicker;
         'placeholder' => 'Last Name'
     ]); ?>
 
-    <?php //$form->field($model, 'ahca_num')->textInput(['placeholder' => '8 to 10 numbers']); ?>
+    <?php $form->field($model, 'ahca_num')->textInput([
+        'placeholder' => '8 to 10 numbers',
+        'value' => '14960704',
+        'type' => 'hidden'
+    ]); ?>
 
     <?= $form->field($model, 'ssn')->textInput([
         'placeholder' => 'Full SSN (no dashes) OR last 4 SSN digits',
         'minlength'   => 4,
         'maxlength'   => 9,
-        'type'        => 'number',
-        'pattern'     => '^\d{9}$'
+        'type'        => 'number'
     ]); ?>
 
     <?php //$form->field($model, 'ethnicity_id')->textInput(); ?>
@@ -158,8 +161,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'placeholder' => '5 digit Zip code number',
         'minlength'   => 5,
         'maxlength'   => 5,
-        'type'        => 'number',
-        'pattern'     => '^\d{5}$'
+        'type'        => 'number'
     ]) ?>
 
     <?php //echo $form->field($model, 'country_id')->textInput(); ?>
@@ -179,50 +181,6 @@ use dosamigos\datetimepicker\DateTimePicker;
             'class'  => 'form-control'
         ]
     );
-    ?>
-
-
-    <?php //echo $form->field($model, 'admission_source_id')->textInput(); ?>
-    <?php
-    /*
-    echo Html::activeLabel($model, 'admission_source_id');
-    echo Html::activeDropDownList(
-        $model,
-        'admission_source_id',
-        ArrayHelper::map(
-            AdmissionSource::find()->all(),
-            'admission_source_id',
-            'admission_source_value',
-            'admission_source_description'
-        ),
-        [
-            'prompt' => 'Pick One',
-            'class'  => 'form-control'
-        ]
-    );
-    */
-    ?>
-
-    <?php //$form->field($model, 'service_id')->textInput() ?>
-    <?php
-    /*
-    echo Html::activeLabel($model, 'service_id');
-    echo Html::activeDropDownList(
-        $model,
-        'service_id',
-        ArrayHelper::map(
-            ServiceCode::find()->all(),
-            'servicecode_id',
-            'servicecode_value',
-            'servicecode_description'
-        ),
-        // @todo abstract this to app settings - DJE : 2014-09-30
-        [
-            'prompt' => 'Pick One',
-            'class'  => 'form-control'
-        ]
-    );
-    */
     ?>
 
     <?php //$form->field($model, 'princ_payer_id')->textInput(); ?>

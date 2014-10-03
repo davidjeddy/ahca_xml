@@ -74,12 +74,11 @@ class Records extends \yii\db\ActiveRecord
             //[['ahca_num', 'med_rec_num', 'ssn', 'ethnicity_id', 'race_id', 'dob', 'sex_id', 'zip', 'country_id', 'visit_begin_date', 'arrival_hour'], 'required'],
             //[['admission_source_id'], 'integer']
             [['first_name', 'last_name', 'med_rec_num'], 'required'],
-            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
+            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['med_rec_num'], 'string', 'max' => 24],
             [['ssn'], 'string', 'max' => 9],
-            [['zip'], 'string', 'max' => 5],
-            [['attending_pract_id', 'operating_pract_id'], 'string', 'max' => 12],
+            [['zip'], 'integer', 'min' => 11111, 'max' => 99999],
             [['arrival_hour'], 'string', 'max' => 2],
             [['prin_proc_icd9_code_id'], 'string', 'max' => 8]
         ];
