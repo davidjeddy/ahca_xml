@@ -82,10 +82,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'total_charges',
 
             // Practitioner(s)
-            'attending_pract_id',
-            'attending_pract_npi',
-            'operating_pract_id',
-            'operating_pract_npi',
 
             // Date & Time
             'arrival_hour',

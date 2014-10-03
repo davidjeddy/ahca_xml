@@ -33,18 +33,12 @@ use Yii;
  * @property integer $trauma_resp_charges
  * @property string $ahca_num
  * @property string $arrival_hour
- * @property string $attending_pract_id
- * @property string $attending_pract_npi
  * @property string $cpt_codes
  * @property string $dob
  * @property string $first_name
  * @property string $last_name
  * @property string $med_rec_num
- * @property string $operating_pract_id
- * @property string $operating_pract_npi
  * @property string $other_diagnostics_icd9_codes
- * @property string $other_pract_id
- * @property string $other_pract_npi
  * @property strong $other_procedure_icd9_codes
  * @property string $prin_proc_icd9_code_id
  * @property string $ssn
@@ -82,7 +76,6 @@ class Records extends \yii\db\ActiveRecord
             [['first_name', 'last_name', 'med_rec_num'], 'required'],
             [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
-            [['ahca_num', 'attending_pract_npi', 'operating_pract_npi'], 'string', 'max' => 10],
             [['med_rec_num'], 'string', 'max' => 24],
             [['ssn'], 'string', 'max' => 9],
             [['zip'], 'string', 'max' => 5],
@@ -105,8 +98,6 @@ class Records extends \yii\db\ActiveRecord
             'ahca_num'                     => 'AHCA Number',
             'anesthesia_charges'           => 'Anesthesia Charges',
             'arrival_hour'                 => 'Arrival Hour',
-            'attending_pract_id'           => 'Attending Practitioner State ID',
-            'attending_pract_npi'          => 'Attending Practitioner NPI',
             'cardiology_charges'           => 'Cardiology Charges',
             'country_id'                   => 'County',
             'cpt_codes'                    => 'CPT Codes',
@@ -119,12 +110,8 @@ class Records extends \yii\db\ActiveRecord
             'med_rec_num'                  => 'Medical Record Number',
             'med_surg_supply_charges'      => 'Medical Surgury Supply Charges',
             'oper_room_charges'            => 'Operating Room Charges',
-            'operating_pract_id'           => 'Operating Practitioner State ID',
-            'operating_pract_npi'          => 'Operating Practitioner NPI',
             'other_charges'                => 'Other Charges',
             'other_diagnostics_icd9_codes' => 'Other Diagnotics ICD9 Codes',
-            //'other_pract_id'               => 'Other Practitioner State ID',
-            //'other_pract_npi'              => 'Other Practitioner NPI',
             'other_procedure_icd9_codes'   => 'Other Procedure ICD9 Codes',
             'patient_status_id'            => 'Patient Discharge Status',
             'pharmacy_charges'             => 'Pharmacy Charges',

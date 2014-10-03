@@ -387,32 +387,9 @@ use dosamigos\datetimepicker\DateTimePicker;
         'class'     => 'form-control'
     ]); ?>
 
+
+
     <h2><span class="label label-primary">Practitioner(s) Information:</span></h2>
-
-    <?= $form->field($model, 'attending_pract_id')->textInput([
-        'placeholder' => '12 character alphanumeric',
-        'minlength'   => 12,
-        'maxlength'   => 12
-    ]); ?>
-
-    <?= $form->field($model, 'attending_pract_npi')->textInput([
-        'placeholder' => '10 digits',
-        'minlength'   => 10,
-        'maxlength'   => 10
-    ]); ?>
-
-    <?= $form->field($model, 'operating_pract_id')->textInput([
-        'placeholder' => '12 character alphanumeric',
-        'minlength'   => 12,
-        'maxlength'   => 12
-    ]); ?>
-
-    <?= $form->field($model, 'operating_pract_npi')->textInput([
-        'placeholder' => '10 digits',
-        'minlength'   => 10,
-        'maxlength'   => 10
-    ]); ?>
-
 
 
 

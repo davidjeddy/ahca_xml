@@ -51,18 +51,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'icd9_code_id') ?>
 
-    <?php // echo $form->field($model, 'attending_pract_id') ?>
-
-    <?php // echo $form->field($model, 'attending_pract_npi') ?>
-
-    <?php // echo $form->field($model, 'operating_pract_id') ?>
-
-    <?php // echo $form->field($model, 'operating_pract_npi') ?>
-
-    <?php // echo $form->field($model, 'other_pract_id') ?>
-
-    <?php // echo $form->field($model, 'other_pract_npi') ?>
-
     <?php // echo $form->field($model, 'pharmacy_charges') ?>
 
     <?php // echo $form->field($model, 'med_surg_supply_charges') ?>
