@@ -97,13 +97,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'doctor_id',
-            'doctor_first_name',
-            'doctor_first_last',
-            'doctor_npsi',
-            'doctor_state_lic'
         ],
     ]) ?>
-
 
 
     <h2><span class="label label-primary">Dates and Times:</span></h2>

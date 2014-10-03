@@ -8,21 +8,29 @@ use Yii;
  * This is the model class for table "records".
  *
  * @property integer $admission_source_id
- * @property integer $admitting_icd9_code
+ * @property string $admitting_icd9_code
+ * @property string $ahca_num
  * @property integer $anesthesia_charges
+ * @property string $arrival_hour
  * @property integer $cardiology_charges
  * @property integer $country_id
+ * @property string $cpt_codes
  * @property integer $doctor_id
+ * @property string $dob
  * @property integer $ethnicity_id
  * @property integer $extra_shock_charges
+ * @property string $first_name
  * @property integer $gi_services_charges
- * @property integer $primary_diag_icd9_code
  * @property integer $lab_charges
+ * @property string $last_name
+ * @property string $med_rec_num
  * @property integer $med_surg_supply_charges
  * @property integer $oper_room_charges
  * @property integer $other_charges
  * @property integer $patient_status_id
  * @property integer $pharmacy_charges
+ * @property string $primary_diag_icd9_code
+ * @property string $prin_proc_icd9_code
  * @property integer $princ_payer_id
  * @property integer $race_id
  * @property integer $radiology_charges
@@ -30,27 +38,18 @@ use Yii;
  * @property integer $recovery_room_charges
  * @property integer $service_id
  * @property integer $sex_id
+ * @property integer $ssn
  * @property integer $total_charges
+ * @property string $other_procedure_icd9_codes
  * @property integer $trauma_resp_charges
- * @property string $ahca_num
- * @property string $arrival_hour
- * @property string $cpt_codes
- * @property string $dob
- * @property string $first_name
- * @property string $last_name
- * @property string $med_rec_num
- * @property string $other_diagnostics_icd9_codes
- * @property strong $other_procedure_icd9_codes
- * @property string $prin_proc_icd9_code
- * @property string $ssn
  * @property string $visit_begin_date
  * @property string $visit_end_date
- * @property string $zip
+ * @property integer $zip
+ * @property string $other_diagnostics_icd9_codes
  *
- * @property AdmissionSource $admissionSource
- * @property Country $county
+ * @property Doctor $doctor
+ * @property Country $country
  * @property Ethnicity $ethnicity
- * @property Icd9Code $icd9code
  * @property PatientStatus $patientStatus
  * @property PrincPayer $princPayer
  * @property Race $race
@@ -72,13 +71,17 @@ class Records extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //[['ahca_num', 'med_rec_num', 'ssn', 'ethnicity_id', 'race_id', 'dob', 'sex_id', 'zip', 'country_id', 'visit_begin_date', 'arrival_hour'], 'required'],
-            //[['admission_source_id'], 'integer']
-            [['first_name', 'last_name', 'med_rec_num'], 'required'],
-            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'patient_status_id'], 'integer'],
-            [['dob', 'doctor_id', 'visit_begin_date', 'visit_end_date'], 'safe'],
-            [['med_rec_num', 'ssn', 'zip', 'arrival_hour'], 'integer'],
-            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_icd9_code',], 'string',]
+            [['admission_source_id', 'anesthesia_charges', 'cardiology_charges', 'country_id', 'doctor_id', 'ethnicity_id', 'extra_shock_charges', 'gi_services_charges', 'lab_charges', 'med_surg_supply_charges', 'oper_room_charges', 'other_charges', 'patient_status_id', 'pharmacy_charges', 'princ_payer_id', 'race_id', 'radiology_charges', 'recovery_room_charges', 'service_id', 'sex_id', 'ssn', 'total_charges', 'trauma_resp_charges', 'zip'], 'integer'],
+            [['arrival_hour'], 'number'],
+            [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
+            [['first_name', 'last_name'], 'required'],
+            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_icd9_code'], 'string', 'max' => 6],
+            [['ahca_num'], 'string', 'max' => 10],
+            [['cpt_codes'], 'string', 'max' => 210],
+            [['first_name', 'last_name'], 'string', 'max' => 32],
+            [['med_rec_num'], 'string', 'max' => 24],
+            [['other_procedure_icd9_codes'], 'string', 'max' => 36],
+            [['other_diagnostics_icd9_codes'], 'string', 'max' => 72]
         ];
     }
 
@@ -88,77 +91,46 @@ class Records extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'fist_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'admission_source_id'          => 'Admission Source',
-            'admitting_icd9_code'       => 'Admitting ICD9 Code',
-            'ahca_num'                     => 'AHCA Number',
+            'admission_source_id'          => 'Sorted columns alphabetically before anyone started added data. This is the core TBO of the DB.',
+            'admitting_icd9_code'          => 'Admitting Icd9 Code',
+            'ahca_num'                     => 'Ahca Num',
             'anesthesia_charges'           => 'Anesthesia Charges',
             'arrival_hour'                 => 'Arrival Hour',
             'cardiology_charges'           => 'Cardiology Charges',
-            'country_id'                   => 'County',
-            'cpt_codes'                    => 'CPT Codes',
-            'dob'                          => 'Date of Birth',
-            'doctor_id'                    => 'Doctor',
-            'ethnicity_id'                 => 'Ethnicity',
-            'extra_shock_charges'          => 'Extra Corp Shockwave Charges',
-            'gi_services_charges'          => 'GI Services Charges',
-            'primary_diag_icd9_code'                 => 'Primary Diagnostic ICD9 Code',
+            'country_id'                   => 'Country ID',
+            'cpt_codes'                    => 'Cpt Codes',
+            'doctor_id'                    => 'Doctor ID',
+            'dob'                          => 'Dob',
+            'ethnicity_id'                 => 'Ethnicity ID',
+            'extra_shock_charges'          => 'Extra Shock Charges',
+            'first_name'                   => 'First Name',
+            'gi_services_charges'          => 'Gi Services Charges',
             'lab_charges'                  => 'Lab Charges',
-            'med_rec_num'                  => 'Medical Record Number',
-            'med_surg_supply_charges'      => 'Medical Surgury Supply Charges',
-            'oper_room_charges'            => 'Operating Room Charges',
+            'last_name'                    => 'Last Name',
+            'med_rec_num'                  => 'Med Rec Num',
+            'med_surg_supply_charges'      => 'Med Surg Supply Charges',
+            'oper_room_charges'            => 'Oper Room Charges',
             'other_charges'                => 'Other Charges',
-            'other_diagnostics_icd9_codes' => 'Other Diagnotics ICD9 Codes',
-            'patient_status_id'            => 'Patient Discharge Status',
+            'patient_status_id'            => 'Patient Status ID',
             'pharmacy_charges'             => 'Pharmacy Charges',
-            'prin_proc_icd9_code'       => 'Principle Procedure ICD9 Code',
-            'princ_payer_id'               => 'Principle Payer ID',
-            'race_id'                      => 'Race',
+            'primary_diag_icd9_code'       => 'Primary Diag Icd9 Code',
+            'prin_proc_icd9_code'          => 'Prin Proc Icd9 Code',
+            'princ_payer_id'               => 'Princ Payer ID',
+            'race_id'                      => 'Race ID',
             'radiology_charges'            => 'Radiology Charges',
             'record_id'                    => 'Record ID',
             'recovery_room_charges'        => 'Recovery Room Charges',
-            'service_id'                   => 'Service Type',
-            'sex_id'                       => 'Sex',
-            'ssn'                          => 'Social Security Number',
+            'service_id'                   => 'Service ID',
+            'sex_id'                       => 'Sex ID',
+            'ssn'                          => 'Ssn',
             'total_charges'                => 'Total Charges',
-            'trauma_resp_charges'          => 'Trauma Respiratory Charges',
+            'other_procedure_icd9_codes'   => 'Other Procedure Icd9 Codes',
+            'trauma_resp_charges'          => 'Trauma Resp Charges',
             'visit_begin_date'             => 'Visit Begin Date',
             'visit_end_date'               => 'Visit End Date',
-            'zip'                          => 'Zip / Postal Code',
+            'zip'                          => 'Zip',
+            'other_diagnostics_icd9_codes' => 'Other Diagnostics Icd9 Codes',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAdmissionSource()
-    {
-        return $this->hasOne(AdmissionSource::className(), ['admission_source_id' => 'admission_source_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPrincPayer()
-    {
-        return $this->hasOne(PrincPayer::className(), ['princ_payer_id' => 'princ_payer_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPatientStatus()
-    {
-        return $this->hasOne(PatientStatus::className(), ['patient_status_id' => 'patient_status_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCounty()
-    {
-        return $this->hasOne(Country::className(), ['country_id' => 'country_id']);
     }
 
     /**
@@ -172,9 +144,33 @@ class Records extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getCountry()
+    {
+        return $this->hasOne(Country::className(), ['country_id' => 'country_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getEthnicity()
     {
         return $this->hasOne(Ethnicity::className(), ['ethnicity_id' => 'ethnicity_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPatientStatus()
+    {
+        return $this->hasOne(PatientStatus::className(), ['patient_status_id' => 'patient_status_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPrincPayer()
+    {
+        return $this->hasOne(PrincPayer::className(), ['princ_payer_id' => 'princ_payer_id']);
     }
 
     /**
