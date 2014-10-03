@@ -46,10 +46,10 @@ use dosamigos\datetimepicker\DateTimePicker;
         'placeholder' => 'Last Name'
     ]); ?>
 
-    <?= $form->field($model, 'ahca_num')->textInput(['placeholder' => '8 to 10 numbers']); ?>
+    <?php //$form->field($model, 'ahca_num')->textInput(['placeholder' => '8 to 10 numbers']); ?>
 
     <?= $form->field($model, 'ssn')->textInput([
-        'placeholder' => 'Full SSN (no dashes) OR last 4 digits of SSN',
+        'placeholder' => 'Full SSN (no dashes) OR last 4 SSN digits',
         'minlength'   => 4,
         'maxlength'   => 9,
         'type'        => 'number',
@@ -137,7 +137,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <?php //echo $form->field($model, 'patient_status_id')->textInput(); ?>
     <?php
-    echo Html::activeLabel($model, 'patient_status');
+    echo Html::activeLabel($model, 'patient_discharge_status');
     echo Html::activeDropDownList(
         $model,
         'patient_status_id',
@@ -184,6 +184,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <?php //echo $form->field($model, 'admission_source_id')->textInput(); ?>
     <?php
+    /*
     echo Html::activeLabel($model, 'admission_source_id');
     echo Html::activeDropDownList(
         $model,
@@ -199,10 +200,12 @@ use dosamigos\datetimepicker\DateTimePicker;
             'class'  => 'form-control'
         ]
     );
+    */
     ?>
 
     <?php //$form->field($model, 'service_id')->textInput() ?>
     <?php
+    /*
     echo Html::activeLabel($model, 'service_id');
     echo Html::activeDropDownList(
         $model,
@@ -219,6 +222,7 @@ use dosamigos\datetimepicker\DateTimePicker;
             'class'  => 'form-control'
         ]
     );
+    */
     ?>
 
     <?php //$form->field($model, 'princ_payer_id')->textInput(); ?>
@@ -244,63 +248,32 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <h2><span class="label label-primary">Coding:</span></h2>
 
-    <?php //$form->field($model, 'admitting_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
-    <?php
-    echo Html::activeLabel($model, 'admitting_icd9_code_id');
-    echo Html::activeDropDownList(
-        $model,
-        'icd9_code_id',
-        ArrayHelper::map(
-            icd9Code::find()->all(),
-            'icd9_code_id',
-            'icd9_code_value',
-            'icd9_code_description'
-        ),
-        [
-            'prompt' => 'Pick One',
-            'class'  => 'form-control'
-        ]
-    );
-    ?>
+    <?= $form->field($model, 'admitting_icd9_code_id')->textInput([
+        'placeholder' => 'Single ICD9 code number',
+        'minlength' => 1,
+        'maxlength' => 11
+    ]); ?>
 
-    <?php //echo $form->field($model, 'icd9_code_id')->textInput(); ?>
-    <?php
-    echo Html::activeLabel($model, 'icd9_code_id');
-    echo Html::activeDropDownList(
-        $model,
-        'icd9_code_id',
-        ArrayHelper::map(
-            icd9Code::find()->all(),
-            'icd9_code_id',
-            'icd9_code_value',
-            'icd9_code_description'
-        ),
-        [
-            'prompt' => 'Pick One',
-            'class'  => 'form-control'
-        ]
-    );
-    ?>
+    <?= $form->field($model, 'icd9_code_id')->textInput([
+        'placeholder' => 'Single ICD9 code number',
+        'minlength' => 1,
+        'maxlength' => 11
+    ]); ?>
 
     <?= $form->field($model, 'other_diagnostics_icd9_codes')->textInput([
         'placeholder' => 'Up to 9 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
     ]); ?>
 
     <?php //This is a free form field, procedure codes != diag ICD9 codes; ?>
-    <?= $form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
-
-    <?= $form->field($model, 'other_procedure_icd9_codes')->textInput([
-        'placeholder' => 'Up to 4 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
-    ]); ?>
+    <?php // $form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
 
     <?php
-    /**
-     * CPT code.
-     * Require 1, upto 30 CPT codes.
-     * Comma seperatd.
-     * @todo Add CPT codes here; ?>
+    /* $form->field($model, 'other_procedure_icd9_codes')->textInput([
+        'placeholder' => 'Up to 4 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
+     ]);
      */
     ?>
+
     <?= $form->field($model, 'cpt_codes')->textInput([
         'placeholder' => 'Comma seperated CPT codes (Exp: 12345, 23456, 34567)'
     ]); ?>
@@ -315,7 +288,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'cardiology_charges')->textInput([
@@ -323,7 +296,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
 
     <?= $form->field($model, 'extra_shock_charges')->textInput([
@@ -331,7 +304,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'gi_services_charges')->textInput([
@@ -339,7 +312,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'lab_charges')->textInput([
@@ -347,7 +320,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'med_surg_supply_charges')->textInput([
@@ -355,7 +328,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'oper_room_charges')->textInput([
@@ -363,7 +336,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'other_charges')->textInput([
@@ -371,7 +344,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'pharmacy_charges')->textInput([
@@ -379,7 +352,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'radiology_charges')->textInput([
@@ -387,7 +360,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-          'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'recovery_room_charges')->textInput([
@@ -395,15 +368,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
-    ]); ?>
-    
-    <?= $form->field($model, 'total_charges')->textInput([
-        'placeholder' => 'Whole number',
-        'minlength' => 1,
-        'maxlength' => 11,
-        'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
     
     <?= $form->field($model, 'trauma_resp_charges')->textInput([
@@ -411,60 +376,43 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minlength' => 1,
         'maxlength' => 11,
         'type'      => 'number',
-        'pattern'   => '^[0-9]{11}*$'
+        'class'     => 'form-control charge'
     ]); ?>
 
-
+    <?= $form->field($model, 'total_charges')->textInput([
+        'placeholder' => 'Whole number',
+        'minlength' => 1,
+        'maxlength' => 11,
+        'type'      => 'number',
+        'class'     => 'form-control'
+    ]); ?>
 
     <h2><span class="label label-primary">Practitioner(s) Information:</span></h2>
 
     <?= $form->field($model, 'attending_pract_id')->textInput([
         'placeholder' => '12 character alphanumeric',
         'minlength'   => 12,
-        'maxlength'   => 12,
-        'type'        => 'mixed',
-        'pattern'     => '^\d{a-zA-z0-9}$'
+        'maxlength'   => 12
     ]); ?>
 
     <?= $form->field($model, 'attending_pract_npi')->textInput([
         'placeholder' => '10 digits',
         'minlength'   => 10,
-        'maxlength'   => 10,
-        'type'        => 'mixed',
-        'pattern'     => '^\d{a-zA-z0-9}$'
+        'maxlength'   => 10
     ]); ?>
 
     <?= $form->field($model, 'operating_pract_id')->textInput([
         'placeholder' => '12 character alphanumeric',
         'minlength'   => 12,
-        'maxlength'   => 12,
-        'type'        => 'mixed',
-        'pattern'     => '^\d{a-zA-z0-9}$'
+        'maxlength'   => 12
     ]); ?>
 
     <?= $form->field($model, 'operating_pract_npi')->textInput([
         'placeholder' => '10 digits',
         'minlength'   => 10,
-        'maxlength'   => 10,
-        'type'        => 'mixed',
-        'pattern'     => '^\d{a-zA-z0-9}$'
+        'maxlength'   => 10
     ]); ?>
 
-    <?= $form->field($model, 'other_pract_id')->textInput([
-        'placeholder' => '12 character alphanumeric',
-        'minlength'   => 12,
-        'maxlength'   => 12,
-        'type'        => 'mixed',
-        'pattern'     => '^\d{a-zA-z0-9}$'
-    ]); ?>
-
-    <?= $form->field($model, 'other_pract_npi')->textInput([
-        'placeholder' => '10 digits',
-        'minlength'   => 10,
-        'maxlength'   => 10,
-        'type'        => 'mixed',
-        'pattern'     => '^\d{a-zA-z0-9}$'
-    ]); ?>
 
 
 

@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'med_rec_num',
             'first_name',
             'last_name',
-            'ahca_num',
+            //'ahca_num',
             'ssn',
             'ethnicity_id',
             'race_id',
@@ -47,8 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'patient_status_id',
             'zip',
             'country_id',
-            'admission_source_id',
-            'service_id',
+            // 'admission_source_id',
+            //'service_id',
             'princ_payer_id',
         ],
     ]) ?>
@@ -61,9 +61,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'admitting_icd9_code_id',
             'icd9_code_id',
             'other_diagnostics_icd9_codes',
-            'prin_proc_icd9_code_id',
+            //'prin_proc_icd9_code_id',
             'other_diagnostics_icd9_codes',
-            'other_procedure_icd9_codes',
+            //'other_procedure_icd9_codes',
             'cpt_codes',
 
             // Charges
@@ -78,16 +78,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'pharmacy_charges',
             'radiology_charges',
             'recovery_room_charges',
-            'total_charges',
             'trauma_resp_charges',
+            'total_charges',
 
             // Practitioner(s)
             'attending_pract_id',
             'attending_pract_npi',
             'operating_pract_id',
             'operating_pract_npi',
-            'other_pract_id',
-            'other_pract_npi',
 
             // Date & Time
             'arrival_hour',

@@ -78,14 +78,15 @@ class Records extends \yii\db\ActiveRecord
     {
         return [
             //[['ahca_num', 'med_rec_num', 'ssn', 'ethnicity_id', 'race_id', 'dob', 'sex_id', 'zip', 'country_id', 'visit_begin_date', 'arrival_hour'], 'required'],
+            //[['admission_source_id'], 'integer']
             [['first_name', 'last_name', 'med_rec_num'], 'required'],
-            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'icd9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
+            [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
-            [['ahca_num', 'attending_pract_npi', 'operating_pract_npi', 'other_pract_npi'], 'string', 'max' => 10],
+            [['ahca_num', 'attending_pract_npi', 'operating_pract_npi'], 'string', 'max' => 10],
             [['med_rec_num'], 'string', 'max' => 24],
             [['ssn'], 'string', 'max' => 9],
             [['zip'], 'string', 'max' => 5],
-            [['attending_pract_id', 'operating_pract_id', 'other_pract_id'], 'string', 'max' => 12],
+            [['attending_pract_id', 'operating_pract_id'], 'string', 'max' => 12],
             [['arrival_hour'], 'string', 'max' => 2],
             [['prin_proc_icd9_code_id'], 'string', 'max' => 8]
         ];
@@ -122,10 +123,10 @@ class Records extends \yii\db\ActiveRecord
             'operating_pract_npi'          => 'Operating Practitioner NPI',
             'other_charges'                => 'Other Charges',
             'other_diagnostics_icd9_codes' => 'Other Diagnotics ICD9 Codes',
-            'other_pract_id'               => 'Other Practitioner State ID',
-            'other_pract_npi'              => 'Other Practitioner NPI',
+            //'other_pract_id'               => 'Other Practitioner State ID',
+            //'other_pract_npi'              => 'Other Practitioner NPI',
             'other_procedure_icd9_codes'   => 'Other Procedure ICD9 Codes',
-            'patient_status_id'            => 'Patient Status ID',
+            'patient_status_id'            => 'Patient Discharge Status',
             'pharmacy_charges'             => 'Pharmacy Charges',
             'prin_proc_icd9_code_id'       => 'Principle Procedure ICD9 Code',
             'princ_payer_id'               => 'Principle Payer ID',

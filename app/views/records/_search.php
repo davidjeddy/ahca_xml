@@ -33,7 +33,9 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'race_id') ?>
 
-    <?php // echo $form->field($model, 'dob') ?>
+    <?php echo $form->field($model, 'dob')->textInput([
+        'placeholder' => 'YYYY-MM-DD format'
+    ]); ?>
 
     <?php // echo $form->field($model, 'sex_id') ?>
 
