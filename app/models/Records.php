@@ -40,7 +40,7 @@ use Yii;
  * @property string $med_rec_num
  * @property string $other_diagnostics_icd9_codes
  * @property strong $other_procedure_icd9_codes
- * @property string $prin_proc_primary_diag_icd9_code
+ * @property string $prin_proc_icd9_code
  * @property string $ssn
  * @property string $visit_begin_date
  * @property string $visit_end_date
@@ -77,7 +77,7 @@ class Records extends \yii\db\ActiveRecord
             [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['med_rec_num', 'ssn', 'zip', 'arrival_hour'], 'integer'],
-            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_primary_diag_icd9_code'], 'string',]
+            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_icd9_code'], 'string',]
         ];
     }
 
@@ -110,7 +110,7 @@ class Records extends \yii\db\ActiveRecord
             'other_diagnostics_icd9_codes' => 'Other Diagnotics ICD9 Codes',
             'patient_status_id'            => 'Patient Discharge Status',
             'pharmacy_charges'             => 'Pharmacy Charges',
-            'prin_proc_primary_diag_icd9_code'       => 'Principle Procedure ICD9 Code',
+            'prin_proc_icd9_code'       => 'Principle Procedure ICD9 Code',
             'princ_payer_id'               => 'Principle Payer ID',
             'race_id'                      => 'Race',
             'radiology_charges'            => 'Radiology Charges',

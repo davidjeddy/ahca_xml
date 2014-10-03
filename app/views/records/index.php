@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'visit_end_date',
             // 'arrival_hour',
             // 'admitting_icd9_code',
-            // 'prin_proc_primary_diag_icd9_code',
+            // 'prin_proc_icd9_code',
             // 'patient_status_id',
             ['class' => 'yii\grid\ActionColumn'],
         ],

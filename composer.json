@@ -30,6 +30,7 @@
             "phpdocumentor/phpdocumentor": "2.0.*@dev",
             "phpunit/phpunit": "4.2.6",
             "sebastian/phpcpd": "*",
+            "phpunit/php-code-coverage": "2.*",
             "yiisoft/yii2-gii": "*",
 
             "yiisoft/yii2": "*",
