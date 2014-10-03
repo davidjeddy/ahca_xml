@@ -83,7 +83,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'arrival_hour') ?>
 
-    <?php // echo $form->field($model, 'admitting_primary_diag_icd9_code') ?>
+    <?php // echo $form->field($model, 'admitting_icd9_code') ?>
 
     <?php // echo $form->field($model, 'prin_proc_primary_diag_icd9_code') ?>
 

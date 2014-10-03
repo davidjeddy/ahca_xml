@@ -207,7 +207,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <h2><span class="label label-primary">Coding:</span></h2>
 
-    <?= $form->field($model, 'admitting_primary_diag_icd9_code')->textInput([
+    <?= $form->field($model, 'admitting_icd9_code')->textInput([
         'placeholder' => 'Single ICD9 code number',
         'minlength' => 1,
         'maxlength' => 6
@@ -346,7 +346,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 
 
 
-    <h2><span class="label label-primary">Practitioner(s) Information:</span></h2>
+    <h2><span class="label label-primary">Practitioner Information:</span></h2>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>

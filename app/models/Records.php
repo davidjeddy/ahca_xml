@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "records".
  *
  * @property integer $admission_source_id
- * @property integer $admitting_primary_diag_icd9_code
+ * @property integer $admitting_icd9_code
  * @property integer $anesthesia_charges
  * @property integer $cardiology_charges
  * @property integer $country_id
@@ -77,7 +77,7 @@ class Records extends \yii\db\ActiveRecord
             [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['med_rec_num', 'ssn', 'zip', 'arrival_hour'], 'integer'],
-            [['admitting_primary_diag_icd9_code', 'primary_diag_icd9_code', 'prin_proc_primary_diag_icd9_code'], 'string',]
+            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_primary_diag_icd9_code'], 'string',]
         ];
     }
 
@@ -90,7 +90,7 @@ class Records extends \yii\db\ActiveRecord
             'fist_name' => 'First Name',
             'last_name' => 'Last Name',
             'admission_source_id'          => 'Admission Source',
-            'admitting_primary_diag_icd9_code'       => 'Admitting ICD9 Code',
+            'admitting_icd9_code'       => 'Admitting ICD9 Code',
             'ahca_num'                     => 'AHCA Number',
             'anesthesia_charges'           => 'Anesthesia Charges',
             'arrival_hour'                 => 'Arrival Hour',

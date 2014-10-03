@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             // Media Coding
-            'admitting_primary_diag_icd9_code',
+            'admitting_icd9_code',
             'primary_diag_icd9_code',
             'other_diagnostics_icd9_codes',
             'cpt_codes',
@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-    <h2><span class="label label-primary">Practitioner(s) Information:</span></h2>
+    <h2><span class="label label-primary">Practitioner Information:</span></h2>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
