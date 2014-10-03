@@ -24,4 +24,8 @@ $(document).ready(function(){
 	$('.charge, #records-total_charges').on('keyup', function(){
 		sumCharges();
 	});
+
+	$("#records-country_id option").filter(function() {
+	    return this.text == "United States"; 
+	}).attr('selected', true);
 });
