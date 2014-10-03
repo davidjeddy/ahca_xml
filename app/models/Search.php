@@ -15,8 +15,8 @@ class Search extends records
     public function rules()
     {
         return [
-            [['record_id', 'ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'icd9_code_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_icd9_code_id', 'patient_status_id'], 'integer'],
-            [['ahca_num', 'med_rec_num', 'ssn', 'dob', 'zip', 'visit_begin_date', 'visit_end_date', 'arrival_hour', 'prin_proc_icd9_code_id'], 'safe'],
+            [['record_id', 'ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id', 'admission_source_id', 'princ_payer_id', 'primary_diag_icd9_code', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'admitting_primary_diag_icd9_code', 'patient_status_id'], 'integer'],
+            [['ahca_num', 'med_rec_num', 'ssn', 'dob', 'zip', 'visit_begin_date', 'visit_end_date', 'arrival_hour', 'prin_proc_primary_diag_icd9_code'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class Search extends records
 
         $query->andFilterWhere([
             'admission_source_id'     => $this->admission_source_id,
-            'admitting_icd9_code_id'  => $this->admitting_icd9_code_id,
+            'admitting_primary_diag_icd9_code'  => $this->admitting_primary_diag_icd9_code,
             'anesthesia_charges'      => $this->anesthesia_charges,
             'cardiology_charges'      => $this->cardiology_charges,
             'country_id'              => $this->country_id,
@@ -48,7 +48,7 @@ class Search extends records
             'ethnicity_id'            => $this->ethnicity_id,
             'extra_shock_charges'     => $this->extra_shock_charges,
             'gi_services_charges'     => $this->gi_services_charges,
-            'icd9_code_id'            => $this->icd9_code_id,
+            'primary_diag_icd9_code'            => $this->primary_diag_icd9_code,
             'lab_charges'             => $this->lab_charges,
             'med_surg_supply_charges' => $this->med_surg_supply_charges,
             'oper_room_charges'       => $this->oper_room_charges,
@@ -73,7 +73,7 @@ class Search extends records
             ->andFilterWhere(['like', 'ssn', $this->ssn])
             ->andFilterWhere(['like', 'zip', $this->zip])
             ->andFilterWhere(['like', 'arrival_hour', $this->arrival_hour])
-            ->andFilterWhere(['like', 'prin_proc_icd9_code_id', $this->prin_proc_icd9_code_id]);
+            ->andFilterWhere(['like', 'prin_proc_primary_diag_icd9_code', $this->prin_proc_primary_diag_icd9_code]);
 
         return $dataProvider;
     }

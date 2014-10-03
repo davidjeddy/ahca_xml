@@ -8,14 +8,14 @@ use Yii;
  * This is the model class for table "records".
  *
  * @property integer $admission_source_id
- * @property integer $admitting_icd9_code_id
+ * @property integer $admitting_primary_diag_icd9_code
  * @property integer $anesthesia_charges
  * @property integer $cardiology_charges
  * @property integer $country_id
  * @property integer $ethnicity_id
  * @property integer $extra_shock_charges
  * @property integer $gi_services_charges
- * @property integer $icd9_code_id
+ * @property integer $primary_diag_icd9_code
  * @property integer $lab_charges
  * @property integer $med_surg_supply_charges
  * @property integer $oper_room_charges
@@ -40,7 +40,7 @@ use Yii;
  * @property string $med_rec_num
  * @property string $other_diagnostics_icd9_codes
  * @property strong $other_procedure_icd9_codes
- * @property string $prin_proc_icd9_code_id
+ * @property string $prin_proc_primary_diag_icd9_code
  * @property string $ssn
  * @property string $visit_begin_date
  * @property string $visit_end_date
@@ -76,11 +76,8 @@ class Records extends \yii\db\ActiveRecord
             [['first_name', 'last_name', 'med_rec_num'], 'required'],
             [['ethnicity_id', 'race_id', 'sex_id', 'country_id', 'service_id',  'princ_payer_id', 'pharmacy_charges', 'med_surg_supply_charges', 'lab_charges', 'radiology_charges', 'cardiology_charges', 'oper_room_charges', 'anesthesia_charges', 'recovery_room_charges', 'trauma_resp_charges', 'gi_services_charges', 'extra_shock_charges', 'other_charges', 'total_charges', 'patient_status_id'], 'integer'],
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
-            [['med_rec_num'], 'string', 'max' => 24],
-            [['ssn'], 'string', 'max' => 9],
-            [['zip'], 'integer', 'min' => 11111, 'max' => 99999],
-            [['arrival_hour'], 'string', 'max' => 2],
-            [['prin_proc_icd9_code_id'], 'string', 'max' => 8]
+            [['med_rec_num', 'ssn', 'zip', 'arrival_hour'], 'integer'],
+            [['admitting_primary_diag_icd9_code', 'primary_diag_icd9_code', 'prin_proc_primary_diag_icd9_code'], 'string',]
         ];
     }
 
@@ -93,7 +90,7 @@ class Records extends \yii\db\ActiveRecord
             'fist_name' => 'First Name',
             'last_name' => 'Last Name',
             'admission_source_id'          => 'Admission Source',
-            'admitting_icd9_code_id'       => 'Admitting ICD9 Code',
+            'admitting_primary_diag_icd9_code'       => 'Admitting ICD9 Code',
             'ahca_num'                     => 'AHCA Number',
             'anesthesia_charges'           => 'Anesthesia Charges',
             'arrival_hour'                 => 'Arrival Hour',
@@ -104,17 +101,16 @@ class Records extends \yii\db\ActiveRecord
             'ethnicity_id'                 => 'Ethnicity',
             'extra_shock_charges'          => 'Extra Corp Shockwave Charges',
             'gi_services_charges'          => 'GI Services Charges',
-            'icd9_code_id'                 => 'Primary Diagnostic ICD9 Code',
+            'primary_diag_icd9_code'                 => 'Primary Diagnostic ICD9 Code',
             'lab_charges'                  => 'Lab Charges',
             'med_rec_num'                  => 'Medical Record Number',
             'med_surg_supply_charges'      => 'Medical Surgury Supply Charges',
             'oper_room_charges'            => 'Operating Room Charges',
             'other_charges'                => 'Other Charges',
             'other_diagnostics_icd9_codes' => 'Other Diagnotics ICD9 Codes',
-            'other_procedure_icd9_codes'   => 'Other Procedure ICD9 Codes',
             'patient_status_id'            => 'Patient Discharge Status',
             'pharmacy_charges'             => 'Pharmacy Charges',
-            'prin_proc_icd9_code_id'       => 'Principle Procedure ICD9 Code',
+            'prin_proc_primary_diag_icd9_code'       => 'Principle Procedure ICD9 Code',
             'princ_payer_id'               => 'Principle Payer ID',
             'race_id'                      => 'Race',
             'radiology_charges'            => 'Radiology Charges',

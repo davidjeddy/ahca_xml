@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'princ_payer_id') ?>
 
-    <?php // echo $form->field($model, 'icd9_code_id') ?>
+    <?php // echo $form->field($model, 'primary_diag_icd9_code') ?>
 
     <?php // echo $form->field($model, 'pharmacy_charges') ?>
 
@@ -83,9 +83,9 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'arrival_hour') ?>
 
-    <?php // echo $form->field($model, 'admitting_icd9_code_id') ?>
+    <?php // echo $form->field($model, 'admitting_primary_diag_icd9_code') ?>
 
-    <?php // echo $form->field($model, 'prin_proc_icd9_code_id') ?>
+    <?php // echo $form->field($model, 'prin_proc_primary_diag_icd9_code') ?>
 
     <?php // echo $form->field($model, 'patient_status_id') ?>
 

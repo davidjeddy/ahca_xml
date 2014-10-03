@@ -60,8 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             // Media Coding
-            'admitting_icd9_code_id',
-            'icd9_code_id',
+            'admitting_primary_diag_icd9_code',
+            'primary_diag_icd9_code',
             'other_diagnostics_icd9_codes',
             'cpt_codes',
         ],

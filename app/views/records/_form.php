@@ -207,20 +207,21 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <h2><span class="label label-primary">Coding:</span></h2>
 
-    <?= $form->field($model, 'admitting_icd9_code_id')->textInput([
+    <?= $form->field($model, 'admitting_primary_diag_icd9_code')->textInput([
         'placeholder' => 'Single ICD9 code number',
         'minlength' => 1,
-        'maxlength' => 11
+        'maxlength' => 6
     ]); ?>
 
-    <?= $form->field($model, 'icd9_code_id')->textInput([
+    <?= $form->field($model, 'primary_diag_icd9_code')->textInput([
         'placeholder' => 'Single ICD9 code number',
         'minlength' => 1,
-        'maxlength' => 11
+        'maxlength' => 6
     ]); ?>
 
     <?= $form->field($model, 'other_diagnostics_icd9_codes')->textInput([
-        'placeholder' => 'Up to 9 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
+        'placeholder' => 'Up to 9 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)',
+        'maxlength' => 72
     ]); ?>
 
     <?= $form->field($model, 'cpt_codes')->textInput([
