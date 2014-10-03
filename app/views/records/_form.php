@@ -25,8 +25,6 @@ use dosamigos\datetimepicker\DateTimePicker;
 
 <div class="records-form">
 
-    <?php // @todo create a quick menu for on page navigation. - DJE : 2014-09-29; ?>
-
     <?php $form = ActiveForm::begin(); ?>
 
 
@@ -202,6 +200,9 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
 
 
     <h2><span class="label label-primary">Coding:</span></h2>
@@ -222,20 +223,13 @@ use dosamigos\datetimepicker\DateTimePicker;
         'placeholder' => 'Up to 9 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
     ]); ?>
 
-    <?php //This is a free form field, procedure codes != diag ICD9 codes; ?>
-    <?php // $form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
-
-    <?php
-    /* $form->field($model, 'other_procedure_icd9_codes')->textInput([
-        'placeholder' => 'Up to 4 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
-     ]);
-     */
-    ?>
-
     <?= $form->field($model, 'cpt_codes')->textInput([
         'placeholder' => 'Comma seperated CPT codes (Exp: 12345, 23456, 34567)'
     ]); ?>
 
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
 
 
 
@@ -345,9 +339,17 @@ use dosamigos\datetimepicker\DateTimePicker;
         'class'     => 'form-control'
     ]); ?>
 
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
+
 
 
     <h2><span class="label label-primary">Practitioner(s) Information:</span></h2>
+
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
 
 
 
@@ -366,7 +368,6 @@ use dosamigos\datetimepicker\DateTimePicker;
             'maxView'            => 4,
             'autoclose'          => true,
             'format'             => 'yyyy-mm-dd', // if inline = false
-            'keyboardNavigation' => true,
             'forceParse'         => false,
             'todayBtn'           => true
         ]
@@ -411,7 +412,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     ]);?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

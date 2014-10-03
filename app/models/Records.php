@@ -142,14 +142,6 @@ class Records extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdc9Code()
-    {
-        return $this->hasOne(Icd9Code::className(), ['icd9_code_id' => 'icd9_code_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getPrincPayer()
     {
         return $this->hasOne(PrincPayer::className(), ['princ_payer_id' => 'princ_payer_id']);
