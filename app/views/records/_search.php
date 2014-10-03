@@ -17,81 +17,25 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?php // echo $form->field($model, 'record_id') ?>
-
-    <?php // echo $form->field($model, 'ahca_num') ?>
-
-    <?= $form->field($model, 'med_rec_num') ?>
+    <?= $form->field($model, 'med_rec_num')->textInput([
+        'Numers only'
+    ]); ?>
 
     <?= $form->field($model, 'first_name') ?>
 
     <?= $form->field($model, 'last_name') ?>
 
-    <?= $form->field($model, 'ssn') ?>
-
-    <?php // echo $form->field($model, 'ethnicity_id') ?>
-
-    <?php // echo $form->field($model, 'race_id') ?>
+    <?php echo $form->field($model, 'ssn')->textInput([
+        'placeholder' => '4 or 9 digit SSN number'
+    ]); ?>
 
     <?php echo $form->field($model, 'dob')->textInput([
         'placeholder' => 'YYYY-MM-DD format'
     ]); ?>
 
-    <?php // echo $form->field($model, 'sex_id') ?>
-
-    <?php // echo $form->field($model, 'zip') ?>
-
-    <?php // echo $form->field($model, 'country_id') ?>
-
-    <?php // echo $form->field($model, 'service_id') ?>
-
-    <?php // echo $form->field($model, 'admission_source_id') ?>
-
-    <?php // echo $form->field($model, 'princ_payer_id') ?>
-
-    <?php // echo $form->field($model, 'primary_diag_icd9_code') ?>
-
-    <?php // echo $form->field($model, 'pharmacy_charges') ?>
-
-    <?php // echo $form->field($model, 'med_surg_supply_charges') ?>
-
-    <?php // echo $form->field($model, 'lab_charges') ?>
-
-    <?php // echo $form->field($model, 'radiology_charges') ?>
-
-    <?php // echo $form->field($model, 'cardiology_charges') ?>
-
-    <?php // echo $form->field($model, 'oper_room_charges') ?>
-
-    <?php // echo $form->field($model, 'anesthesia_charges') ?>
-
-    <?php // echo $form->field($model, 'recovery_room_charges') ?>
-
-    <?php // echo $form->field($model, 'trauma_resp_charges') ?>
-
-    <?php // echo $form->field($model, 'gi_services_charges') ?>
-
-    <?php // echo $form->field($model, 'extra_shock_charges') ?>
-
-    <?php // echo $form->field($model, 'other_charges') ?>
-
-    <?php // echo $form->field($model, 'total_charges') ?>
-
-    <?php // echo $form->field($model, 'visit_begin_date') ?>
-
-    <?php // echo $form->field($model, 'visit_end_date') ?>
-
-    <?php // echo $form->field($model, 'arrival_hour') ?>
-
-    <?php // echo $form->field($model, 'admitting_icd9_code') ?>
-
-    <?php // echo $form->field($model, 'prin_proc_icd9_code') ?>
-
-    <?php // echo $form->field($model, 'patient_status_id') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
