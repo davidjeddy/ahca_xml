@@ -28,13 +28,6 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
-    </div>
-
-
-
-
     <h2><span class="label label-primary">General Information:</span></h2>
 
     <?= $form->field($model, 'med_rec_num')->textInput([

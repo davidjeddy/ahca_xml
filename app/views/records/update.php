@@ -14,8 +14,6 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="records-update">
 
-    <h1>Update Record:<?php //<?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
