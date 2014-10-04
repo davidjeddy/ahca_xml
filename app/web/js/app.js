@@ -8,7 +8,7 @@
  */
 $(document).ready(function(){
 
-	var sumCharges = function() {
+	function sumCharges() {
     	console.log('fn sum()');
 
 		var total = 0;
@@ -20,6 +20,15 @@ $(document).ready(function(){
 		return true;
 	};
 
+	function resetForm(form) {
+	    $("form#"+form).find('input:text, input:password, input:file, select, textarea').val('');
+	    $("form#"+form).find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+
+		return true;
+	}
+
+
+
 	// Calculate charges, ovrride any values in the total_charges field
 	$('.charge, #records-total_charges').on('keyup', function(){
 		sumCharges();
@@ -28,4 +37,15 @@ $(document).ready(function(){
 	$("#records-country_id option").filter(function() {
 	    return this.text == "United States"; 
 	}).attr('selected', true);
+
+	// JS reset of forms
+
+	$(":reset").on('click', function() {
+		console.log('JS form reset of form');
+
+		// @referance: http://stackoverflow.com/questions/680241/resetting-a-multi-stage-form-with-jquery
+		// @author Paolo Bergantino
+		console.log($(this).closest('form').attr('id'));
+		//resetForm($(this).closest('form').attr('id'));
+	});
 });

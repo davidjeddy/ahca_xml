@@ -53,20 +53,26 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+
+
     <h2><span class="label label-primary">Coding:</span></h2>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             // Media Coding
-            'admitting_icd9_code_id',
-            'icd9_code_id',
+            'admitting_icd9_code',
+            'primary_diag_icd9_code',
             'other_diagnostics_icd9_codes',
-            //'prin_proc_icd9_code_id',
-            'other_diagnostics_icd9_codes',
-            //'other_procedure_icd9_codes',
             'cpt_codes',
+        ],
+    ]) ?>
 
-            // Charges
+
+
+    <h2><span class="label label-primary">Charges:</span></h2>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             'anesthesia_charges',
             'cardiology_charges',
             'extra_shock_charges',
@@ -81,13 +87,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'trauma_resp_charges',
             'total_charges',
 
-            // Practitioner(s)
-            'attending_pract_id',
-            'attending_pract_npi',
-            'operating_pract_id',
-            'operating_pract_npi',
+        ],
+    ]) ?>
 
-            // Date & Time
+
+
+    <h2><span class="label label-primary">Practitioner Information:</span></h2>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'doctor_id',
+        ],
+    ]) ?>
+
+
+    <h2><span class="label label-primary">Dates and Times:</span></h2>
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             'arrival_hour',
             'visit_begin_date',
             'visit_end_date',

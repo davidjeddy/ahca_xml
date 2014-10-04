@@ -17,13 +17,17 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'med_rec_num') ?>
+    <?= $form->field($model, 'med_rec_num')->textInput([
+        'Numers only'
+    ]); ?>
 
     <?= $form->field($model, 'first_name') ?>
 
     <?= $form->field($model, 'last_name') ?>
 
-    <?= $form->field($model, 'ssn') ?>
+    <?php echo $form->field($model, 'ssn')->textInput([
+        'placeholder' => '4 or 9 digit SSN number'
+    ]); ?>
 
     <?php echo $form->field($model, 'dob')->textInput([
         'placeholder' => 'YYYY-MM-DD format'
@@ -31,7 +35,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

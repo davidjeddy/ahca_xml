@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 
 use app\models\AdmissionSource;
 use app\models\Country;
+use app\models\Doctor;
 use app\models\Ethnicity;
 use app\models\Icd9Code;
 use app\models\PatientStatus;
@@ -24,8 +25,6 @@ use dosamigos\datetimepicker\DateTimePicker;
 ?>
 
 <div class="records-form">
-
-    <?php // @todo create a quick menu for on page navigation. - DJE : 2014-09-29; ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -46,14 +45,17 @@ use dosamigos\datetimepicker\DateTimePicker;
         'placeholder' => 'Last Name'
     ]); ?>
 
-    <?php //$form->field($model, 'ahca_num')->textInput(['placeholder' => '8 to 10 numbers']); ?>
+    <?php $form->field($model, 'ahca_num')->textInput([
+        'placeholder' => '8 to 10 numbers',
+        'value' => '14960704',
+        'type' => 'hidden'
+    ]); ?>
 
     <?= $form->field($model, 'ssn')->textInput([
         'placeholder' => 'Full SSN (no dashes) OR last 4 SSN digits',
         'minlength'   => 4,
         'maxlength'   => 9,
-        'type'        => 'number',
-        'pattern'     => '^\d{9}$'
+        'type'        => 'number'
     ]); ?>
 
     <?php //$form->field($model, 'ethnicity_id')->textInput(); ?>
@@ -158,8 +160,7 @@ use dosamigos\datetimepicker\DateTimePicker;
         'placeholder' => '5 digit Zip code number',
         'minlength'   => 5,
         'maxlength'   => 5,
-        'type'        => 'number',
-        'pattern'     => '^\d{5}$'
+        'type'        => 'number'
     ]) ?>
 
     <?php //echo $form->field($model, 'country_id')->textInput(); ?>
@@ -181,50 +182,6 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
-
-    <?php //echo $form->field($model, 'admission_source_id')->textInput(); ?>
-    <?php
-    /*
-    echo Html::activeLabel($model, 'admission_source_id');
-    echo Html::activeDropDownList(
-        $model,
-        'admission_source_id',
-        ArrayHelper::map(
-            AdmissionSource::find()->all(),
-            'admission_source_id',
-            'admission_source_value',
-            'admission_source_description'
-        ),
-        [
-            'prompt' => 'Pick One',
-            'class'  => 'form-control'
-        ]
-    );
-    */
-    ?>
-
-    <?php //$form->field($model, 'service_id')->textInput() ?>
-    <?php
-    /*
-    echo Html::activeLabel($model, 'service_id');
-    echo Html::activeDropDownList(
-        $model,
-        'service_id',
-        ArrayHelper::map(
-            ServiceCode::find()->all(),
-            'servicecode_id',
-            'servicecode_value',
-            'servicecode_description'
-        ),
-        // @todo abstract this to app settings - DJE : 2014-09-30
-        [
-            'prompt' => 'Pick One',
-            'class'  => 'form-control'
-        ]
-    );
-    */
-    ?>
-
     <?php //$form->field($model, 'princ_payer_id')->textInput(); ?>
     <?php
     echo Html::activeLabel($model, 'principle_payer');
@@ -244,40 +201,37 @@ use dosamigos\datetimepicker\DateTimePicker;
     );
     ?>
 
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
 
 
     <h2><span class="label label-primary">Coding:</span></h2>
 
-    <?= $form->field($model, 'admitting_icd9_code_id')->textInput([
+    <?= $form->field($model, 'admitting_icd9_code')->textInput([
         'placeholder' => 'Single ICD9 code number',
         'minlength' => 1,
-        'maxlength' => 11
+        'maxlength' => 6
     ]); ?>
 
-    <?= $form->field($model, 'icd9_code_id')->textInput([
+    <?= $form->field($model, 'primary_diag_icd9_code')->textInput([
         'placeholder' => 'Single ICD9 code number',
         'minlength' => 1,
-        'maxlength' => 11
+        'maxlength' => 6
     ]); ?>
 
     <?= $form->field($model, 'other_diagnostics_icd9_codes')->textInput([
-        'placeholder' => 'Up to 9 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
+        'placeholder' => 'Up to 9 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)',
+        'maxlength' => 72
     ]); ?>
-
-    <?php //This is a free form field, procedure codes != diag ICD9 codes; ?>
-    <?php // $form->field($model, 'prin_proc_icd9_code_id')->textInput(['placeholder' => 'ICD9 code']); ?>
-
-    <?php
-    /* $form->field($model, 'other_procedure_icd9_codes')->textInput([
-        'placeholder' => 'Up to 4 ICD9 codes, comma seperated (Exp: 123.23, 456.21, 34.1, 2.13)'
-     ]);
-     */
-    ?>
 
     <?= $form->field($model, 'cpt_codes')->textInput([
         'placeholder' => 'Comma seperated CPT codes (Exp: 12345, 23456, 34567)'
     ]); ?>
 
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
 
 
 
@@ -387,32 +341,37 @@ use dosamigos\datetimepicker\DateTimePicker;
         'class'     => 'form-control'
     ]); ?>
 
-    <h2><span class="label label-primary">Practitioner(s) Information:</span></h2>
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
 
-    <?= $form->field($model, 'attending_pract_id')->textInput([
-        'placeholder' => '12 character alphanumeric',
-        'minlength'   => 12,
-        'maxlength'   => 12
-    ]); ?>
 
-    <?= $form->field($model, 'attending_pract_npi')->textInput([
-        'placeholder' => '10 digits',
-        'minlength'   => 10,
-        'maxlength'   => 10
-    ]); ?>
 
-    <?= $form->field($model, 'operating_pract_id')->textInput([
-        'placeholder' => '12 character alphanumeric',
-        'minlength'   => 12,
-        'maxlength'   => 12
-    ]); ?>
+    <h2><span class="label label-primary">Practitioner Information:</span></h2>
 
-    <?= $form->field($model, 'operating_pract_npi')->textInput([
-        'placeholder' => '10 digits',
-        'minlength'   => 10,
-        'maxlength'   => 10
-    ]); ?>
+    <?php //$form->field($model, 'doctor_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'doctor');
+    echo Html::activeDropDownList(
+        $model,
+        'doctor_id',
+        ArrayHelper::map(
+            Doctor::find()->all(),
+            'doctor_id',
+            'doctor_first_name',
+            'doctor_last_name'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
 
 
 
@@ -431,7 +390,6 @@ use dosamigos\datetimepicker\DateTimePicker;
             'maxView'            => 4,
             'autoclose'          => true,
             'format'             => 'yyyy-mm-dd', // if inline = false
-            'keyboardNavigation' => true,
             'forceParse'         => false,
             'todayBtn'           => true
         ]
@@ -476,7 +434,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     ]);?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

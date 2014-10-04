@@ -17,54 +17,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1>Search Records:<?php //<?= Html::encode($this->title) ?></h1>
 
+    <?php // Incl. search form; ?>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p><?php //echo Html::a('Create Records', ['create'], ['class' => 'btn btn-success']); ?></p>
-
+    <?php // Search results; ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            // 'record_id',
-            //'ahca_num',
             'first_name',
             'last_name',
             'med_rec_num',
             'ssn',
-            // 'ethnicity_id',
-            // 'race_id',
             'dob',
-            // 'sex_id',
-            // 'zip',
-            // 'country_id',
-            // 'service_id',
-            // 'admission_source_id',
-            // 'princ_payer_id',
-            // 'icd9_code_id',
-            // 'attending_pract_id',
-            // 'attending_pract_npi',
-            // 'operating_pract_id',
-            // 'operating_pract_npi',
-            // 'pharmacy_charges',
-            // 'med_surg_supply_charges',
-            // 'lab_charges',
-            // 'radiology_charges',
-            // 'cardiology_charges',
-            // 'oper_room_charges',
-            // 'anesthesia_charges',
-            // 'recovery_room_charges',
-            // 'trauma_resp_charges',
-            // 'gi_services_charges',
-            // 'extra_shock_charges',
-            // 'other_charges',
-            // 'total_charges',
-            // 'visit_begin_date',
-            // 'visit_end_date',
-            // 'arrival_hour',
-            // 'admitting_icd9_code_id',
-            // 'prin_proc_icd9_code_id',
-            // 'patient_status_id',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
