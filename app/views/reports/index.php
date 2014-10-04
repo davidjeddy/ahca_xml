@@ -25,10 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // @todo create a quick menu for on page navigation. - DJE : 2014-09-29; ?>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['create'],
-        'method' => 'get',
-    ]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <h2><span class="label label-primary"><?= Html::encode($this->title) ?></span></h2>
 
