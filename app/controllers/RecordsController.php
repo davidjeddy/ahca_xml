@@ -60,9 +60,23 @@ class RecordsController extends Controller
      */
     public function actionCreate()
     {
+        $post_data = Yii::$app->request->post();
+
+
+        if (isset($post_data['Records']) && !empty($post_data['Records'])) {
+            foreach($post_data['Records'] as $key => $value) {
+
+                if (empty($value) || $value == '') {
+                    unset($post_data['Records'][$key]);
+                }
+            }
+        }
+
+
+
         $model = new Records;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load($post_data) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->record_id]);
         } else {
             return $this->render('create', [
@@ -79,6 +93,20 @@ class RecordsController extends Controller
      */
     public function actionUpdate($id)
     {
+        $post_data = Yii::$app->request->post();
+
+
+        if (isset($post_data['Records']) && !empty($post_data['Records'])) {
+            foreach($post_data['Records'] as $key => $value) {
+
+                if (empty($value) || $value == '') {
+                    unset($post_data['Records'][$key]);
+                }
+            }
+        }
+
+
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

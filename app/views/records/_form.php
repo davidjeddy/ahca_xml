@@ -28,6 +28,11 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-info']) ?>
+    </div>
+
+
 
 
     <h2><span class="label label-primary">General Information:</span></h2>
@@ -408,25 +413,6 @@ use dosamigos\datetimepicker\DateTimePicker;
             'maxView'            => 1,
             'autoclose'          => true,
             'format'             => 'hh', // if inline = false
-            'keyboardNavigation' => true,
-            'forceParse'         => false,
-            'todayBtn'           => true
-        ]
-    ]);?>
-
-    <?php //$form->field($model, 'visit_end_date')->textInput(); ?>
-    <?= $form->field($model, 'visit_end_date')->widget(DateTimePicker::className(), [
-        'language'       => 'en',
-        'size'           => 'ms',
-        'template'       => '{input}',
-        'pickButtonIcon' => 'glyphicon glyphicon-time',
-        'inline'         => false,
-        'clientOptions'  => [
-            'startView'          => 4,
-            'minView'            => 2,
-            'maxView'            => 4,
-            'autoclose'          => true,
-            'format'             => 'yyyy-mm-dd', // if inline = false
             'keyboardNavigation' => true,
             'forceParse'         => false,
             'todayBtn'           => true

@@ -72,16 +72,16 @@ class Records extends \yii\db\ActiveRecord
     {
         return [
             [['admission_source_id', 'anesthesia_charges', 'arrival_hour', 'cardiology_charges', 'country_id', 'doctor_id', 'ethnicity_id', 'extra_shock_charges', 'gi_services_charges', 'lab_charges', 'med_surg_supply_charges', 'oper_room_charges', 'other_charges', 'patient_status_id', 'pharmacy_charges', 'princ_payer_id', 'race_id', 'radiology_charges', 'recovery_room_charges', 'service_id', 'sex_id', 'total_charges', 'trauma_resp_charges'], 'integer'],
-            [['arrival_hour', 'ssn', 'zip'], 'number'], // 'number' can start with a 0.
+            [['arrival_hour', 'ssn', 'zip'],  'number'], 
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
             [['first_name', 'last_name'], 'required'],
             [['ahca_num'], 'string', 'max'                => 10],          
             [['first_name', 'last_name'], 'string', 'max' => 32],
             [['med_rec_num'], 'string', 'max'             => 24],
-            //[['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_icd9_code'], 'string', 'max' => 6],
-            //[['cpt_codes'], 'string', 'max' => 210],
-            //[['other_procedure_icd9_codes'], 'string', 'max' => 36],
-            //[['other_diagnostics_icd9_codes'], 'string', 'max' => 72]
+            [['admitting_icd9_code', 'primary_diag_icd9_code', 'prin_proc_icd9_code'], 'string', 'min'=> null, 'max' => 6],
+            [['cpt_codes'], 'string', 'max' => 210],
+            [['other_procedure_icd9_codes'], 'string', 'max' => 36],
+            [['other_diagnostics_icd9_codes'], 'string', 'max' => 72]
         ];
     }
 
