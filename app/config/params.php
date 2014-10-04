@@ -1,7 +1,8 @@
 <?php
 
 return [
-	'adminEmail'  => 'me@davidjeddy.com',
 	'application' => 'AHCA State Records Input Application',
-	'copyright'   => ' Copyright Data',
+	'copyright'   => 'Contents © 2014 David Eddy',
+	'warranty'    => 'AS IS',
+	'license'    => 'BSD License'
 ];
