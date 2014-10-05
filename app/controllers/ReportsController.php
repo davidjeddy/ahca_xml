@@ -89,7 +89,7 @@ class ReportsController extends \yii\web\Controller
 
 
         // check data against stateRules()
-        if (count($_return_data) > 0) {
+        if (count($_report_records) > 0) {
 
             $this->stateRules($_report_records);
         }
@@ -156,23 +156,27 @@ class ReportsController extends \yii\web\Controller
     private function stateRules($_param_data)
     {
         $_valid_report = true;
+        $_invalid_records = [];
+
 
         // If the data set passed all the state checks write the file
-        // Else write the 'error' file
-        
+        // Else write the 'error' file        
         if ($_valid_report) {
-            $this->writeFile($_param_data);
+            $this->writeFile($_param_data, 1);
+        } else {
+            $this->writeFile($_invalid_records, 0);
         }
 
         return false;
     }
 
     /**
-     * Write EITHER the data XML OR the list of incomplete records file
+     * Write EITHER the data XML OR the list of incomplete records to a file
      * @param  [type] $_param_data [description]
+     * @param  [type] $_type The type of file to write. 0: txt, 1: xml, 2: json, etc...
      * @return [type]              [description]
      */
-    private function writeFile($_param_data, $ext = 'txt')
+    private function writeFile($_param_data, $_type = 0)
     {
 
         return false;
