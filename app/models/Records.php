@@ -160,17 +160,9 @@ class Records extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPatientStatus()
-    {
-        return $this->hasOne(PatientStatus::className(), ['patient_status_id' => 'patient_status_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getPrincPayer()
     {
-        return $this->hasOne(PrincPayer::className(), ['princ_payer_id' => 'princ_payer_id']);
+        return $this->hasOne(PrinciplePayer::className(), ['princ_payer_id' => 'princ_payer_id']);
     }
 
     /**
