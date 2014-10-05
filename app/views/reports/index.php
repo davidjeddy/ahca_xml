@@ -46,6 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
     );
     ?>
 
+    <input type="checkbox" name="Reports[resubmit]" value="true">This report will be a 'resubmit' to the state.
+
     <div class="form-group"><?php echo Html::submitButton( 'Request Report', ['class' => 'btn btn-primary']); ?></div>
 
     <?php ActiveForm::end(); ?>
