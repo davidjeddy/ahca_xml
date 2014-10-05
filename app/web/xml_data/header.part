@@ -1,0 +1,20 @@
+<HEADER>
+<TRANS_CODE>{TransCode}</TRANS_CODE>
+<RPT_YEAR>{ReportYear}</RPT_YEAR>
+<RPT_QTR>{ReportQuarter}</RPT_QTR>
+<DATA_TYPE>{DataType}</DATA_TYPE>
+<SUBMISSION_TYPE>{SubmissionType}</SUBMISSION_TYPE>
+<PROC_DATE>{CurrentDate}</PROC_DATE>
+<AHCA_NUM>{AHCANum}</AHCA_NUM>
+<MEDICARE_NUM>{MedicareNumber}}</MEDICARE_NUM>
+<ORG_NAME>{OrgName}</ORG_NAME>
+<CONTACT_PERSON>
+	<NAME>{ContracPersonName}</NAME>
+	<PHONE>{ContracPersonPhone}</PHONE>
+	<EMAIL>{ContracPersonEmail}</EMAIL>
+	<STREET>{ContracPersonStreet}</STREET>
+	<CITY>{ContracPersonCity}</CITY>
+	<STATE>{ContracPersonState}</STATE>
+	<ZIP>{ContracPersonZip}</ZIP>
+</CONTACT_PERSON>
+</HEADER>
