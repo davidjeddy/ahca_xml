@@ -30,6 +30,9 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <h2><span class="label label-primary">General Information:</span></h2>
 
+    <?= $form->field($model, 'record_id')->textInput([
+        'readonly' => true
+    ]); ?>
 
     <?= $form->field($model, 'med_rec_num')->textInput([
         'readonly' => true

@@ -8,13 +8,13 @@ use yii\widgets\DetailView;
  * @var app\models\records $model
  */
 
-$this->title = $model->last_name.', '.$model->first_name;
+$this->title = $model->record_id;
 $this->params['breadcrumbs'][] = ['label' => 'Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="records-view">
 
-    <h1>Record for `<?= $this->title;?>`:<?php //<?= Html::encode($this->title) ?></h1>
+    <h1>View record <?= $this->title;?>:</h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->record_id], ['class' => 'btn btn-primary']) ?>
@@ -31,10 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // Ignored fields not to be displayed to the end user.
-            // 'record_id',
-
             // General patience information
+            'record_id',
             'med_rec_num',
             'first_name',
             'last_name',
