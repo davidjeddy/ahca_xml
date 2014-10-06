@@ -31,7 +31,6 @@
             "phpunit/phpunit": "4.2.6",
             "sebastian/phpcpd": "*",
             "phpunit/php-code-coverage": "2.*",
-            "jms/serializer": "~0.16",
             "yiisoft/yii2-gii": "*",
 
             "yiisoft/yii2": "*",
@@ -71,4 +70,3 @@
         }
     }
 }
-
