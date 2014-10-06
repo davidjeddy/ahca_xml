@@ -65,31 +65,7 @@ class RecordsController extends Controller
      */
     public function actionCreate()
     {
-        $post_data = Yii::$app->request->post();
-
-
-        if (isset($post_data['Records']) && !empty($post_data['Records'])) {
-            foreach($post_data['Records'] as $key => $value) {
-
-                if (empty($value) || $value == '') {
-                    unset($post_data['Records'][$key]);
-                }
-            }
-
-
-            // generated med_rec_num from req. patient information...
-            // ...to ensure it will always be unique to that patient
-            $post_data['Records']['med_rec_num'] =
-                strtolower(substr($post_data['Records']['first_name'], 0, 1))
-                .strtolower(substr($post_data['Records']['last_name'], 0, 1))
-                .((strlen($post_data['Records']['first_name']))
-                    +(strlen($post_data['Records']['last_name'])))
-                .((integer)(str_replace("-", "", $post_data['Records']['dob']))
-                    * (integer)$post_data['Records']['ssn']
-            );
-        }
-
-
+        $post_data $this->postFix();
 
         $model = new Records;
 
@@ -161,6 +137,45 @@ class RecordsController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+
+
+    // private methods
+
+
+
+    /**
+     * 
+     */
+    private function postFix()
+    {
+        if (isset($post_data['Records']) && !empty($post_data['Records'])) {
+            foreach($post_data['Records'] as $key => $value) {
+
+                if (empty($value) || $value == '') {
+
+                    unset($post_data['Records'][$key]);
+                }
+            }
+
+
+
+            // generated med_rec_num from req. patient information...
+            // ...to ensure it will always be unique to that patient
+            $post_data['Records']['med_rec_num'] =
+                strtolower(substr($post_data['Records']['first_name'], 0, 1))
+                .strtolower(substr($post_data['Records']['last_name'], 0, 1))
+                .((strlen($post_data['Records']['first_name']))
+                    +(strlen($post_data['Records']['last_name'])))
+                .((integer)(str_replace("-", "", $post_data['Records']['dob']))
+                    * (integer)$post_data['Records']['ssn']
+            );
+
+
+
+            return $post_data;
         }
     }
 }
