@@ -139,7 +139,13 @@ class RecordsController extends Controller
      */
     private function postFix()
     {
+        // Get the post data
+        $post_data = Yii::$app->request->post();
+
+        // Does the post data contain a records child array?
         if (isset($post_data['Records']) && !empty($post_data['Records'])) {
+
+            // remove empty keys
             foreach($post_data['Records'] as $key => $value) {
 
                 if (empty($value) || $value == '') {
@@ -162,8 +168,11 @@ class RecordsController extends Controller
             );
 
 
-
+            // return data fir processing
             return $post_data;
         }
+
+        // 'cause'= default
+        return false;
     }
 }
