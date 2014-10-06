@@ -118,9 +118,11 @@ class ReportsController extends \yii\web\Controller
         if (count($this->records) > 0) {
 
             // go go gadget processing!
-            $this->normalizeRecords();
-            $this->stateRules();
-            $this->writeFile();
+            $this->writeFile(
+                $this->stateRules(
+                    $this->normalizeRecords()
+                )
+            );
         }
 
         return false;
@@ -186,17 +188,21 @@ class ReportsController extends \yii\web\Controller
         $_method_data = array();
 
         foreach ($this->records as $r_key => $r_value) {
-            // $_method_data[$r_key]['AHCA_NUM']    = $r_value['ahca_num'];
-            // $_method_data[$r_key]['MED_REC_NUM'] = $r_value['med_rec_num'];
+            $_method_data[$r_key]['AHCA_NUM']          = $r_value['ahca_num'];
+            $_method_data[$r_key]['MED_REC_NUM']       = $r_value['med_rec_num'];
+            $_method_data[$r_key]['RECORD_ID']         = $r_value['record_id'];
+            $_method_data[$r_key]['PATIENT_SSN']       = (strlen($r_value['ssn'] = 4) ? '77777'.$r_value['ssn'] : $r_value['ssn']);
+            $_method_data[$r_key]['PATIENT_ETHNICITY'] = $r_value['ethnicity']['ethnicity_value'];
+            $_method_data[$r_key]['PATIENT_RACE']      = $r_value['race']['race_value'];
+            $_method_data[$r_key]['PATIENT_BIRTHDAY']  = $r_value['dob'];
+            $_method_data[$r_key]['PATIENT_SEX']       = $r_value['sex']['sex_value'];
+            $_method_data[$r_key]['PATIENT_ZIP']       = $r_value['zip'];
+            $_method_data[$r_key]['PATIENT_COUNTRY']   = $r_value['country']['country_value'];
+            $_method_data[$r_key]['SERVICE_CODE']      = $r_value['service_id'];
+            //$_method_data[$r_key]['ADMIT_SOURCE']      = $r_value['admission_source']['admission_source_value'];
         }
 
-echo '<pre>';
-print_r($_method_data);
-print_r( $this->records );
-echo '</pre>';
-exit;
-
-        return true;
+        return $_method_data;
     }
     /**
      * Pass the data object through the valiation rules
