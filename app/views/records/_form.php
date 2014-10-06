@@ -38,6 +38,26 @@ use dosamigos\datetimepicker\DateTimePicker;
         'readonly' => true
     ]); ?>
 
+    <?php //$form->field($model, 'admission_source_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'admission_source');
+    echo Html::activeDropDownList(
+        $model,
+        'admission_source_id',
+        ArrayHelper::map(
+            AdmissionSource::find()->all(),
+            'admission_source_id',
+            'admission_source_value',
+            'admission_source_description'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
+
     <?= $form->field($model, 'first_name')->textInput([
         'placeholder' => 'First Name'
     ]); ?>

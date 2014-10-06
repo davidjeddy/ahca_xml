@@ -61,6 +61,10 @@ class ReportsController extends \yii\web\Controller
                 '<br />Report can be retrievable <a href="../xml_data/" target="_new">here</a>.'
             );
 
+            // submit type
+            $this->report_type = (isset($post_data['Reports']['resubmit']) &&  $post_data['Reports']['resubmit'] == true) ? 'R' : 'I';
+
+            // go make my report!
             $this->createQuarterlyReport($post_data['Reports']);
         }
 
@@ -104,9 +108,11 @@ class ReportsController extends \yii\web\Controller
             ->where(   "visit_begin_date >= '".date('Y-m-d', $_timeframe->start_ts)."'")
             ->andWhere("visit_begin_date <= '".date('Y-m-d', $_timeframe->end_ts)."'")
             ->joinWith([
+                'admissionSource',
                 'country',
                 'doctor',
                 'ethnicity',
+                'patientStatus',
                 'princPayer',
                 'race',
                 'sex'
@@ -118,9 +124,7 @@ class ReportsController extends \yii\web\Controller
         if (count($this->records) > 0) {
 
             // go go gadget processing!
-            $this->stateRules(
-                $this->normalizeRecords()
-            );
+            return $this->stateRules( $this->normalizeRecords() );
         }
 
         return false;
@@ -148,6 +152,7 @@ class ReportsController extends \yii\web\Controller
             // adjust for TZ offset
             $_method_data->{'monthly_timestamps_'.$mc} = mktime(0, 0, 0, $mc, 1, $this->year_req) - 18000 ;
         }
+
 
 
         // using the selected data, calculate the start and end timestamps of the requested report.
@@ -181,57 +186,57 @@ class ReportsController extends \yii\web\Controller
      * Take the array from the DB and make it into a normalized array ready for writing...
      * ...really this is just a mapper method. app->XML elements
      * @return boolean
+     * @todo Iterate on this, should not have such tight coupling between our data and the states XML
      */
     private function normalizeRecords()
     {
-
         $_method_data = array();
 
         foreach ($this->records as $r_key => $r_value) {
             // patient general information
-            $_method_data[$r_key]['ADMIT_SOURCE']                  = $r_value['admission_source'];
-            $_method_data[$r_key]['AHCA_NUM']                      = $r_value['ahca_num'];
-            $_method_data[$r_key]['MED_REC_NUM']                   = $r_value['med_rec_num'];
-            $_method_data[$r_key]['RECORD_ID']                     = $r_value['record_id'];
-            $_method_data[$r_key]['PATIENT_SSN']                   = (strlen($r_value['ssn'] = 4) ? '77777'.$r_value['ssn'] : $r_value['ssn']);
-            $_method_data[$r_key]['PATIENT_ETHNICITY']             = $r_value['ethnicity']['ethnicity_value'];
-            $_method_data[$r_key]['PATIENT_RACE']                  = $r_value['race']['race_value'];
-            $_method_data[$r_key]['PATIENT_BIRTHDAY']              = $r_value['dob'];
-            $_method_data[$r_key]['PATIENT_SEX']                   = $r_value['sex']['sex_value'];
-            $_method_data[$r_key]['PATIENT_ZIP']                   = $r_value['zip'];
-            $_method_data[$r_key]['PATIENT_COUNTRY']               = $r_value['country']['country_value'];
-            $_method_data[$r_key]['SERVICE_CODE']                  = $r_value['service_id'];
-            $_method_data[$r_key]['PATIENT_STATUS']                = (($r_value['status']['status_value']) ? $r_value['status']['status_value'] : '01');
+            $_method_data[$r_key]['ADMIT_SOURCE']      = $r_value['admissionSource']['admission_source_value'];
+            $_method_data[$r_key]['AHCA_NUM']          = $r_value['ahca_num'];
+            $_method_data[$r_key]['MED_REC_NUM']       = $r_value['med_rec_num'];
+            $_method_data[$r_key]['RECORD_ID']         = $r_value['record_id'];
+            $_method_data[$r_key]['PATIENT_SSN']       = (strlen($r_value['ssn'] = 4) ? '77777'.$r_value['ssn'] : $r_value['ssn']);
+            $_method_data[$r_key]['PATIENT_ETHNICITY'] = $r_value['ethnicity']['ethnicity_value'];
+            $_method_data[$r_key]['PATIENT_RACE']      = $r_value['race']['race_value'];
+            $_method_data[$r_key]['PATIENT_BIRTHDAY']  = $r_value['dob'];
+            $_method_data[$r_key]['PATIENT_SEX']       = $r_value['sex']['sex_value'];
+            $_method_data[$r_key]['PATIENT_ZIP']       = $r_value['zip'];
+            $_method_data[$r_key]['PATIENT_COUNTRY']   = $r_value['country']['country_value'];
+            $_method_data[$r_key]['SERVICE_CODE']      = $r_value['service_id'];
+            $_method_data[$r_key]['PATIENT_STATUS']    = $r_value['patientStatus']['patient_status_value'] ? $r_value['patientStatus']['patient_status_value'] : '01';
             
             // 'codes'
-            // PATIENT_REASON
-            $_method_data[$r_key]['PRINC_PAYER_CODE']              = $r_value['princPayer']['princ_payer_value'];
-            $_method_data[$r_key]['PRINC_DIAG_CODE']               = $r_value['prin_proc_icd9_code'];
-            
+            $_method_data[$r_key]['PATIENT_REASON']      = $r_value['admitting_icd9_code'];
+            $_method_data[$r_key]['PRIN_PROC_CODE']      = $r_value['primary_diag_icd9_code'];
+            $_method_data[$r_key]['OTHER_DIAG_CODE']     = $r_value['other_diagnostics_icd9_codes'];
+            $_method_data[$r_key]['OTHER_CPT_HCPS_CODE'] = $r_value['cpt_codes'];
+
             // Same Dr for both
-            $_method_data[$r_key]['ATTENDING_PRACT_ID']            = $r_value['doctor']['doctor_state_lic'];
-            $_method_data[$r_key]['ATTENDING_PRACT_NPI']           = $r_value['doctor']['doctor_npsi'];
-            $_method_data[$r_key]['OPERATING_PRACT_ID']            = $r_value['doctor']['doctor_state_lic'];
-            $_method_data[$r_key]['OPERATING_PRACT_NPI']           = $r_value['doctor']['doctor_npsi'];
+            $_method_data[$r_key]['ATTENDING_PRACT_ID']  = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['ATTENDING_PRACT_NPI'] = $r_value['doctor']['doctor_npsi'];
+            $_method_data[$r_key]['OPERATING_PRACT_ID']  = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['OPERATING_PRACT_NPI'] = $r_value['doctor']['doctor_npsi'];
             
             // All the 'costs'
-            $_method_data[$r_key]['RADIOLOGY_CHARGES']             = ($r_value['radiology_charges']) ? $r_value['radiology_charges']) : 0;
-            $_method_data[$r_key]['CARIOLOGY_CHARGES']             = ($r_value['cardiology_charges']) ? $r_value['cardiology_charges']) : 0;
-            $_method_data[$r_key]['OPER_ROOM_CHARGES']             = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges']) : 0;
-            $_method_data[$r_key]['ANESTHESIA_CHARGES']            = ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges']) : 0;
-            $_method_data[$r_key]['RECOVERY_ROOM_CHARGES']         = ($r_value['recovery_room_charges']) ? $r_value['recovery_room_charges']) : 0;
+            $_method_data[$r_key]['RADIOLOGY_CHARGES']             = ($r_value['radiology_charges']) ? $r_value['radiology_charges'] : 0;
+            $_method_data[$r_key]['CARIOLOGY_CHARGES']             = ($r_value['cardiology_charges']) ? $r_value['cardiology_charges'] : 0;
+            $_method_data[$r_key]['OPER_ROOM_CHARGES']             = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges'] : 0;
+            $_method_data[$r_key]['ANESTHESIA_CHARGES']            = ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges'] : 0;
+            $_method_data[$r_key]['RECOVERY_ROOM_CHARGES']         = ($r_value['recovery_room_charges']) ? $r_value['recovery_room_charges'] : 0;
             $_method_data[$r_key]['ER_ROOM_CHARGES']               = 0;
-            $_method_data[$r_key]['TRAUMA_RESP_CHARGES']           = ($r_value['trauma_resp_charges']) ? $r_value['trauma_resp_charges']) : 0;= ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges']) : 0;
-            $_method_data[$r_key]['GI_SERVICES_CHARGES']           = ($r_value['gi_services_charges']) ? $r_value['gi_services_charges']) : 0;= ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges']) : 0;
-            $_method_data[$r_key]['EXTRA_CORP_SHOCK_WAVE_CHARGES'] = ($r_value['extra_shock_charges']) ? $r_value['extra_shock_charges']) : 0;
-            $_method_data[$r_key]['OTHER_CHARGES']                 = ($r_value['other_charges']) ? $r_value['other_charges']) : 0;
-            $_method_data[$r_key]['TOTAL_CHARGES']                 = ($r_value['total_charges']) ? $r_value['total_charges']) : 0;
+            $_method_data[$r_key]['TRAUMA_RESP_CHARGES']           = ($r_value['trauma_resp_charges']) ? $r_value['trauma_resp_charges'] : 0;
+            $_method_data[$r_key]['GI_SERVICES_CHARGES']           = ($r_value['gi_services_charges']) ? $r_value['gi_services_charges'] : 0;
+            $_method_data[$r_key]['EXTRA_CORP_SHOCK_WAVE_CHARGES'] = ($r_value['extra_shock_charges']) ? $r_value['extra_shock_charges'] : 0;
+            $_method_data[$r_key]['OTHER_CHARGES']                 = ($r_value['other_charges']) ? $r_value['other_charges'] : 0;
+            $_method_data[$r_key]['TOTAL_CHARGES']                 = ($r_value['total_charges']) ? $r_value['total_charges'] : 0;
             
             //Misc data points
-            $_method_data[$r_key]['VISIT_BEGIN_DATE']              = $r_value['doctor']['doctor_state_lic'];
-            $_method_data[$r_key]['ARRIVAL_HOUR']                  = $r_value['doctor']['doctor_npsi'];
-            $_method_data[$r_key]['VISIT_END_DATE']                = $r_value['doctor']['doctor_state_lic'];
-            $_method_data[$r_key]['VISIT_END_DATE']                = $r_value['doctor']['doctor_npsi'];
+            $_method_data[$r_key]['VISIT_BEGIN_DATE'] = $r_value['visit_begin_date'];
+            $_method_data[$r_key]['ARRIVAL_HOUR']     = $r_value['arrival_hour'];
+            $_method_data[$r_key]['VISIT_END_DATE']   = $r_value['visit_begin_date'];
         }
 
         $this->records = $_method_data;
@@ -272,14 +277,16 @@ class ReportsController extends \yii\web\Controller
     {
         // Repalce the header placerholder information with real data
         $location_header = file_get_contents('../web/xml_data/header.part');
-        str_replace("{CurrentDate}",    date('Y-m-d'),      $location_header);
-        str_replace("{ReportQuarter}",  $this->quar_req,    $location_header);
-        str_replace("{ReportYear}",     $this->year_req,    $location_header);
-        str_replace("{SubmissionType}", $this->report_type, $location_header);
+        // @todo Better way to do this? - DJE : 2014-10-05
+        $location_header = str_replace("{CurrentDate}",    date('Y-m-d'),      $location_header);
+        $location_header = str_replace("{ReportQuarter}",  $this->quar_req,    $location_header);
+        $location_header = str_replace("{ReportYear}",     $this->year_req,    $location_header);
+        $location_header = str_replace("{SubmissionType}", $this->report_type, $location_header);
+
+
 
         // Replace the footer placeholder information with real data
         $location_footer = file_get_contents('../web/xml_data/footer.part');
-        str_replace("{NumberOfRecords}", $this->total_record_count, $location_footer);
 
 
 
@@ -288,8 +295,8 @@ class ReportsController extends \yii\web\Controller
         fwrite(
             $f_resource,
             $location_header
-            .$this->generate_valid_xml_from_array($this->records, 'RECORD')
-            .$location_footer
+            .$this->generate_valid_xml_from_array($this->records, 'RECORDS', 'RECORD')
+            .str_replace("{NumberOfRecords}", $this->total_record_count, $location_footer)
         );
 
         if (YII_DEBUG) {
@@ -303,21 +310,13 @@ class ReportsController extends \yii\web\Controller
     /**
      * @source http://www.sean-barton.co.uk/2009/03/turning-an-array-or-object-into-xml-using-php/#.VDG6FildXR0
      */
-    private function generate_xml_from_array($array, $node_name)
+    private function generate_valid_xml_from_array($array, $node_block='nodes', $node_name='node')
     {
-        $xml = '';
+        /* $xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n"; */
 
-        if (is_array($array) || is_object($array)) {
-            foreach ($array as $key=>$value) {
-                if (is_numeric($key)) {
-                    $key = $node_name;
-                }
-
-                $xml .= '<' . $key . '>' . "\n" . $this->generate_xml_from_array($value, $node_name) . '</' . $key . '>' . "\n";
-            }
-        } else {
-            $xml = htmlspecialchars($array, ENT_QUOTES) . "\n";
-        }
+        $xml = "\n" . '<' . $node_block . '>' . "\n";
+        $xml .= $this->generate_xml_from_array($array, $node_name);
+        $xml .= '</' . $node_block . '>' . "\n";
 
         return $xml;
     }
@@ -325,13 +324,37 @@ class ReportsController extends \yii\web\Controller
     /**
      * @source http://www.sean-barton.co.uk/2009/03/turning-an-array-or-object-into-xml-using-php/#.VDG6FildXR0
      */
-    private function generate_valid_xml_from_array($array, $node_block='nodes', $node_name='node')
+    private function generate_xml_from_array($array, $node_name)
     {
-        $xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
+        $xml = null;
 
-        $xml .= '<' . $node_block . '>' . "\n";
-        $xml .= $this->generate_xml_from_array($array, $node_name);
-        $xml .= '</' . $node_block . '>' . "\n";
+        if (is_array($array) || is_object($array)) {
+            foreach ($array as $key=>$value) {
+                if (is_numeric($key)) {
+                    $key = $node_name;
+                }
+
+                // If not a root 'record' element add indenting
+                if ($key != $node_name) {
+                    $xml .= '    ';
+                }
+
+                // Add the 'record_id' property to the RECORD element
+                if ($key == $node_name) {
+
+                    $this->total_record_count++;
+
+                    $xml .= '<' . $key . ' id="'.$value["RECORD_ID"].'">'."\n";
+                } else {
+                    
+                    $xml .= '<' . $key . '>';
+                }
+
+                $xml .= $this->generate_xml_from_array($value, $node_name) . '</' . $key . '>' . "\n";
+            }
+        } else {
+            $xml = htmlspecialchars($array, ENT_QUOTES);
+        }
 
         return $xml;
     }

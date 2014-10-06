@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'report_window'
         ),
         [
-            'prompt' => 'Pick One',
             'class'  => 'form-control'
         ]
     );
