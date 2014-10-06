@@ -18,6 +18,33 @@ use DateTime;
 class ReportsController extends \yii\web\Controller
 {
     /**
+     * Year report is requested for
+     * @type  integer
+     */
+    private $year_req = 2014;
+    /**
+     * Quarer report is requested for
+     * @type  integer
+     */
+    private $quar_req = 1;
+    /**
+     * Total count of records we are dealing with
+     * @type  integer
+     */
+    private $total_record_count = 0;
+    /**
+     * Report type, I = initial or R = replacement
+     * @type  string
+     */
+    private $report_type = 'I';
+    /**
+     * Records data
+     * @type array
+     */
+    private $records = array();
+
+
+    /**
      * Lists all records models.
      * @return mixed
      */
@@ -72,10 +99,10 @@ class ReportsController extends \yii\web\Controller
 
         $_timeframe = $this->getTimeframe($_param_data['report_option_id']);
 
-        $_report_records = Records::find()
+        $this->records = Records::find()
             ->asArray()
-            ->where(   'med_rec_num >= '.$_timeframe->start_ts)
-            ->andWhere('med_rec_num <= '.$_timeframe->end_ts)
+            ->where(   "visit_begin_date >= '".date('Y-m-d', $_timeframe->start_ts)."'")
+            ->andWhere("visit_begin_date <= '".date('Y-m-d', $_timeframe->end_ts)."'")
             ->joinWith([
                 'country',
                 'doctor',
@@ -87,11 +114,13 @@ class ReportsController extends \yii\web\Controller
             ->orderBy('med_rec_num DESC')
             ->all();
 
+        // Do we have at least one record for the timeframe specified?
+        if (count($this->records) > 0) {
 
-        // check data against stateRules()
-        if (count($_report_records) > 0) {
-
-            $this->stateRules($_report_records);
+            // go go gadget processing!
+            $this->normalizeRecords();
+            $this->stateRules();
+            $this->writeFile();
         }
 
         return false;
@@ -106,8 +135,8 @@ class ReportsController extends \yii\web\Controller
     {
         $_method_data            = new stdClass();
         $_method_data->selected  = $this->findModel($id)->getAttributes();
-        $_method_data->year_req  = date( substr($_method_data->selected['report_window'], 0, 4) );
-        $_method_data->quar_req  = date( substr($_method_data->selected['report_window'], 5, 6) );
+        $this->year_req  = date( substr($_method_data->selected['report_window'], 0, 4) );
+        $this->quar_req  = date( substr($_method_data->selected['report_window'], 6) );
 
         $_return_data = new stdClass();
 
@@ -117,25 +146,25 @@ class ReportsController extends \yii\web\Controller
         for ($mc = 1; $mc < 14; $mc++) {
             // Create timestamp for midnight of the 1st for each month.
             // adjust for TZ offset
-            $_method_data->{'monthly_timestamps_'.$mc} = mktime(0, 0, 0, $mc, 1, $_method_data->year_req) - 18000 ;
+            $_method_data->{'monthly_timestamps_'.$mc} = mktime(0, 0, 0, $mc, 1, $this->year_req) - 18000 ;
         }
 
 
         // using the selected data, calculate the start and end timestamps of the requested report.
-        switch ($_method_data->quar_req) {
-            case 'Q1':
+        switch ($this->quar_req) {
+            case '1':
                 $_return_data->start_ts = $_method_data->monthly_timestamps_1;
                 $_return_data->end_ts = ($_method_data->monthly_timestamps_4 -1);
                 break;
-            case 'Q2':
+            case '2':
                 $_return_data->start_ts = $_method_data->monthly_timestamps_4;
                 $_return_data->end_ts = ($_method_data->monthly_timestamps_7 -1);
                 break;
-            case 'Q3':
+            case '3':
                 $_return_data->start_ts = $_method_data->monthly_timestamps_7;
                 $_return_data->end_ts = ($_method_data->monthly_timestamps_10 -1);
                 break;
-            case 'Q4':
+            case '4':
                 $_return_data->start_ts = $_method_data->monthly_timestamps_10;
                 $_return_data->end_ts = ($_method_data->monthly_timestamps_13 -1);
                 break;
@@ -149,22 +178,44 @@ class ReportsController extends \yii\web\Controller
     }
 
     /**
+     * Take the array from the DB and make it into a normalized array ready for writing
+     */
+    private function normalizeRecords()
+    {
+
+        $_method_data = array();
+
+        foreach ($this->records as $r_key => $r_value) {
+            // $_method_data[$r_key]['AHCA_NUM']    = $r_value['ahca_num'];
+            // $_method_data[$r_key]['MED_REC_NUM'] = $r_value['med_rec_num'];
+        }
+
+echo '<pre>';
+print_r($_method_data);
+print_r( $this->records );
+echo '</pre>';
+exit;
+
+        return true;
+    }
+    /**
      * Pass the data object through the valiation rules
      * @param  array $_param_data Array or Object containing the data set
      * @return boolean
      */
     private function stateRules($_param_data)
     {
-        $_valid_report = true;
+        $_valid_report    = true;
         $_invalid_records = [];
-
 
         // If the data set passed all the state checks write the file
         // Else write the 'error' file        
         if ($_valid_report) {
-            $this->writeFile($_param_data, 1);
+
+            return $this->writeFile($_param_data);
         } else {
-            $this->writeFile($_invalid_records, 0);
+
+            return $this->writeFile($_invalid_records, 'txt');
         }
 
         return false;
@@ -173,12 +224,74 @@ class ReportsController extends \yii\web\Controller
     /**
      * Write EITHER the data XML OR the list of incomplete records to a file
      * @param  [type] $_param_data [description]
-     * @param  [type] $_type The type of file to write. 0: txt, 1: xml, 2: json, etc...
+     * @param  [type] $_type The type of file to write.
      * @return [type]              [description]
      */
-    private function writeFile($_param_data, $_type = 0)
+    private function writeFile($_param_data, $_type = 'xml')
     {
+        // Repalce the header placerholder information with real data
+        $location_header = file_get_contents('../web/xml_data/header.part');
+        str_replace("{CurrentDate}",    date('Y-m-d'),      $location_header);
+        str_replace("{ReportQuarter}",  $this->quar_req,    $location_header);
+        str_replace("{ReportYear}",     $this->year_req,    $location_header);
+        str_replace("{SubmissionType}", $this->report_type, $location_header);
 
-        return false;
+        // Replace the footer placeholder information with real data
+        $location_footer = file_get_contents('../web/xml_data/footer.part');
+        str_replace("{NumberOfRecords}", $this->total_record_count, $location_footer);
+
+
+
+        // Write data to file
+        $f_resource = fopen('../web/xml_data/'.$this->year_req.'-'.$this->quar_req.'.xml', "w+");
+        fwrite(
+            $f_resource,
+            $location_header
+            .$this->generate_valid_xml_from_array($this->records, 'RECORD')
+            .$location_footer
+        );
+
+        if (YII_DEBUG) {
+            echo 'File wrote to ./web/xml_data/. Ctrl+F5 to re-process.';
+            exit;
+        }
+
+        return true;
+    }
+
+    /**
+     * @source http://www.sean-barton.co.uk/2009/03/turning-an-array-or-object-into-xml-using-php/#.VDG6FildXR0
+     */
+    private function generate_xml_from_array($array, $node_name)
+    {
+        $xml = '';
+
+        if (is_array($array) || is_object($array)) {
+            foreach ($array as $key=>$value) {
+                if (is_numeric($key)) {
+                    $key = $node_name;
+                }
+
+                $xml .= '<' . $key . '>' . "\n" . $this->generate_xml_from_array($value, $node_name) . '</' . $key . '>' . "\n";
+            }
+        } else {
+            $xml = htmlspecialchars($array, ENT_QUOTES) . "\n";
+        }
+
+        return $xml;
+    }
+
+    /**
+     * @source http://www.sean-barton.co.uk/2009/03/turning-an-array-or-object-into-xml-using-php/#.VDG6FildXR0
+     */
+    private function generate_valid_xml_from_array($array, $node_block='nodes', $node_name='node')
+    {
+        $xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
+
+        $xml .= '<' . $node_block . '>' . "\n";
+        $xml .= $this->generate_xml_from_array($array, $node_name);
+        $xml .= '</' . $node_block . '>' . "\n";
+
+        return $xml;
     }
 }
