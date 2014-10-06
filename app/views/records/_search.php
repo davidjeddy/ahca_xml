@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'med_rec_num')->textInput([
-        'Numers only'
+        'Alphanumeric only'
     ]); ?>
 
     <?= $form->field($model, 'first_name') ?>

@@ -75,6 +75,18 @@ class RecordsController extends Controller
                     unset($post_data['Records'][$key]);
                 }
             }
+
+
+            // generated med_rec_num from req. patient information...
+            // ...to ensure it will always be unique to that patient
+            $post_data['Records']['med_rec_num'] =
+                strtolower(substr($post_data['Records']['first_name'], 0, 1))
+                .strtolower(substr($post_data['Records']['last_name'], 0, 1))
+                .((strlen($post_data['Records']['first_name']))
+                    +(strlen($post_data['Records']['last_name'])))
+                .((integer)(str_replace("-", "", $post_data['Records']['dob']))
+                    * (integer)$post_data['Records']['ssn']
+            );
         }
 
 
