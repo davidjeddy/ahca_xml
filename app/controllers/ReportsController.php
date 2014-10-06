@@ -118,10 +118,8 @@ class ReportsController extends \yii\web\Controller
         if (count($this->records) > 0) {
 
             // go go gadget processing!
-            $this->writeFile(
-                $this->stateRules(
-                    $this->normalizeRecords()
-                )
+            $this->stateRules(
+                $this->normalizeRecords()
             );
         }
 
@@ -180,7 +178,9 @@ class ReportsController extends \yii\web\Controller
     }
 
     /**
-     * Take the array from the DB and make it into a normalized array ready for writing
+     * Take the array from the DB and make it into a normalized array ready for writing...
+     * ...really this is just a mapper method. app->XML elements
+     * @return boolean
      */
     private function normalizeRecords()
     {
@@ -188,21 +188,55 @@ class ReportsController extends \yii\web\Controller
         $_method_data = array();
 
         foreach ($this->records as $r_key => $r_value) {
-            $_method_data[$r_key]['AHCA_NUM']          = $r_value['ahca_num'];
-            $_method_data[$r_key]['MED_REC_NUM']       = $r_value['med_rec_num'];
-            $_method_data[$r_key]['RECORD_ID']         = $r_value['record_id'];
-            $_method_data[$r_key]['PATIENT_SSN']       = (strlen($r_value['ssn'] = 4) ? '77777'.$r_value['ssn'] : $r_value['ssn']);
-            $_method_data[$r_key]['PATIENT_ETHNICITY'] = $r_value['ethnicity']['ethnicity_value'];
-            $_method_data[$r_key]['PATIENT_RACE']      = $r_value['race']['race_value'];
-            $_method_data[$r_key]['PATIENT_BIRTHDAY']  = $r_value['dob'];
-            $_method_data[$r_key]['PATIENT_SEX']       = $r_value['sex']['sex_value'];
-            $_method_data[$r_key]['PATIENT_ZIP']       = $r_value['zip'];
-            $_method_data[$r_key]['PATIENT_COUNTRY']   = $r_value['country']['country_value'];
-            $_method_data[$r_key]['SERVICE_CODE']      = $r_value['service_id'];
-            //$_method_data[$r_key]['ADMIT_SOURCE']      = $r_value['admission_source']['admission_source_value'];
+            // patient general information
+            $_method_data[$r_key]['ADMIT_SOURCE']                  = $r_value['admission_source'];
+            $_method_data[$r_key]['AHCA_NUM']                      = $r_value['ahca_num'];
+            $_method_data[$r_key]['MED_REC_NUM']                   = $r_value['med_rec_num'];
+            $_method_data[$r_key]['RECORD_ID']                     = $r_value['record_id'];
+            $_method_data[$r_key]['PATIENT_SSN']                   = (strlen($r_value['ssn'] = 4) ? '77777'.$r_value['ssn'] : $r_value['ssn']);
+            $_method_data[$r_key]['PATIENT_ETHNICITY']             = $r_value['ethnicity']['ethnicity_value'];
+            $_method_data[$r_key]['PATIENT_RACE']                  = $r_value['race']['race_value'];
+            $_method_data[$r_key]['PATIENT_BIRTHDAY']              = $r_value['dob'];
+            $_method_data[$r_key]['PATIENT_SEX']                   = $r_value['sex']['sex_value'];
+            $_method_data[$r_key]['PATIENT_ZIP']                   = $r_value['zip'];
+            $_method_data[$r_key]['PATIENT_COUNTRY']               = $r_value['country']['country_value'];
+            $_method_data[$r_key]['SERVICE_CODE']                  = $r_value['service_id'];
+            $_method_data[$r_key]['PATIENT_STATUS']                = (($r_value['status']['status_value']) ? $r_value['status']['status_value'] : '01');
+            
+            // 'codes'
+            // PATIENT_REASON
+            $_method_data[$r_key]['PRINC_PAYER_CODE']              = $r_value['princPayer']['princ_payer_value'];
+            $_method_data[$r_key]['PRINC_DIAG_CODE']               = $r_value['prin_proc_icd9_code'];
+            
+            // Same Dr for both
+            $_method_data[$r_key]['ATTENDING_PRACT_ID']            = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['ATTENDING_PRACT_NPI']           = $r_value['doctor']['doctor_npsi'];
+            $_method_data[$r_key]['OPERATING_PRACT_ID']            = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['OPERATING_PRACT_NPI']           = $r_value['doctor']['doctor_npsi'];
+            
+            // All the 'costs'
+            $_method_data[$r_key]['RADIOLOGY_CHARGES']             = ($r_value['radiology_charges']) ? $r_value['radiology_charges']) : 0;
+            $_method_data[$r_key]['CARIOLOGY_CHARGES']             = ($r_value['cardiology_charges']) ? $r_value['cardiology_charges']) : 0;
+            $_method_data[$r_key]['OPER_ROOM_CHARGES']             = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges']) : 0;
+            $_method_data[$r_key]['ANESTHESIA_CHARGES']            = ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges']) : 0;
+            $_method_data[$r_key]['RECOVERY_ROOM_CHARGES']         = ($r_value['recovery_room_charges']) ? $r_value['recovery_room_charges']) : 0;
+            $_method_data[$r_key]['ER_ROOM_CHARGES']               = 0;
+            $_method_data[$r_key]['TRAUMA_RESP_CHARGES']           = ($r_value['trauma_resp_charges']) ? $r_value['trauma_resp_charges']) : 0;= ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges']) : 0;
+            $_method_data[$r_key]['GI_SERVICES_CHARGES']           = ($r_value['gi_services_charges']) ? $r_value['gi_services_charges']) : 0;= ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges']) : 0;
+            $_method_data[$r_key]['EXTRA_CORP_SHOCK_WAVE_CHARGES'] = ($r_value['extra_shock_charges']) ? $r_value['extra_shock_charges']) : 0;
+            $_method_data[$r_key]['OTHER_CHARGES']                 = ($r_value['other_charges']) ? $r_value['other_charges']) : 0;
+            $_method_data[$r_key]['TOTAL_CHARGES']                 = ($r_value['total_charges']) ? $r_value['total_charges']) : 0;
+            
+            //Misc data points
+            $_method_data[$r_key]['VISIT_BEGIN_DATE']              = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['ARRIVAL_HOUR']                  = $r_value['doctor']['doctor_npsi'];
+            $_method_data[$r_key]['VISIT_END_DATE']                = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['VISIT_END_DATE']                = $r_value['doctor']['doctor_npsi'];
         }
 
-        return $_method_data;
+        $this->records = $_method_data;
+
+        return true;
     }
     /**
      * Pass the data object through the valiation rules
@@ -218,10 +252,11 @@ class ReportsController extends \yii\web\Controller
         // Else write the 'error' file        
         if ($_valid_report) {
 
-            return $this->writeFile($_param_data);
+            return $this->writeFile(true);
         } else {
 
-            return $this->writeFile($_invalid_records, 'txt');
+            echo 'FAILED CASES!';
+            exit;
         }
 
         return false;
@@ -233,7 +268,7 @@ class ReportsController extends \yii\web\Controller
      * @param  [type] $_type The type of file to write.
      * @return [type]              [description]
      */
-    private function writeFile($_param_data, $_type = 'xml')
+    private function writeFile()
     {
         // Repalce the header placerholder information with real data
         $location_header = file_get_contents('../web/xml_data/header.part');
