@@ -103,6 +103,17 @@ class ReportsController extends \yii\web\Controller
 
         $_timeframe = $this->getTimeframe($_param_data['report_option_id']);
 
+        // delete the old XML if it exists
+        if (file_exists('../web/xml_data/'.$this->year_req.'-Q'.$this->quar_req.'.xml')) {
+            unlink('../web/xml_data/'.$this->year_req.'-Q'.$this->quar_req.'.xml');
+        }
+
+        // delete invalid records file as well
+        if (file_exists('../web/xml_data/invalid_cases.txt')) {
+            unlink('../web/xml_data/invalid_cases.txt');
+        }
+
+        // find all the records that are applicatable for the given timeframe
         $this->records = Records::find()
             ->asArray()
             ->where(   "visit_begin_date >= '".date('Y-m-d', $_timeframe->start_ts)."'")
@@ -192,6 +203,8 @@ class ReportsController extends \yii\web\Controller
     {
         $_method_data = array();
 
+        $this->total_record_count = count($this->records);
+
         foreach ($this->records as $r_key => $r_value) {
             // patient general information
             $_method_data[$r_key]['ADMIT_SOURCE']      = $r_value['admissionSource']['admission_source_value'];
@@ -201,7 +214,7 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['PATIENT_SSN']       = (strlen($r_value['ssn'] = 4) ? '77777'.$r_value['ssn'] : $r_value['ssn']);
             $_method_data[$r_key]['PATIENT_ETHNICITY'] = $r_value['ethnicity']['ethnicity_value'];
             $_method_data[$r_key]['PATIENT_RACE']      = $r_value['race']['race_value'];
-            $_method_data[$r_key]['PATIENT_BIRTHDAY']  = $r_value['dob'];
+            $_method_data[$r_key]['PATIENT_BIRTHDATE'] = $r_value['dob'];
             $_method_data[$r_key]['PATIENT_SEX']       = $r_value['sex']['sex_value'];
             $_method_data[$r_key]['PATIENT_ZIP']       = $r_value['zip'];
             $_method_data[$r_key]['PATIENT_COUNTRY']   = $r_value['country']['country_value'];
@@ -215,9 +228,9 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['OTHER_CPT_HCPCS_CODE'] = $r_value['cpt_codes'];
 
             // Same Dr for both
-            $_method_data[$r_key]['ATTENDING_PRACT_ID']  = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['ATTENDING_PRACT_ID']  = ucwords($r_value['doctor']['doctor_state_lic']);
             $_method_data[$r_key]['ATTENDING_PRACT_NPI'] = $r_value['doctor']['doctor_npsi'];
-            $_method_data[$r_key]['OPERATING_PRACT_ID']  = $r_value['doctor']['doctor_state_lic'];
+            $_method_data[$r_key]['OPERATING_PRACT_ID']  = ucwords($r_value['doctor']['doctor_state_lic']);
             $_method_data[$r_key]['OPERATING_PRACT_NPI'] = $r_value['doctor']['doctor_npsi'];
             
             // All the 'costs'
@@ -249,20 +262,79 @@ class ReportsController extends \yii\web\Controller
      * @param  array $_param_data Array or Object containing the data set
      * @return boolean
      */
-    private function stateRules($_param_data)
+    private function stateRules()
     {
-        $_valid_report    = true;
-        $_invalid_records = [];
+        $_valid_report      = true;
+        $_invalid_records   = null;
+        $_validation_values = new stdClass();
+        $_validation_values->ethnicity = 0;
+        $_validation_values->race_unknwo = 0;
+        $_validation_values->race_native = 0;
 
-        // If the data set passed all the state checks write the file
-        // Else write the 'error' file        
+
+
+        // loop the records and check for special case state vanidation rules
+        foreach ($this->records as $record) {
+
+            // These will FAIL a report.
+            // if ethnic is 'hispanic', race must be 3 or 5
+            if (
+                $record['PATIENT_ETHNICITY'] == 'E1'
+                && ($record['PATIENT_RACE'] != 3 && $record['PATIENT_RACE'] != 5 )
+            ) {
+                $_validation_values->invalid_cases[] = $record['RECORD_ID'];
+                $_valid_report = false;
+            }
+
+
+
+            // These are averages of the entire report
+            // if ethnic is E7 (unknown) do not fail, but remember this and similar records
+            if ($record['PATIENT_ETHNICITY'] == 'E7') {
+                $_validation_values->invalid_cases[] = $record['RECORD_ID'];
+                $_validation_values->ethnicity++;
+            }
+
+
+            // if race is 7 (unknown) do not fail, but remember this and similar records
+            if ($record['PATIENT_RACE'] == '7') {
+                $_validation_values->invalid_cases[] = $record['RECORD_ID'];
+                $_validation_values->race_unknwo++;
+            }
+
+            // if race is 4 (native american) do not fail, but remember this and similar records
+            if ($record['PATIENT_RACE'] == '4') {
+                $_validation_values->invalid_cases[] = $record['RECORD_ID'];
+                $_validation_values->race_native++;
+            }
+        }
+
+
+
+        // Now check for 'averages' or 'counts' that are over acceptable limits
+        // No more than 15% of ethnic can be unknown
+        if ( ($_validation_values->ethnicity / $this->total_record_count) > 0.15) {
+            $_valid_report = false;
+        }
+
+        if ( ($_validation_values->race_unknwo / $this->total_record_count) > 0.20) {
+            $_valid_report = false;
+        }
+
+        if ( ($_validation_values->race_native / $this->total_record_count) > 0.01) {
+            $_valid_report = false;
+        }
+  
+
+
+
+        // Now select what to write based on teh $_valid_report value
         if ($_valid_report) {
 
-            return $this->writeFile(true);
+            return $this->writeReport();
         } else {
 
-            echo 'FAILED CASES!';
-            exit;
+            return $this->writeError($_validation_values->invalid_cases);
         }
 
         return false;
@@ -274,7 +346,7 @@ class ReportsController extends \yii\web\Controller
      * @param  [type] $_type The type of file to write.
      * @return [type]              [description]
      */
-    private function writeFile()
+    private function writeReport()
     {
         // Repalce the header placerholder information with real data
         $location_header = file_get_contents('../web/xml_data/header.part');
@@ -292,7 +364,7 @@ class ReportsController extends \yii\web\Controller
 
 
         // Write data to file
-        $f_resource = fopen('../web/xml_data/'.$this->year_req.'-'.$this->quar_req.'.xml', "w+");
+        $f_resource = fopen('../web/xml_data/'.$this->year_req.'-Q'.$this->quar_req.'.xml', "w+");
         fwrite(
             $f_resource,
             $location_header
@@ -306,6 +378,17 @@ class ReportsController extends \yii\web\Controller
         }
 
         return true;
+    }
+
+    private function writeError($_param_data)
+    {
+        $f_resource = fopen('../web/xml_data/invalid_cases.txt', "w+");
+        fwrite($f_resource, implode("\r\n",$_param_data));
+
+        if (YII_DEBUG) {
+            echo 'Error file wrote to ./web/xml_data/.';
+            exit;
+        }
     }
 
     /**
@@ -353,8 +436,6 @@ class ReportsController extends \yii\web\Controller
 
                 // Add the 'record_id' property to the RECORD element
                 if ($key == $node_name && isset($value["RECORD_ID"])) {
-
-                    $this->total_record_count++;
 
                     $xml .= '<' . $key . ' id="'.$value["RECORD_ID"].'">'."\n";
                 } else {
