@@ -15,7 +15,7 @@ class Search extends records
     public function rules()
     {
         return [
-            [['med_rec_num'], 'integer'],
+            [['record_id', 'med_rec_num'], 'integer'],
             [['ssn', ], 'number'],
             [['first_name', 'last_name', 'dob'], 'string'],
         ];
@@ -40,6 +40,7 @@ class Search extends records
         }
 
         $query->andFilterWhere([
+            'record_id'   => $this->record_id,
             'med_rec_num' => $this->med_rec_num,
             'first_name'  => $this->first_name,
             'last_name'   => $this->last_name,
@@ -48,11 +49,12 @@ class Search extends records
         ]);
 
         $query
-            ->andFilterWhere(['like', 'med_rec_num', $this->med_rec_num])
-            ->andFilterWhere(['like', 'first_name',  $this->first_name])
-            ->andFilterWhere(['like', 'last_name',   $this->last_name])
-            ->andFilterWhere(['like', 'ssn',         $this->ssn])
-            ->andFilterWhere([' = ',  'dob',         $this->dob])
+            ->andFilterWhere(['=',      'record_id',    $this->record_id])
+            ->andFilterWhere(['like',   'med_rec_num',  $this->med_rec_num])
+            ->andFilterWhere(['like',   'first_name',   $this->first_name])
+            ->andFilterWhere(['like',   'last_name',    $this->last_name])
+            ->andFilterWhere(['like',   'ssn',          $this->ssn])
+            ->andFilterWhere([' = ',    'dob',          $this->dob])
         ;
 
         return $dataProvider;
