@@ -58,7 +58,8 @@ class ReportsController extends \yii\web\Controller
 
             Yii::$app->session->setFlash(
                 'notice',
-                '<br />Report can be retrievable <a href="../xml_data/" target="_new">here</a>.'
+                '<br />Report can be retrievable <a href="../xml_data/" target="_new">here</a>.
+                </br >If the report is not generated, check the error cases <a href="../xml_data/invalid_cases.txt" target="_new">here</a>.'
             );
 
             // submit type
