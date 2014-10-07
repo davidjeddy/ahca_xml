@@ -3,4 +3,4 @@ vendor
 public_html/runtime/cache
 public_html/web/assets
 public_html/runtime
-invalid_cases.txt
+app/web/xml_data

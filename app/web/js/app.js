@@ -38,6 +38,10 @@ $(document).ready(function(){
 	    return this.text == "United States"; 
 	}).attr('selected', true);
 
+	$("#records-admission_source_id option").filter(function() {
+	    return this.text == "00"; 
+	}).attr('selected', true);
+
 	// JS reset of forms
 
 	$(":reset").on('click', function() {

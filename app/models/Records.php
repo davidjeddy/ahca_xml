@@ -74,7 +74,7 @@ class Records extends \yii\db\ActiveRecord
             [['admission_source_id', 'anesthesia_charges', 'arrival_hour', 'cardiology_charges', 'country_id', 'doctor_id', 'ethnicity_id', 'extra_shock_charges', 'gi_services_charges', 'lab_charges', 'med_surg_supply_charges', 'oper_room_charges', 'other_charges', 'patient_status_id', 'pharmacy_charges', 'princ_payer_id', 'race_id', 'radiology_charges', 'recovery_room_charges', 'service_id', 'sex_id', 'total_charges', 'trauma_resp_charges'], 'integer'],
             [['arrival_hour', 'ssn', 'zip'],  'number'], 
             [['dob', 'visit_begin_date', 'visit_end_date'], 'safe'],
-            [['first_name', 'last_name'], 'required'],
+            [['first_name', 'last_name', 'dob', 'ssn'], 'required'],
             [['ahca_num'], 'string', 'max'                => 10],          
             [['first_name', 'last_name'], 'string', 'max' => 32],
             [['med_rec_num'], 'string', 'max'             => 24],
@@ -91,7 +91,7 @@ class Records extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'admission_source_id'          => 'Sorted columns alphabetically before anyone started added data. This is the core TBO of the DB.',
+            'admission_source_id'          => 'Admission Source',
             'admitting_icd9_code'          => 'Admitting Icd9 Code',
             'ahca_num'                     => 'Ahca Num',
             'anesthesia_charges'           => 'Anesthesia Charges',
@@ -136,6 +136,14 @@ class Records extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAdmissionSource()
+    {
+        return $this->hasOne(AdmissionSource::className(), ['admission_source_id' => 'admission_source_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getDoctor()
     {
         return $this->hasOne(Doctor::className(), ['doctor_id' => 'doctor_id']);
@@ -170,7 +178,7 @@ class Records extends \yii\db\ActiveRecord
      */
     public function getPrincPayer()
     {
-        return $this->hasOne(PrincPayer::className(), ['princ_payer_id' => 'princ_payer_id']);
+        return $this->hasOne(PrinciplePayer::className(), ['princ_payer_id' => 'princ_payer_id']);
     }
 
     /**

@@ -30,10 +30,33 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <h2><span class="label label-primary">General Information:</span></h2>
 
-    <?= $form->field($model, 'med_rec_num')->textInput([
-        'value' => time(),
+    <?= $form->field($model, 'record_id')->textInput([
         'readonly' => true
     ]); ?>
+
+    <?= $form->field($model, 'med_rec_num')->textInput([
+        'readonly' => true
+    ]); ?>
+
+    <?php //$form->field($model, 'admission_source_id')->textInput(); ?>
+    <?php
+    echo Html::activeLabel($model, 'admission_source');
+    echo Html::activeDropDownList(
+        $model,
+        'admission_source_id',
+        ArrayHelper::map(
+            AdmissionSource::find()->all(),
+            'admission_source_id',
+            'admission_source_value',
+            'admission_source_description'
+        ),
+        // @todo abstract this to app settings - DJE : 2014-09-30
+        [
+            'prompt' => 'Pick One',
+            'class'  => 'form-control'
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'first_name')->textInput([
         'placeholder' => 'First Name'
@@ -43,17 +66,36 @@ use dosamigos\datetimepicker\DateTimePicker;
         'placeholder' => 'Last Name'
     ]); ?>
 
-    <?php $form->field($model, 'ahca_num')->textInput([
-        'placeholder' => '8 to 10 numbers',
-        'value' => '14960704',
-        'type' => 'hidden'
-    ]); ?>
-
     <?= $form->field($model, 'ssn')->textInput([
         'placeholder' => 'Full SSN (no dashes) OR last 4 SSN digits',
         'minlength'   => 4,
         'maxlength'   => 9,
         'type'        => 'number'
+    ]); ?>
+
+    <?php //echo $form->field($model, 'dob')->textInput(); ?>
+    <?= $form->field($model, 'dob')->widget(DateTimePicker::className(), [
+        'language'       => 'en',
+        'size'           => 'ms',
+        'template'       => '{input}',
+        'pickButtonIcon' => 'glyphicon glyphicon-time',
+        'inline'         => false,
+        'clientOptions'  => [
+            'startView'          => 4,
+            'minView'            => 2,
+            'maxView'            => 4,
+            'autoclose'          => true,
+            'format'             => 'yyyy-mm-dd', // if inline = false
+            'keyboardNavigation' => true,
+            'forceParse'         => false,
+            //'todayBtn'         => true
+        ]
+    ]);?>
+
+    <?php $form->field($model, 'ahca_num')->textInput([
+        'placeholder' => '8 to 10 numbers',
+        'value'       => '14960704',
+        'type'        => 'hidden'
     ]); ?>
 
     <?php //$form->field($model, 'ethnicity_id')->textInput(); ?>
@@ -95,25 +137,6 @@ use dosamigos\datetimepicker\DateTimePicker;
         ]
     );
     ?>
-
-    <?php //echo $form->field($model, 'dob')->textInput(); ?>
-    <?= $form->field($model, 'dob')->widget(DateTimePicker::className(), [
-        'language'       => 'en',
-        'size'           => 'ms',
-        'template'       => '{input}',
-        'pickButtonIcon' => 'glyphicon glyphicon-time',
-        'inline'         => false,
-        'clientOptions'  => [
-            'startView'          => 4,
-            'minView'            => 2,
-            'maxView'            => 4,
-            'autoclose'          => true,
-            'format'             => 'yyyy-mm-dd', // if inline = false
-            'keyboardNavigation' => true,
-            'forceParse'         => false,
-            //'todayBtn'         => true
-        ]
-    ]);?>
 
     <?php //$form->field($model, 'sex_id')->textInput() ?>
     <?php

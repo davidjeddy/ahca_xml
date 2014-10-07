@@ -25,10 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // @todo create a quick menu for on page navigation. - DJE : 2014-09-29; ?>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['create'],
-        'method' => 'get',
-    ]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <h2><span class="label label-primary"><?= Html::encode($this->title) ?></span></h2>
 
@@ -43,11 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'report_window'
         ),
         [
-            'prompt' => 'Pick One',
             'class'  => 'form-control'
         ]
     );
     ?>
+
+    <input type="checkbox" name="Reports[resubmit]" value="true">This report will be a 'resubmit' to the state.
 
     <div class="form-group"><?php echo Html::submitButton( 'Request Report', ['class' => 'btn btn-primary']); ?></div>
 

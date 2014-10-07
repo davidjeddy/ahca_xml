@@ -6,3 +6,7 @@
 SELECT {
 	margin-bottom: 15px;
 }
+
+FORM {
+	padding-bottom: 50px;
+}
