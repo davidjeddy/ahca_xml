@@ -15,7 +15,8 @@ class Search extends records
     public function rules()
     {
         return [
-            [['record_id', 'med_rec_num'], 'integer'],
+            [['record_id'], 'integer'],
+            [['med_rec_num'], 'string'],
             [['ssn', ], 'number'],
             [['first_name', 'last_name', 'dob'], 'string'],
         ];
@@ -33,6 +34,9 @@ class Search extends records
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 5,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
