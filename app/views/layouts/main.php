@@ -38,8 +38,7 @@ AppAsset::register($this);
                     ['label' => 'Create',  'url' => ['/records/create']],
                     ['label' => 'Search',  'url' => ['/records/index']],
                     ['label' => 'Report',  'url' => ['/reports/index']],
-                    ['label' => 'About',   'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
+                    ['label' => 'About',   'url' => ['/site/about']]
                 ],
             ]);
             NavBar::end();

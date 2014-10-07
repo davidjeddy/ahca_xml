@@ -2,7 +2,7 @@
 
 return [
 	'application' => 'AHCA State Records Input Application',
-	'copyright'   => 'Contents © 2014 David Eddy',
+	'copyright'   => '© '.date('Y').' Sentry IT Solutions or <a href="https://github.com/davidjeddy" target="_blank">David Eddy</a>',
 	'warranty'    => 'AS IS',
-	'license'    => 'BSD License'
+	'license'     => 'BSD License'
 ];
