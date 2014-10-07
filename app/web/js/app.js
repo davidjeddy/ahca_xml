@@ -20,13 +20,6 @@ $(document).ready(function(){
 		return true;
 	};
 
-	function resetForm(form) {
-	    $("form#"+form).find('input:text, input:password, input:file, select, textarea').val('');
-	    $("form#"+form).find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
-
-		return true;
-	}
-
 
 
 	// Calculate charges, ovrride any values in the total_charges field
@@ -46,10 +39,6 @@ $(document).ready(function(){
 
 	$(":reset").on('click', function() {
 		console.log('JS form reset of form');
-
-		// @referance: http://stackoverflow.com/questions/680241/resetting-a-multi-stage-form-with-jquery
-		// @author Paolo Bergantino
-		console.log($(this).closest('form').attr('id'));
-		//resetForm($(this).closest('form').attr('id'));
+		window.location.href = ('./index.php?r=records/index');
 	});
 });
