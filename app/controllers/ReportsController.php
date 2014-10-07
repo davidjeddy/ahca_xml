@@ -223,7 +223,9 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['PATIENT_STATUS']    = $r_value['patientStatus']['patient_status_value'] ? $r_value['patientStatus']['patient_status_value'] : '01';
             
             // 'codes'
-            $_method_data[$r_key]['PATIENT_REASON']       = $r_value['admitting_icd9_code'];
+            if (!empty($r_value['admitting_icd9_code'])) {
+                $_method_data[$r_key]['PATIENT_REASON']   = $r_value['admitting_icd9_code'];
+            }
             $_method_data[$r_key]['PRIN_PROC_CODE']       = $r_value['primary_diag_icd9_code'];
             $_method_data[$r_key]['OTHER_DIAG_CODE']      = $r_value['other_diagnostics_icd9_codes'];
             $_method_data[$r_key]['OTHER_CPT_HCPCS_CODE'] = $r_value['cpt_codes'];
