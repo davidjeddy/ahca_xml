@@ -213,6 +213,12 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['MED_REC_NUM']       = $r_value['med_rec_num'];
             $_method_data[$r_key]['RECORD_ID']         = $r_value['record_id'];
             $_method_data[$r_key]['PATIENT_SSN']       = strlen($r_value['ssn']) == 4 ? '77777'.$r_value['ssn'] : $r_value['ssn'];
+            
+            // @todo quick stop-gap for non United States patience
+            if ($r_value['country']['country_id'] != 184) {
+                $_method_data[$r_key]['PATIENT_SSN'] = '00009';
+            }
+
             $_method_data[$r_key]['PATIENT_ETHNICITY'] = $r_value['ethnicity']['ethnicity_value'];
             $_method_data[$r_key]['PATIENT_RACE']      = $r_value['race']['race_value'];
             $_method_data[$r_key]['PATIENT_BIRTHDATE'] = $r_value['dob'];
