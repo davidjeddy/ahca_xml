@@ -212,7 +212,7 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['AHCA_NUM']          = $r_value['ahca_num'];
             $_method_data[$r_key]['MED_REC_NUM']       = $r_value['med_rec_num'];
             $_method_data[$r_key]['RECORD_ID']         = $r_value['record_id'];
-            $_method_data[$r_key]['PATIENT_SSN']       = (strlen($r_value['ssn'] = 4) ? '77777'.$r_value['ssn'] : $r_value['ssn']);
+            $_method_data[$r_key]['PATIENT_SSN']       = strlen($r_value['ssn']) == 4 ? '77777'.$r_value['ssn'] : $r_value['ssn'];
             $_method_data[$r_key]['PATIENT_ETHNICITY'] = $r_value['ethnicity']['ethnicity_value'];
             $_method_data[$r_key]['PATIENT_RACE']      = $r_value['race']['race_value'];
             $_method_data[$r_key]['PATIENT_BIRTHDATE'] = $r_value['dob'];
