@@ -242,8 +242,8 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['OPERATING_PRACT_NPI'] = $r_value['doctor']['doctor_npsi'];
             
             // All the 'costs'
-            $_method_data[$r_key]['RADIOLOGY_CHARGES']             = ($r_value['radiology_charges']) ? $r_value['radiology_charges'] : 0;
-            $_method_data[$r_key]['CARIOLOGY_CHARGES']             = ($r_value['cardiology_charges']) ? $r_value['cardiology_charges'] : 0;
+            $_method_data[$r_key]['RADIOLOGY_IMAGING_CHARGES']     = ($r_value['radiology_charges']) ? $r_value['radiology_charges'] : 0;
+            $_method_data[$r_key]['CARDIOLOGY_CHARGES']            = ($r_value['cardiology_charges']) ? $r_value['cardiology_charges'] : 0;
             $_method_data[$r_key]['OPER_ROOM_CHARGES']             = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges'] : 0;
             $_method_data[$r_key]['ANESTHESIA_CHARGES']            = ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges'] : 0;
             $_method_data[$r_key]['RECOVERY_ROOM_CHARGES']         = ($r_value['recovery_room_charges']) ? $r_value['recovery_room_charges'] : 0;
@@ -446,7 +446,9 @@ class ReportsController extends \yii\web\Controller
                 if ($key == $node_name && isset($value["RECORD_ID"])) {
 
                     $xml .= '<' . $key . ' id="'.$value["RECORD_ID"].'">'."\n";
-                } else {
+
+                    // Do not add the element RECORD_ID as the ID is part of the parent element
+                } elseif ($key != $value["RECORD_ID"]) {
                     
                     $xml .= '<' . $key . '>';
                 }
