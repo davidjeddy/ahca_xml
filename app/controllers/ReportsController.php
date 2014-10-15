@@ -447,9 +447,9 @@ class ReportsController extends \yii\web\Controller
 
                     $xml .= '<' . $key . ' id="'.$value["RECORD_ID"].'">'."\n";
 
-                    // Do not add the element RECORD_ID as the ID is part of the parent element
-                } elseif ($key != $value["RECORD_ID"]) {
-                    
+                    // Record the element only if the key is not RECORD
+                } elseif ($key != 'RECORD') {
+
                     $xml .= '<' . $key . '>';
                 }
 
