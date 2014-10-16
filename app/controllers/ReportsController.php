@@ -219,7 +219,7 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['PATIENT_COUNTRY']   = $r_value['country']['country_value'];
             $_method_data[$r_key]['SERVICE_CODE']      = $r_value['service_id'];
             $_method_data[$r_key]['ADMIT_SOURCE']      = $r_value['admissionSource']['admission_source_value'];
-            $_method_data[$r_key]['PRINC_PAYER_CODE']  = $r_value['princ_payer_id'];
+            $_method_data[$r_key]['PRINC_PAYER_CODE']  = $r_value['princPayer']['princ_payer_value'];
 
 
             // if null or empty, do not include
