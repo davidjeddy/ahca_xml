@@ -437,6 +437,9 @@ class ReportsController extends \yii\web\Controller
                 } elseif($key == 'RECORD_ID') {
 
                     continue;
+                } elseif (empty($value)) {
+
+                    continue;
                 }
 
 
