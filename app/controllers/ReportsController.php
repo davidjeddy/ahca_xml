@@ -224,36 +224,37 @@ class ReportsController extends \yii\web\Controller
 
             // if null or empty, do not include
             if (!empty($r_value['primary_diag_icd9_code'])) {
-                $_method_data[$r_key]['PRINC_DIAG_CODE']     = $r_value['primary_diag_icd9_code'];
+                $_method_data[$r_key]['PRIN_DIAG_CODE']     = $r_value['primary_diag_icd9_code'];
             }
             if (!empty($r_value['other_diagnostics_icd9_codes'])) {
                 $_method_data[$r_key]['OTHER_DIAG_CODE']    = $r_value['other_diagnostics_icd9_codes'];
             }
 
-            $_method_data[$r_key]['OTHER_CPT_HCPCS_CODE']          = $r_value['cpt_codes'];           
-            $_method_data[$r_key]['RECORD_ID']                     = $r_value['record_id'];
-            $_method_data[$r_key]['ATTENDING_PRACT_ID']            = ucwords($r_value['doctor']['doctor_state_lic']);
-            $_method_data[$r_key]['ATTENDING_PRACT_NPI']           = $r_value['doctor']['doctor_npsi'];
-            $_method_data[$r_key]['OPERATING_PRACT_ID']            = ucwords($r_value['doctor']['doctor_state_lic']);
-            $_method_data[$r_key]['OPERATING_PRACT_NPI']           = $r_value['doctor']['doctor_npsi'];
-            $_method_data[$r_key]['PHARMACY_CHARGES']              = ($r_value['pharmacy_charges']) ? $r_value['pharmacy_charges'] : 0;
-            $_method_data[$r_key]['MED_SURG_SUPPLY_CHARGES']       = ($r_value['med_surg_supply_charges']) ? $r_value['med_surg_supply_charges'] : 0;
-            $_method_data[$r_key]['LAB_CHARGES']                   = ($r_value['lab_charges']) ? $r_value['lab_charges'] : 0;
-            $_method_data[$r_key]['RADIOLOGY_IMAGING_CHARGES']     = ($r_value['radiology_charges']) ? $r_value['radiology_charges'] : 0;
-            $_method_data[$r_key]['CARDIOLOGY_CHARGES']            = ($r_value['cardiology_charges']) ? $r_value['cardiology_charges'] : 0;
-            $_method_data[$r_key]['OPER_ROOM_CHARGES']             = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges'] : 0;
-            $_method_data[$r_key]['ANESTHESIA_CHARGES']            = ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges'] : 0;
-            $_method_data[$r_key]['RECOVERY_ROOM_CHARGES']         = ($r_value['recovery_room_charges']) ? $r_value['recovery_room_charges'] : 0;            
-            $_method_data[$r_key]['ER_ROOM_CHARGES']               = 0;
-            $_method_data[$r_key]['OPER_ROOM_CHARGES']             = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges'] : 0;
-            $_method_data[$r_key]['TRAUMA_RESP_CHARGES']           = ($r_value['trauma_resp_charges']) ? $r_value['trauma_resp_charges'] : 0;
-            $_method_data[$r_key]['GI_SERVICES_CHARGES']           = ($r_value['gi_services_charges']) ? $r_value['gi_services_charges'] : 0;
-            $_method_data[$r_key]['EXTRA_CORP_SHOCK_WAVE_CHARGES'] = ($r_value['extra_shock_charges']) ? $r_value['extra_shock_charges'] : 0;
-            $_method_data[$r_key]['OTHER_CHARGES']                 = ($r_value['other_charges']) ? $r_value['other_charges'] : 0;
-            $_method_data[$r_key]['TOTAL_CHARGES']                 = ($r_value['total_charges']) ? $r_value['total_charges'] : 0;
-            $_method_data[$r_key]['VISIT_BEGIN_DATE']              = $r_value['visit_begin_date'];
-            $_method_data[$r_key]['VISIT_END_DATE']                = $r_value['visit_begin_date'];
-            $_method_data[$r_key]['ARRIVAL_HOUR']                  = $r_value['arrival_hour'];
+            $_method_data[$r_key]['OTHER_CPT_HCPCS_CODE']               = $r_value['cpt_codes'];           
+            $_method_data[$r_key]['RECORD_ID']                          = $r_value['record_id'];
+            $_method_data[$r_key]['ATTENDING_PRACT_ID']                 = ucwords($r_value['doctor']['doctor_state_lic']);
+            $_method_data[$r_key]['ATTENDING_PRACT_NPI']                = $r_value['doctor']['doctor_npsi'];
+            $_method_data[$r_key]['OPERATING_PRACT_ID']                 = ucwords($r_value['doctor']['doctor_state_lic']);
+            $_method_data[$r_key]['OPERATING_PRACT_NPI']                = $r_value['doctor']['doctor_npsi'];
+            $_method_data[$r_key]['PHARMACY_CHARGES']                   = ($r_value['pharmacy_charges']) ? $r_value['pharmacy_charges'] : 0;
+            $_method_data[$r_key]['MED_SURG_SUPPLY_CHARGES']            = ($r_value['med_surg_supply_charges']) ? $r_value['med_surg_supply_charges'] : 0;
+            $_method_data[$r_key]['LAB_CHARGES']                        = ($r_value['lab_charges']) ? $r_value['lab_charges'] : 0;
+            $_method_data[$r_key]['RADIOLOGY_IMAGING_CHARGES']          = ($r_value['radiology_charges']) ? $r_value['radiology_charges'] : 0;
+            $_method_data[$r_key]['CARDIOLOGY_CHARGES']                 = ($r_value['cardiology_charges']) ? $r_value['cardiology_charges'] : 0;
+            $_method_data[$r_key]['OPER_ROOM_CHARGES']                  = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges'] : 0;
+            $_method_data[$r_key]['ANESTHESIA_CHARGES']                 = ($r_value['anesthesia_charges']) ? $r_value['anesthesia_charges'] : 0;
+            $_method_data[$r_key]['RECOVERY_ROOM_CHARGES']              = ($r_value['recovery_room_charges']) ? $r_value['recovery_room_charges'] : 0;            
+            $_method_data[$r_key]['ER_ROOM_CHARGES']                    = 0;
+            $_method_data[$r_key]['OPER_ROOM_CHARGES']                  = ($r_value['oper_room_charges']) ? $r_value['oper_room_charges'] : 0;
+            $_method_data[$r_key]['TRAUMA_RESP_CHARGES']                = ($r_value['trauma_resp_charges']) ? $r_value['trauma_resp_charges'] : 0;
+            $_method_data[$r_key]['TREATMENT_OBSERVATION_ROOM_CHARGES'] = 0;
+            $_method_data[$r_key]['GI_SERVICES_CHARGES']                = ($r_value['gi_services_charges']) ? $r_value['gi_services_charges'] : 0;
+            $_method_data[$r_key]['EXTRA_CORP_SHOCK_WAVE_CHARGES']      = ($r_value['extra_shock_charges']) ? $r_value['extra_shock_charges'] : 0;
+            $_method_data[$r_key]['OTHER_CHARGES']                      = ($r_value['other_charges']) ? $r_value['other_charges'] : 0;
+            $_method_data[$r_key]['TOTAL_CHARGES']                      = ($r_value['total_charges']) ? $r_value['total_charges'] : 0;
+            $_method_data[$r_key]['VISIT_BEGIN_DATE']                   = $r_value['visit_begin_date'];
+            $_method_data[$r_key]['VISIT_END_DATE']                     = $r_value['visit_begin_date'];
+            $_method_data[$r_key]['ARRIVAL_HOUR']                       = $r_value['arrival_hour'];
 
             // Include if not emprt || NULL
             if (!empty($r_value['admitting_icd9_code'])) {
