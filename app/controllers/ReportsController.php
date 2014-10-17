@@ -224,7 +224,7 @@ class ReportsController extends \yii\web\Controller
 
             // if null or empty, do not include
             if (!empty($r_value['primary_diag_icd9_code'])) {
-                $_method_data[$r_key]['PRIN_DIAG_CODE']     = $r_value['primary_diag_icd9_code'];
+                $_method_data[$r_key]['PRINC_DIAG_CODE']     = $r_value['primary_diag_icd9_code'];
             }
             if (!empty($r_value['other_diagnostics_icd9_codes'])) {
                 $_method_data[$r_key]['OTHER_DIAG_CODE']    = $r_value['other_diagnostics_icd9_codes'];
