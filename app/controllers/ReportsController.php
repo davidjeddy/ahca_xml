@@ -255,6 +255,7 @@ class ReportsController extends \yii\web\Controller
             $_method_data[$r_key]['VISIT_BEGIN_DATE']                   = $r_value['visit_begin_date'];
             $_method_data[$r_key]['VISIT_END_DATE']                     = $r_value['visit_begin_date'];
             $_method_data[$r_key]['ARRIVAL_HOUR']                       = $r_value['arrival_hour'];
+            $_method_data[$r_key]['ED_DISCHARGE_HOUR']                  = 99;
 
             // Include if not emprt || NULL
             if (!empty($r_value['admitting_icd9_code'])) {
