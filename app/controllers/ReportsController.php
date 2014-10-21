@@ -434,7 +434,7 @@ class ReportsController extends \yii\web\Controller
                 if ($key === 'OTHER_CPT_HCPCS_CODE' || $key === 'OTHER_DIAG_CODE' ) {
                     $xml .= $this->generate_xml_from_array(explode(", ", $value), $key);
                     continue;
-                } elseif($key == 'RECORD_ID') {
+                } elseif($key === 'RECORD_ID') {
 
                     continue;
                 } elseif (empty($value)) {
