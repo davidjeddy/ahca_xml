@@ -156,34 +156,23 @@ class ReportsController extends \yii\web\Controller
 
         $_return_data = new stdClass();
 
-
-
-        // Get the timestamp for the beginning of each month in the year selected
-        for ($mc = 1; $mc < 14; $mc++) {
-            // Create timestamp for midnight of the 1st for each month.
-            // adjust for TZ offset
-            $_method_data->{'monthly_timestamps_'.$mc} = mktime(0, 0, 0, $mc, 1, $this->year_req) - 18000 ;
-        }
-
-
-
         // using the selected data, calculate the start and end timestamps of the requested report.
         switch ($this->quar_req) {
-            case '1':
-                $_return_data->start_ts = $_method_data->monthly_timestamps_1;
-                $_return_data->end_ts = ($_method_data->monthly_timestamps_4 -1);
+            case 1:
+                $_return_data->start_ts = strtotime("midnight", strtotime('1-Jan-'.$this->year_req) );
+                $_return_data->end_ts   = strtotime("tomorrow", strtotime('31-Mar-'.$this->year_req) ) - 1;
                 break;
-            case '2':
-                $_return_data->start_ts = $_method_data->monthly_timestamps_4;
-                $_return_data->end_ts = ($_method_data->monthly_timestamps_7 -1);
+            case 2:
+                $_return_data->start_ts = strtotime("midnight", strtotime('1-Apr-'.$this->year_req) );
+                $_return_data->end_ts   = strtotime("tomorrow", strtotime('30-Jun-'.$this->year_req) ) - 1;
                 break;
-            case '3':
-                $_return_data->start_ts = $_method_data->monthly_timestamps_7;
-                $_return_data->end_ts = ($_method_data->monthly_timestamps_10 -1);
+            case 3:
+                $_return_data->start_ts = strtotime("midnight", strtotime('1-Jul-'.$this->year_req) );
+                $_return_data->end_ts   = strtotime("tomorrow", strtotime('30-Sep-'.$this->year_req) ) - 1;
                 break;
-            case '4':
-                $_return_data->start_ts = $_method_data->monthly_timestamps_10;
-                $_return_data->end_ts = ($_method_data->monthly_timestamps_13 -1);
+            case 4:
+                $_return_data->start_ts = strtotime("midnight", strtotime('1-Oct-'.$this->year_req) );
+                $_return_data->end_ts   = strtotime("tomorrow", strtotime('31-Dec-'.$this->year_req) ) - 1;
                 break;
             default:
                 $_return_data->start_ts = 0;
