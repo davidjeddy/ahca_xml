@@ -1,0 +1,12 @@
+.container {
+    margin: auto;
+	max-width: 720px;
+}
+
+SELECT {
+	margin-bottom: 15px;
+}
+
+FORM {
+	padding-bottom: 50px;
+}
